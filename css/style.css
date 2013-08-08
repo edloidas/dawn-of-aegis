@@ -1,0 +1,143 @@
+﻿/**
+ * EDLOIDAS DoA
+ * CSS STYLE
+ * 
+ * @author edloidas
+ * @link edloidas@gmail.com
+ */
+ 
+html, body {
+    margin: 0;
+    padding: 0;
+    background: #111111;
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 14px;
+}
+
+.clearfix:after { 
+   content: " ";
+   display: block; 
+   height: 0; 
+   clear: both;
+}
+
+.button {
+    padding: 6px;
+    background: #666666;
+    color: #333;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-transition-duration: 0.3s; 
+    transition-duration: 0.3s;
+}
+
+.button:hover {
+    background: #e3e3e3;
+}
+
+.button:active {
+    background: #e3e3e3;
+    color: DeepSkyBlue;
+    -webkit-transition-duration: 0.0s; 
+    transition-duration: 0.0s; 
+}
+
+header {
+    padding: 10px;
+}
+
+header a {
+    margin: 5px;
+    float: right;
+}
+
+#logo {
+    font-family: Tahoma, Geneva, sans-serif;
+    color: #e3e3e3;
+    text-align: center;
+}
+
+#logo h1 {
+    margin: 10px auto;
+    display: inline-block;
+    text-shadow: 0px 0px 1px #e3e3e3, 1px 1px 2px #111111, 0 0 1em #e3e3e3, 0 0 10px #e3e3e3;
+    -webkit-user-select: none;
+    -moz-user-select: moz-none;
+    user-select: none;
+    -webkit-transition-duration: 2.0s; 
+    transition-duration: 2.0s; 
+    cursor: default;
+    
+}
+
+#logo h1:hover {
+    color: red;
+	text-shadow: 0px 0px 1px #ff0000, 1px 1px 2px #111111, 0 0 1em #ff0000, 0 0 15px #ff0000;
+}
+
+#content a {
+    width: 200px;
+    margin: 10px auto;
+}
+
+#settings table {
+    margin: 20px auto 30px;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 16px;
+    color: YellowGreen;
+    cursor: default;
+}
+
+#settings tr td:first-child, #settings tr td:last-child {
+    width: 200px;
+}
+
+#settings tr td:last-child {
+    color: whiteSmoke;
+}
+
+#settings tr td:last-child:hover {
+    background: #e3e3e3;
+    color: #333333;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: moz-none;
+    user-select: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+
+#settings tr td:last-child:active {
+    color: DeepSkyBlue;
+    -webkit-transition-duration: 0.0s;
+    transition-duration: 0.0s;
+}
+
+#settings tr td {
+    float: left;
+    padding: 5px;
+}
+
+#settings tr.separator td {
+    height: 0;
+    margin: 6px 0px;
+    padding: 0;
+}
+
+#settings tr td:first-child {
+    font-weight: bold;
+    text-align: right;
+}
+
+#content .disabled {
+    display: none;
+}

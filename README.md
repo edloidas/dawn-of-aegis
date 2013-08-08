@@ -1,4 +1,5 @@
 dawn-of-aegis
 =============
+#### Tactical Role Playing Game ####
 
-JavaScript game.
+JavaScript game. Uses WebGL.
