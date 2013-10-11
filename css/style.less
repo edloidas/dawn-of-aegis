@@ -1,0 +1,272 @@
+/**
+ * DAWN OF AEGIS
+ * @author edloidas
+ * @link http://edloidas.github.io/dawn-of-aegis
+ */
+
+//@import url("def.less");
+
+// --------- COMMON -------------
+@color-dark:     #333;
+@color-gray1:    #333;
+@color-gray3:    #333;
+@color-gray4:    #444;
+@color-gray6:    #666;
+@color-gray9:    #999;
+@color-white:    #F5F5F5; // whiteSmoke
+@color-ash:      #E3E3E3;
+@color-sky:      #87CEEB; // skyBlue
+@color-blue:     #00aae3;
+@color-pink:     #FF1493; // deepPink
+@color-red:      #f66;
+@color-green:    #ADFF2F; // greenYellow
+@color-orange:   #FF8C00; // orange
+@color-yellow:   #F0E68C; // khaki
+
+
+// --------- BACKGROUND ---------
+@color-bg-body: #111;
+
+// --------- FONT ---------------
+@font-color:     #F5F5F5;
+@font-color-na:  #222;
+@font-color-alt: #333;
+
+@font-size-big:    32px;
+@font-size-medium: 18px;
+@font-size-small:  14px;
+
+// --------- UI -----------------
+@color-ui-shadow: #E3E3E3;
+@color-ui-border: #666;
+@color-ui-sign:   #666;
+
+// --------- SIZE ---------------
+@size-start-x: 600px;
+@size-start-y: 150px;
+
+// --------- CLASSES ------------
+.rounded-corners(@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius:    @radius;
+    -ms-border-radius:     @radius;
+    -o-border-radius:      @radius;
+    border-radius:         @radius;
+}
+
+.transition(@time: 0.3s) {
+    transition:            @time;
+    -webkit-transition:    @time;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select:   none;
+    -khtml-user-select:    none;
+    -moz-user-select:      none;
+    -ms-user-select:       none;
+    user-select:           none;
+}
+
+.gradient {
+    background-image:    -moz-linear-gradient(@color-gray3, @color-gray4, @color-gray3);
+    background-image: -webkit-linear-gradient(@color-gray3, @color-gray4, @color-gray3);
+    background-image:         linear-gradient(@color-gray3, @color-gray4, @color-gray3);
+}
+
+.gradient-alt {
+    background-image:    -moz-linear-gradient(@color-ash, @color-white, @color-ash);
+    background-image: -webkit-linear-gradient(@color-ash, @color-white, @color-ash);
+    background-image:         linear-gradient(@color-ash, @color-white, @color-ash);
+}
+
+.box-sizing {
+        &, &:before, &:after {
+        webkit-box-sizing: border-box;
+        -moz-box-sizing:   border-box;
+        box-sizing:        border-box;
+    }
+}
+
+// --------- FONTS --------------
+@font-face {
+    font-family: "Archive";
+    src: url(../fonts/Archive.otf) format("truetype");
+}
+
+.font-family {
+    font-family: "Archive", Consolas, Lucida Console, Courier New, monospace;
+}
+
+.font-family-alt {
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+/*
+-------------------------------------------------------------------------------
+######## ######## ######## ########  ######  ########  ######
+##       ##       ##       ##       ##    ##    ##    ##    ##
+##       ##       ##       ##       ##          ##    ##
+######   ######   ######   ######   ##          ##     ######
+##       ##       ##       ##       ##          ##          ##
+##       ##       ##       ##       ##    ##    ##    ##    ##
+######## ##       ##       ########  ######     ##     ######
+-------------------------------------------------------------------------------
+ EFFECTS
+-------------------------------------------------------------------------------
+*/
+.eff-blink-src {
+    0%   {color: @font-color-na;}
+    100% {color: @font-color;}
+}
+@keyframes         blink { .eff-blink-src; }
+@-webkit-keyframes blink { .eff-blink-src; }
+.eff-blink(@anim: blink 1.5s linear infinite alternate) {
+    animation:         @anim;
+    -webkit-animation: @anim;
+}
+
+
+.eff-glow-shadow(@pos-x: -9px, @pos-y: -6px) {
+    text-shadow: 0 0 1px #000, 0 0 10px @font-color, 0 0 20px #e33,
+                 @pos-x @pos-y 25px #e33;
+}
+.eff-glow-src {
+    0%   { .eff-glow-shadow }            // '|
+    15%  { .eff-glow-shadow(0px,-9px) }  //  i
+    30%  { .eff-glow-shadow(9px,-6px) }  //  |'
+    40%  { .eff-glow-shadow(12px,0px) }  //  |-
+    50%  { .eff-glow-shadow(9px,6px) }   //  |.
+    65%  { .eff-glow-shadow(0px,9px) }   //  !
+    80%  { .eff-glow-shadow(-9px,6px) }  // .|
+    90%  { .eff-glow-shadow(-12px,0px) } // -|
+    100% { .eff-glow-shadow }            // '|
+}
+@keyframes         glow { .eff-glow-src; }
+@-webkit-keyframes glow { .eff-glow-src; }
+.eff-glow(@anim: glow 10s linear infinite normal) {
+   animation:         @anim;
+   -webkit-animation: @anim;
+}
+
+/*
+-------------------------------------------------------------------------------
+ ######   ##        #######  ########     ###    ##        ######
+##    ##  ##       ##     ## ##     ##   ## ##   ##       ##    ##
+##        ##       ##     ## ##     ##  ##   ##  ##       ##
+##   #### ##       ##     ## ########  ##     ## ##        ######
+##    ##  ##       ##     ## ##     ## ######### ##             ##
+##    ##  ##       ##     ## ##     ## ##     ## ##       ##    ##
+ ######   ########  #######  ########  ##     ## ########  ######
+-------------------------------------------------------------------------------
+ GLOBALS
+-------------------------------------------------------------------------------
+*/
+html {
+    height: 100%;
+    // min-width: 800px;
+    // min-height: 600px;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    background: @color-bg-body;
+    color: @font-color;
+    font-size: @font-size-medium;
+    cursor: default;
+    .font-family;
+    .noselect;
+}
+
+.holder {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: @color-bg-body;;
+}
+
+/*
+-------------------------------------------------------------------------------
+########   ######            ######  ########    ###    ########  ########
+##     ## ##    ##          ##    ##    ##      ## ##   ##     ##    ##
+##     ## ##                ##          ##     ##   ##  ##     ##    ##
+########  ##   ####          ######     ##    ##     ## ########     ##
+##        ##    ##                ##    ##    ######### ##   ##      ##
+##        ##    ##          ##    ##    ##    ##     ## ##    ##     ##
+##         ######   #######  ######     ##    ##     ## ##     ##    ##
+-------------------------------------------------------------------------------
+ Page START
+-------------------------------------------------------------------------------
+*/
+.start {
+    z-index: 99;
+    height: @size-start-y;
+    width: @size-start-x;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -(@size-start-y / 2) 0 0 -(@size-start-x / 2);
+    .noselect;
+    .logo {
+        margin-bottom: 30px;
+        color: #e3e3e3;
+        font-size: 4em;
+        .eff-glow-shadow(0,0);
+        .eff-glow;
+    }
+    .meta {
+        .eff-blink;
+        color: #333;
+        cursor: pointer;
+    }
+}
+
+/*
+-------------------------------------------------------------------------------
+########   ######           ##     ##    ###    #### ##    ##
+##     ## ##    ##          ###   ###   ## ##    ##  ###   ##
+##     ## ##                #### ####  ##   ##   ##  ####  ##
+########  ##   ####         ## ### ## ##     ##  ##  ## ## ##
+##        ##    ##          ##     ## #########  ##  ##  ####
+##        ##    ##          ##     ## ##     ##  ##  ##   ###
+##         ######   ####### ##     ## ##     ## #### ##    ##
+-------------------------------------------------------------------------------
+ Page MAIN (UI)
+-------------------------------------------------------------------------------
+*/
+.ui {
+    z-index: 1;
+
+    .player {}
+    .basic {}
+    .combat {}
+}
+
+/*
+-------------------------------------------------------------------------------
+##     ##    ###     ######  ##    ##  ######
+##     ##   ## ##   ##    ## ##   ##  ##    ##
+##     ##  ##   ##  ##       ##  ##   ##
+######### ##     ## ##       #####     ######
+##     ## ######### ##       ##  ##         ##
+##     ## ##     ## ##    ## ##   ##  ##    ##
+##     ## ##     ##  ######  ##    ##  ######
+-------------------------------------------------------------------------------
+ HACKS
+-------------------------------------------------------------------------------
+*/
+.cf:before, .cf:after {
+    content: " ";
+    display: table;
+}
+.cf:after {
+    clear: both;
+}
+.cf { /* IE 6/7 */
+    *zoom: 1;
+}

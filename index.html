@@ -1,82 +1,39 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html ng-app>
     <head>
         <meta charset="utf-8">
-        
-        <title>Wawn of Aegis</title>
-        
-        <link rel="shortcut icon" href="/img/favicon.png" type="image/png">
-        
-        <meta name="description" content="Tactical Role Playing Game">
-        <meta name="author" content="Tolkachev Nikita (edloidas)">
 
-        <link rel="stylesheet" href="css/style.css" type="text/css">
-        
-        <script src="js/jquery.min.js"></script>
-        <script src="js/underscore.min.js"></script>
-        
-        <!-- Three.js graphics library -->
-        <script src="js/three.min.js"></script>
-        <!-- Three.js utilities -->
-        <script src="js/stats.min.js"></script>
-        <script src="js/detector.js"></script>
-        
-        <!-- Main menu and interface scripts -->
-        <script src="js/script.js"></script>
-        
-        <!-- Default settings -->
-        <script src="data/defaults.js"></script>
+        <title>Dawn of Aegis</title>
+
+        <link rel="shortcut icon" href="img/favicon.png" type="image/png">
+
+        <meta name="description" content="Dawn of Aegis start page.">
+        <meta name="author" content="edloidas@gmail.com">
+
+        <!-- Styles -->
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+        <!-- Libraries -->
+        <script src="lib/jquery.min.js"></script>
+        <script src="lib/angular.min.js"></script>
+
+        <!-- Game -->
+        <script src="base/Save.js"></script>
+        <script src="base/Settings.js"></script>
+        <script src="base/Engine.js"></script>
+        <script src="base/Game.js"></script>
+        <script src="base/Controllers.js"></script>
     </head>
 
-    <body>
-        <header class="clearfix">
-            <a class="button lang" id="lang-eng">ENG</a>
-            <a class="button lang" id="lang-rus">RUS</a>
-        </header>
-        <div id="logo"><h1>Dawn of Aegis</h1></div>
-        <div id="content">
-            
-            <div id="menu" class="menu">
-                <a class="button" id="game-new">New game</a>
-                <a class="button" id="game-save">Save game</a>
-                <a class="button" id="game-load">Load game</a>
-                <a class="button"id="game-settings">Settings</a>
-                <a class="button" id="game-credits">Credits</a>
+    <body ng-controller="GameController">
+        <div id="preload" class="holder preload">
+            <div class="start">
+                <div class="logo">{{settings.name}}</div>
+                <span class="meta">{{preload}}</span>
             </div>
-            
-            <div id="settings" class="menu disabled">
-                <table>
-                    <tr>
-                        <td>Resolution</td>
-                         <td>:</td>
-                        <td id="settings-resolution"></td>
-                    </tr>
-                    <tr>
-                        <td>Renderer</td>
-                        <td>:</td>
-                        <td id="settings-renderer"></td>
-                    </tr>
-                    <tr class="separator"><td></td></tr>
-                    <tr>
-                        <td>Sound</td>
-                        <td>:</td>
-                        <td id="settings-sound"></td>
-                    </tr>
-                    <tr class="separator"><td></td></tr>
-                    <tr>
-                        <td>Language</td>
-                        <td>:</td>
-                        <td id="settings-language"></td>
-                    </tr>
-                </table>
-                <a class="button back">back</a>
-            </div>
-            
         </div>
-        
-        <div id="screen"></div>
+        <div id="holder" class="holder game"></div>
 
-        <!-- Main scene script. -->
-        <script src="engine/engine.js"></script>
     </body>
 </html>
