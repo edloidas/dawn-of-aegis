@@ -89,6 +89,30 @@ var Game = new function() {
         }
 
         console.groupEnd(); // close Game Modules
+        console.group("WebGL & Three.js");
+
+        if (typeof THREE === "undefined") {
+            console.info("Checking [   THREE] :: FAILED.");
+            isSupported = false;
+        } else {
+            console.info("Checking [   THREE] :: OK.");
+        }
+
+        if (typeof Stats === "undefined") {
+            console.info("Checking [   Stats] :: FAILED.");
+            isSupported = false;
+        } else {
+            console.info("Checking [   Stats] :: OK.");
+        }
+
+        if (typeof Detector === "undefined") {
+            console.info("Checking [Detector] :: FAILED.");
+            isSupported = false;
+        } else {
+            console.info("Checking [Detector] :: OK.");
+        }
+
+        console.groupEnd(); // close WebGL & Three.js
         console.groupEnd(); // close Verification
 
         if (!isSupported) {

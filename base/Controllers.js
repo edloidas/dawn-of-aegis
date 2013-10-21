@@ -34,12 +34,12 @@ document.onreadystatechange = function() {
     function hidePreload() {
         document.onkeydown = null;
         elemPreload.onclick = null;
-        $(elemHolder).hide();
+        $(elemHolder).addClass('hidden');
         $(elemPreload).animate({opacity: "toggle"},
-                               0, "linear",
+                               0 /* 300 */, "linear",
                                function() {
                                     elemPreload.remove();
-                                    $(elemHolder).show();
+                                    $(elemHolder).removeClass('hidden');
                                 });
     }
     // REMOVE
