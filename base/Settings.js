@@ -27,10 +27,10 @@ var Settings = new function() {
     this.width  = 800;
     this.height = 600;
 
-    this.name = "Dawn of Aegis";
-    //      start page
+    // namings
+    this.name    = "Dawn of Aegis";
     this.preload = "Loading... Please stand by";
-    this.start = "Press any key to continue";
+    this.start   = "Press any key to continue";
 
     // public methods
     this.gameVersion = function () {

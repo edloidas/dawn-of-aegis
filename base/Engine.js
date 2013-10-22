@@ -1,8 +1,7 @@
 /*
 ===============================================================================
 
-    Class defines out-of-game settings, that will be used to configure window,
-    load resources, check browser compatibility.
+    Class defines in-game physics and calculations.
 
 ===============================================================================
 */

@@ -1,8 +1,7 @@
 /*
 ===============================================================================
 
-    Class defines out-of-game settings, that will be used to configure window,
-    load resources, check browser compatibility.
+    Class defines main game cycle and initialization.
 
 ===============================================================================
 */
@@ -128,8 +127,12 @@ var Game = new function() {
         Initialize Game
     ---------------------------------------------------------------------------
     */
-    this.init = function () {
+    this.init = function() {
         this.verify();
+    }
+
+    this.animate = function() {
+        // render
     }
 }
 

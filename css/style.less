@@ -4,21 +4,16 @@
  * @link http://edloidas.github.io/dawn-of-aegis
  */
 
-//@import url("def.less");
-
 // --------- COMMON -------------
 @color-dark:     #333;
-@color-gray1:    #333;
-@color-gray3:    #333;
-@color-gray4:    #444;
 @color-gray6:    #666;
 @color-gray9:    #999;
 @color-white:    #F5F5F5; // whiteSmoke
 @color-ash:      #E3E3E3;
 @color-sky:      #87CEEB; // skyBlue
-@color-blue:     #00aae3;
+@color-blue:     #00AAE3;
 @color-pink:     #FF1493; // deepPink
-@color-red:      #f66;
+@color-red:      #FF6666;
 @color-green:    #ADFF2F; // greenYellow
 @color-orange:   #FF8C00; // orange
 @color-yellow:   #F0E68C; // khaki
@@ -59,28 +54,28 @@
     -webkit-transition:    @time;
 }
 
-.noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select:   none;
-    -khtml-user-select:    none;
-    -moz-user-select:      none;
-    -ms-user-select:       none;
-    user-select:           none;
+.noselect(@select: none) {
+    -webkit-touch-callout: @select;
+    -webkit-user-select:   @select;
+    -khtml-user-select:    @select;
+    -moz-user-select:      @select;
+    -ms-user-select:       @select;
+    user-select:           @select;
 }
 
-.gradient {
+.gradient() {
     background-image:    -moz-linear-gradient(@color-gray3, @color-gray4, @color-gray3);
     background-image: -webkit-linear-gradient(@color-gray3, @color-gray4, @color-gray3);
     background-image:         linear-gradient(@color-gray3, @color-gray4, @color-gray3);
 }
 
-.gradient-alt {
+.gradient-alt() {
     background-image:    -moz-linear-gradient(@color-ash, @color-white, @color-ash);
     background-image: -webkit-linear-gradient(@color-ash, @color-white, @color-ash);
     background-image:         linear-gradient(@color-ash, @color-white, @color-ash);
 }
 
-.box-sizing {
+.box-sizing() {
         &, &:before, &:after {
         webkit-box-sizing: border-box;
         -moz-box-sizing:   border-box;
@@ -94,11 +89,11 @@
     src: url(../fonts/Archive.otf) format("truetype");
 }
 
-.font-family {
+.font-family() {
     font-family: "Archive", Consolas, Lucida Console, Courier New, monospace;
 }
 
-.font-family-alt {
+.font-family-alt() {
     font-family: Tahoma, Geneva, sans-serif;
 }
 
@@ -115,7 +110,7 @@
  EFFECTS
 -------------------------------------------------------------------------------
 */
-.eff-blink-src {
+.eff-blink-src() {
     0%   {color: @font-color-na;}
     100% {color: @font-color;}
 }
@@ -131,7 +126,7 @@
     text-shadow: 0 0 1px #000, 0 0 10px @font-color, 0 0 20px #e33,
                  @pos-x @pos-y 25px #e33;
 }
-.eff-glow-src {
+.eff-glow-src() {
     0%   { .eff-glow-shadow }            // '|
     15%  { .eff-glow-shadow(0px,-9px) }  //  i
     30%  { .eff-glow-shadow(9px,-6px) }  //  |'
@@ -164,8 +159,6 @@
 */
 html {
     height: 100%;
-    // min-width: 800px;
-    // min-height: 600px;
     margin: 0;
     padding: 0;
 }
