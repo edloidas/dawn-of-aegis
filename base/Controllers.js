@@ -16,26 +16,33 @@ function GameController($scope) {
     !function init() {
         Game.init();
         Game.status = Game.Status.ready;
+        $scope.preload = $scope.game.start;
+    }();
+}
 
+document.onreadystatechange = function() {
+if (document.readyState === "complete") {
         var elemPreload = document.getElementById('preload');
         var elemHolder  = document.getElementById('holder');
         document.onkeydown = hidePreload;
         elemPreload.onclick = hidePreload;
 
         function hidePreload() {
-            document.onkeydown = null;
-            elemPreload.onclick = null;
-            $(elemHolder).addClass('hidden');
-            $(elemPreload).animate({opacity: "toggle"},
-                                   0 /* 300 */, "linear",
-                                   function() {
-                                        elemPreload.remove();
-                                        $(elemHolder).removeClass('hidden');
-                                    });
+            if (Game.status === Game.Status.ready) {
+                document.onkeydown = null;
+                elemPreload.onclick = null;
+                $(elemHolder).addClass('hidden');
+                $(elemPreload).animate({opacity: "toggle"},
+                                       0 /* 300 */, "linear",
+                                       function() {
+                                            elemPreload.remove();
+                                            $(elemHolder).removeClass('hidden');
+                                        });
+                Game.animate();
+            }
         }
-
-        $scope.preload = $scope.game.start;
-    }();
+        hidePreload();
+    }
 }
 
 window.onresize = function() {
