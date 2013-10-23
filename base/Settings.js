@@ -30,4 +30,13 @@ var Settings = new function() {
     this.gameVersion = function () {
         return majorVersion + '/' + minorVersion;
     }
+
+    this.aspect = function() {
+        return this.width / this.height;
+    }
+
+    this.scaleWindow = function () {
+        this.width = (window.innerWidth < 800) ? 800 : window.innerWidth;
+        this.height = (window.innerHeight < 600) ? 600 : window.innerHeight;
+    }
 }

@@ -44,11 +44,3 @@ if (document.readyState === "complete") {
         hidePreload();
     }
 }
-
-window.onresize = function() {
-    // Condition will prevent double call
-    if (window.innerWidth !== Settings.width || window.innerHeight !== Settings.height) {
-        Settings.width = (window.innerWidth < 800) ? 800 : window.innerWidth;
-        Settings.height = (window.innerHeight < 600) ? 600 : window.innerHeight;
-    }
-}

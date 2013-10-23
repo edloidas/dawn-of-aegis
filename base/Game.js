@@ -124,17 +124,60 @@ var Game = new function() {
     this.Status = {ready: -1, running: 0, paused: 1};
     this.status = null;
 
+    this.camera   = null;
+    this.scene    = null;
+    this.renderer = null;
+    var geometry, material, mesh;
+
     /*
     ---------------------------------------------------------------------------
     Initialization
         Initialize Game
     ---------------------------------------------------------------------------
     */
-    this.init = function() {
+    this.init = function init() {
         this.verify();
+        Settings.scaleWindow();
+
+        camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+        camera.position.z = 1000;
+
+        scene = new THREE.Scene();
+
+        geometry = new THREE.CubeGeometry( 200, 200, 200 );
+        material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+
+        mesh = new THREE.Mesh( geometry, material );
+        scene.add( mesh );
+
+        renderer = new THREE.CanvasRenderer();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+        renderer.domElement.id = "scene";
+
+        document.getElementById('holder').appendChild( renderer.domElement );
+
+        window.addEventListener( 'resize', onWindowResize, false );
     }
 
-    this.animate = function() {
+    this.animate = function animate() {
         // render
+        requestAnimationFrame( animate );
+
+        mesh.rotation.x += 0.01;
+        mesh.rotation.y += 0.02;
+
+        renderer.render( scene, camera );
+    }
+}
+
+// events
+function onWindowResize () {
+    // Condition will prevent double call
+    if (window.innerWidth !== Settings.width || window.innerHeight !== Settings.height) {
+        Settings.scaleWindow();
+        camera.aspect = Settings.aspect();
+        camera.updateProjectionMatrix();
+        renderer.setSize(Settings.width, Settings.height);
     }
 }
