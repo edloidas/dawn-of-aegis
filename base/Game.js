@@ -121,6 +121,9 @@ var Game = new function() {
         }
     }
 
+    this.Status = {ready: -1, running: 0, paused: 1};
+    this.status = null;
+
     /*
     ---------------------------------------------------------------------------
     Initialization
@@ -135,6 +138,3 @@ var Game = new function() {
         // render
     }
 }
-
-// Run initialization automatically
-Game.init();

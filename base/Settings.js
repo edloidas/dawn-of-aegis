@@ -19,20 +19,14 @@ var Settings = new function() {
         }
     }
 
-    // private variables
+    this.name = "Dawn of Aegis";
+
     var majorVersion = 0;
     var minorVersion = 1;
 
-    // public variables
     this.width  = 800;
     this.height = 600;
 
-    // namings
-    this.name    = "Dawn of Aegis";
-    this.preload = "Loading... Please stand by";
-    this.start   = "Press any key to continue";
-
-    // public methods
     this.gameVersion = function () {
         return majorVersion + '/' + minorVersion;
     }

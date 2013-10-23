@@ -7,43 +7,35 @@
  */
 
 function GameController($scope) {
-    $scope.game = Game;
-    $scope.settings = Settings;
-    $scope.preload = Settings.preload;
+    // Each scope should hold values of certain UI elements in the game.
+    $scope.game = {name: Settings.name,
+                   preload: "Loading... Please stand by",
+                   start:   "Press any key to continue"}
+    $scope.preload = $scope.game.preload;
 
+    !function init() {
+        Game.init();
+        Game.status = Game.Status.ready;
 
-    function init() {
-        console.group("Initialization");
-        console.info("Controller [Game] :: initialization start.");
-        // ... done.
-        $scope.preload = Settings.start;
-        console.info("Controller [Game] :: initialization done.");
-        console.groupEnd("Initialization");
-    }
-    init();
-}
+        var elemPreload = document.getElementById('preload');
+        var elemHolder  = document.getElementById('holder');
+        document.onkeydown = hidePreload;
+        elemPreload.onclick = hidePreload;
 
-document.onreadystatechange = function() {
-    if (document.readyState === "complete") return;
+        function hidePreload() {
+            document.onkeydown = null;
+            elemPreload.onclick = null;
+            $(elemHolder).addClass('hidden');
+            $(elemPreload).animate({opacity: "toggle"},
+                                   0 /* 300 */, "linear",
+                                   function() {
+                                        elemPreload.remove();
+                                        $(elemHolder).removeClass('hidden');
+                                    });
+        }
 
-    var elemPreload = document.getElementById('preload');
-    var elemHolder  = document.getElementById('holder');
-    document.onkeydown = hidePreload;
-    elemPreload.onclick = hidePreload;
-
-    function hidePreload() {
-        document.onkeydown = null;
-        elemPreload.onclick = null;
-        $(elemHolder).addClass('hidden');
-        $(elemPreload).animate({opacity: "toggle"},
-                               0 /* 300 */, "linear",
-                               function() {
-                                    elemPreload.remove();
-                                    $(elemHolder).removeClass('hidden');
-                                });
-    }
-    // REMOVE
-    hidePreload();
+        $scope.preload = $scope.game.start;
+    }();
 }
 
 window.onresize = function() {
