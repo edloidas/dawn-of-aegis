@@ -47,23 +47,6 @@ var Game = new function() {
         }
 
         console.groupEnd(); // close Browser
-        console.group( "Libraries" );
-
-        if ( typeof jQuery === "undefined" ) {
-            console.info( "Checking [  jQuery] :: FAILED." );
-            isSupported = false;
-        } else {
-            console.info( "Checking [  jQuery] :: OK." );
-        }
-
-        if ( typeof angular === "undefined" ) {
-            console.info( "Checking [ Angular] :: FAILED." );
-            isSupported = false;
-        } else {
-            console.info( "Checking [ Angular] :: OK." );
-        }
-
-        console.groupEnd(); // close Libraries
         console.group( "Game Modules" );
 
         if ( typeof Save === "undefined" ) {
@@ -88,7 +71,7 @@ var Game = new function() {
         }
 
         console.groupEnd(); // close Game Modules
-        console.group( "WebGL & Three.js" );
+        console.group( "Libraries" );
 
         if ( typeof THREE === "undefined" ) {
             console.info( "Checking [   THREE] :: FAILED." );
@@ -111,7 +94,7 @@ var Game = new function() {
             console.info( "Checking [Detector] :: OK." );
         }
 
-        console.groupEnd(); // close WebGL & Three.js
+        console.groupEnd(); // close Libraries
         console.groupEnd(); // close Verification
 
         if ( !isSupported ) {
@@ -193,7 +176,7 @@ var Game = new function() {
 /*
 ===============================================================================
 
-    Gmae events.
+    Game events.
 
 ===============================================================================
 */
@@ -252,5 +235,38 @@ function onKeyDown( event ) {
         } else {
             document.getElementById( 'stats' ).remove();
         }
+    }
+}
+
+/*
+===============================================================================
+
+    Start.
+
+===============================================================================
+*/
+document.onreadystatechange = function() {
+if ( document.readyState === "complete" ) {
+        var elemPreload = document.getElementById( 'preload' );
+        var elemHolder  = document.getElementById( 'holder' );
+        document.onkeydown = hidePreload;
+        elemPreload.onclick = hidePreload;
+        document.getElementById( 'loading-tip' ).textContent = "Press any key to continue";
+
+        Game.init();
+        Game.status = Game.Status.ready;
+
+        function hidePreload() {
+            document.onkeydown = null;
+            elemPreload.onclick = null;
+            elemPreload.remove();
+            elemHolder.classList.remove( 'hidden' );
+
+            Game.bind();
+            Game.animate();
+
+            Game.status = Game.Status.running;
+        }
+        hidePreload();
     }
 }

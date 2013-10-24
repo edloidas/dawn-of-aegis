@@ -14,10 +14,6 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
 
         <!-- Libraries -->
-        <script src="lib/jquery.min.js"></script>
-        <script src="lib/angular.min.js"></script>
-
-        <!-- Three.js -->
         <script src="lib/three.min.js"></script>
         <script src="lib/stats.min.js"></script>
         <script src="lib/Detector.js"></script>
@@ -27,19 +23,17 @@
         <script src="base/Settings.js"></script>
         <script src="base/Engine.js"></script>
         <script src="base/Game.js"></script>
-        <script src="base/Controllers.js"></script>
     </head>
 
     <body ng-controller="GameController">
+        <!-- Preload title screen -->
         <div id="preload" class="holder preload">
             <div class="start">
-                <div class="logo">{{game.name}}</div>
-                <span class="meta">{{preload}}</span>
+                <div class="logo">Down of Aegis</div>
+                <span id="loading-tip" class="meta">Loading... Please, stand by.</span>
             </div>
         </div>
-        <div id="holder" class="holder ui hidden">
-
-        </div>
-
+        <!-- Scene holder -->
+        <div id="holder" class="holder ui hidden"></div>
     </body>
 </html>
