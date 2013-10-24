@@ -11,7 +11,7 @@ var Engine = new function() {
     // constructor
     function Engine() {
 
-        if (!instance) {
+        if ( !instance ) {
             instance = this;
         } else {
             return instance;

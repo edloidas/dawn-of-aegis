@@ -6,7 +6,7 @@
  * @link edloidas@gmail.com
  */
 
-function GameController($scope) {
+function GameController( $scope ) {
     // Each scope should hold values of certain UI elements in the game.
     $scope.game = {name: Settings.name,
                    preload: "Loading... Please stand by",
@@ -21,23 +21,24 @@ function GameController($scope) {
 }
 
 document.onreadystatechange = function() {
-if (document.readyState === "complete") {
-        var elemPreload = document.getElementById('preload');
-        var elemHolder  = document.getElementById('holder');
+if ( document.readyState === "complete" ) {
+        var elemPreload = document.getElementById( 'preload' );
+        var elemHolder  = document.getElementById( 'holder' );
         document.onkeydown = hidePreload;
         elemPreload.onclick = hidePreload;
 
         function hidePreload() {
-            if (Game.status === Game.Status.ready) {
+            if ( Game.status === Game.Status.ready ) {
                 document.onkeydown = null;
                 elemPreload.onclick = null;
-                $(elemHolder).addClass('hidden');
-                $(elemPreload).animate({opacity: "toggle"},
+                $( elemHolder ).addClass( 'hidden' );
+                $( elemPreload ).animate( {opacity: "toggle"},
                                        0 /* 300 */, "linear",
                                        function() {
                                             elemPreload.remove();
-                                            $(elemHolder).removeClass('hidden');
-                                        });
+                                            $( elemHolder ).removeClass( 'hidden' );
+                                        } );
+                Game.bind();
                 Game.animate();
             }
         }

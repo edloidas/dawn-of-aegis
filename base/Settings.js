@@ -12,7 +12,7 @@ var Settings = new function() {
     // constructor
     function Settings() {
 
-        if (!instance) {
+        if ( !instance ) {
             instance = this;
         } else {
             return instance;
