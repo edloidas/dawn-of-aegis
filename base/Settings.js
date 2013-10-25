@@ -31,12 +31,28 @@ var Settings = new function() {
         return majorVersion + '/' + minorVersion;
     }
 
-    this.aspect = function() {
+    this.aspect = function () {
         return this.width / this.height;
     }
 
     this.scaleWindow = function () {
         this.width = (window.innerWidth < 800) ? 800 : window.innerWidth;
         this.height = (window.innerHeight < 600) ? 600 : window.innerHeight;
+    }
+
+    this.quickSave = function () {
+        localStorage.doa_quicksave = '{"version":' + majorVersion + '.' + minorVersion + ',' +
+                                     ' "width":' + this.width + ',' +
+                                     ' "height":' + this.height +'}';
+    }
+
+    this.quickLoad = function () {
+        if (localStorage.doa_quicksave === undefined) {
+            return;
+        }
+
+        var quicksave = JSON.parse(localStorage.doa_quicksave);
+        Settings.width = quicksave.width;
+        Settings.height = quicksave.height;
     }
 }
