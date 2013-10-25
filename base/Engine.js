@@ -17,4 +17,8 @@ var Engine = new function() {
             return instance;
         }
     }
+
+    this.camera   = null;
+    this.scene    = null;
+    this.renderer = null;
 }
