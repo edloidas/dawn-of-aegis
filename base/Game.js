@@ -49,13 +49,6 @@ var Game = new function() {
         console.groupEnd(); // close Browser
         console.group( "Game Modules" );
 
-        if ( typeof Save === "undefined" ) {
-            console.info( "Checking [    Save] :: FAILED." );
-            isSupported = false;
-        } else {
-            console.info( "Checking [    Save] :: OK." );
-        }
-
         if ( typeof Settings === "undefined" ) {
             console.info( "Checking [Settings] :: FAILED." );
             isSupported = false;
@@ -133,7 +126,7 @@ var Game = new function() {
         Engine.scene.add( mesh );
 
         Engine.renderer = new THREE.CanvasRenderer();
-        Engine.renderer.setSize( window.innerWidth, window.innerHeight );
+        Engine.renderer.setSize( Settings.width, Settings.height );
 
         Engine.renderer.domElement.id = "scene";
 
