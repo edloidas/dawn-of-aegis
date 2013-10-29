@@ -292,7 +292,7 @@ function onKeyDown( event ) {
                 Game.stats.begin();
                 // do eval
                 Game.stats.end();
-            }, 1000 / 60 );
+            }, 1000 / Settings.fps ); // 1000 == 1s
         } else if ( document.getElementById( 'stats' ) === null ) {
             document.getElementById( 'holder' ).appendChild( Game.stats.domElement );
         } else {
@@ -301,7 +301,7 @@ function onKeyDown( event ) {
     }
 }
 
-// W3 standard
+// Wheel event (Firefox, W3 standard)
 function onWheel( event ) {
     if (event.deltaY < 0) {
         Game.cameraZoomIn();
@@ -310,6 +310,7 @@ function onWheel( event ) {
     }
 }
 
+// W3 standard (Chrome and others)
 function onMouseWheel( event ) {
     if (event.wheelDelta > 0) {
         Game.cameraZoomIn();

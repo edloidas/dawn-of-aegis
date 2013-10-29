@@ -24,9 +24,12 @@ var Settings = new function () {
     var majorVersion = 0;
     var minorVersion = 1;
 
+    // Window settings
     this.width  = 800;
     this.height = 600;
+    this.fps = 60;
 
+    // Camera settings
     this.maxView = 2000;
     this.minView = 1;
     this.fov = 90;
