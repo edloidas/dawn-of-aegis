@@ -150,6 +150,9 @@ var Game = new function () {
     */
     this.bind = function bind() {
         window.addEventListener( 'keydown', onKeyDown, false );
+        // mouse wheel for Firefox
+        window.addEventListener( 'wheel', onWheel, false );
+        // mouse wheel for Chrome and others
         window.addEventListener( 'mousewheel', onMouseWheel, false );
     }
 
@@ -298,6 +301,15 @@ function onKeyDown( event ) {
     }
 }
 
+// W3 standard
+function onWheel( event ) {
+    if (event.deltaY < 0) {
+        Game.cameraZoomIn();
+    } else {
+        Game.cameraZoomOut();
+    }
+}
+
 function onMouseWheel( event ) {
     if (event.wheelDelta > 0) {
         Game.cameraZoomIn();
@@ -317,13 +329,6 @@ document.onreadystatechange = function () {
 if ( document.readyState === "complete" ) {
         var elemPreload = document.getElementById( 'preload' );
         var elemHolder  = document.getElementById( 'holder' );
-        document.onkeydown = hidePreload;
-        elemPreload.onclick = hidePreload;
-        document.getElementById( 'loading-tip' ).textContent = "Press any key to continue";
-
-        Game.init();
-        Game.status = Game.Status.ready;
-
         function hidePreload() {
             document.onkeydown = null;
             elemPreload.onclick = null;
@@ -335,6 +340,14 @@ if ( document.readyState === "complete" ) {
 
             Game.status = Game.Status.running;
         }
+        document.onkeydown = hidePreload;
+        elemPreload.onclick = hidePreload;
+        document.getElementById( 'loading-tip' ).textContent = "Press any key to continue";
+
+        Game.init();
+        Game.status = Game.Status.ready;
+
+
         hidePreload();
     }
 }
