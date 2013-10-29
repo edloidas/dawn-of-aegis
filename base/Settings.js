@@ -6,7 +6,7 @@
 
 ===============================================================================
 */
-var Settings = new function() {
+var Settings = new function () {
     var instance;
 
     // constructor

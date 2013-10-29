@@ -5,7 +5,7 @@
 
 ===============================================================================
 */
-var Game = new function() {
+var Game = new function () {
     var instance;
 
     function Game() {
@@ -54,6 +54,13 @@ var Game = new function() {
             isSupported = false;
         } else {
             console.info( "Checking [Settings] :: OK." );
+        }
+
+        if ( typeof DOA === "undefined" ) { // Objects
+            console.info( "Checking [ Objects] :: FAILED." );
+            isSupported = false;
+        } else {
+            console.info( "Checking [ Objects] :: OK." );
         }
 
         if ( typeof Engine === "undefined" ) {
@@ -114,7 +121,7 @@ var Game = new function() {
         this.verify();
         Settings.scaleWindow();
 
-        Engine.camera = new THREE.PerspectiveCamera( 75, Settings.aspect(), 1, 10000 );
+        Engine.camera = new THREE.PerspectiveCamera( 45, Settings.aspect(), 1, 2000 );
         Engine.camera.position.z = 1000;
 
         Engine.scene = new THREE.Scene();
@@ -166,10 +173,24 @@ var Game = new function() {
         Camere rotation.
     ---------------------------------------------------------------------------
     */
-    this.cameraRotateLeft = function () {
+    this.cameraRotateXLeft = function () {
+        Engine.camera.rotateX(  3 * Math.PI / 180);
+    }
+    this.cameraRotateXRight = function () {
+        Engine.camera.rotateX(- 3 * Math.PI / 180);
+    }
+
+    this.cameraRotateYLeft = function () {
+        Engine.camera.rotateY(  3 * Math.PI / 180);
+    }
+    this.cameraRotateYRight = function () {
+        Engine.camera.rotateY(- 3 * Math.PI / 180);
+    }
+
+    this.cameraRotateZLeft = function () {
         Engine.camera.rotateZ(  30 * Math.PI / 180);
     }
-    this.cameraRotateRight = function () {
+    this.cameraRotateZRight = function () {
         Engine.camera.rotateZ(- 30 * Math.PI / 180);
     }
 }
@@ -215,15 +236,35 @@ function onKeyDown( event ) {
     // ( c )[67], ( i )[73], ( m )[77], ( p )[80]
     var code = event.keyCode;
 
-    if ( event.keyCode === 81 ) {
-        Game.cameraRotateLeft();
+    if ( event.keyCode === 65 ) { // a
+        Game.cameraRotateXLeft();
     }
 
-    if ( event.keyCode === 69 ) {
-        Game.cameraRotateRight();
+    if ( event.keyCode === 68 ) { // d
+        Game.cameraRotateXRight();
     }
 
-    if ( event.keyCode === 192 ) {
+    if ( event.keyCode === 83 ) { // s
+        Game.cameraRotateYLeft();
+    }
+
+    if ( event.keyCode === 87 ) { // w
+        Game.cameraRotateYRight();
+    }
+
+    if ( event.keyCode === 81 ) { // q
+        Game.cameraRotateZLeft();
+    }
+
+    if ( event.keyCode === 69 ) { // e
+        Game.cameraRotateZRight();
+    }
+
+    if ( event.keyCode === 67 ) { // c
+        Engine.toogleAxis();
+    }
+
+    if ( event.keyCode === 192 ) { // ~
         if ( Game.stats === null ) {
             Game.stats = new Stats();
             Game.stats.setMode( 0 ); // 0: fps, 1: ms
@@ -255,7 +296,7 @@ function onKeyDown( event ) {
 
 ===============================================================================
 */
-document.onreadystatechange = function() {
+document.onreadystatechange = function () {
 if ( document.readyState === "complete" ) {
         var elemPreload = document.getElementById( 'preload' );
         var elemHolder  = document.getElementById( 'holder' );
