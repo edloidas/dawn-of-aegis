@@ -121,8 +121,8 @@ var Game = new function () {
         this.verify();
         Settings.scaleWindow();
 
-        Engine.camera = new THREE.PerspectiveCamera( 45, Settings.aspect(), 1, 2000 );
-        Engine.camera.position.z = 1000;
+        Engine.camera = new THREE.PerspectiveCamera( Settings.fov, Settings.aspect(), Settings.minView, Settings.maxView );
+        Engine.camera.position.z = Settings.maxView / 2;
 
         Engine.scene = new THREE.Scene();
 
@@ -150,6 +150,7 @@ var Game = new function () {
     */
     this.bind = function bind() {
         window.addEventListener( 'keydown', onKeyDown, false );
+        window.addEventListener( 'mousewheel', onMouseWheel, false );
     }
 
     /*
@@ -192,6 +193,14 @@ var Game = new function () {
     }
     this.cameraRotateZRight = function () {
         Engine.camera.rotateZ(- 30 * Math.PI / 180);
+    }
+
+    this.cameraZoomIn = function () {
+        Engine.camera.position.z -= (Engine.camera.position.z >= Settings.minView + 50) ? 50 : 0;
+    }
+
+    this.cameraZoomOut = function () {
+        Engine.camera.position.z += (Engine.camera.position.z <= Settings.maxView - 50) ? 50 : 0;
     }
 }
 
@@ -286,6 +295,14 @@ function onKeyDown( event ) {
         } else {
             document.getElementById( 'stats' ).remove();
         }
+    }
+}
+
+function onMouseWheel( event ) {
+    if (event.wheelDelta > 0) {
+        Game.cameraZoomIn();
+    } else {
+        Game.cameraZoomOut();
     }
 }
 

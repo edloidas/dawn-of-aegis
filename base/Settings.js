@@ -27,6 +27,10 @@ var Settings = new function () {
     this.width  = 800;
     this.height = 600;
 
+    this.maxView = 2000;
+    this.minView = 1;
+    this.fov = 90;
+
     this.gameVersion = function () {
         return majorVersion + '/' + minorVersion;
     }
