@@ -66,6 +66,8 @@ var Game = new function () {
     this.init = function init() {
         this.verify();
         Settings.scaleWindow();
+        Player.camera.aspect = Settings.aspect();
+        Player.camera.updateProjectionMatrix();
 
         //@# REMOVE
         Player.camera.position.z = Settings.maxView / 4;

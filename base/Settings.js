@@ -31,8 +31,8 @@ var Settings = new function () {
 
     // Camera settings
     this.maxView = 2000;
-    this.minView = 1;
-    this.fov = 90;
+    this.minView = 0.1;
+    this.fov = 50;
     this.background = 0xFFFFFF;
 
     this.gameVersion = function () {
