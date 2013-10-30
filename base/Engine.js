@@ -15,10 +15,12 @@ var Engine = new function () {
 
     /*
     ---------------------------------------------------------------------------
-    Drawing methods
+    toogleDevMode
+        Turns on/off developer mode. In dev mode meshes, coordinates and grid
+        are visible.
     ---------------------------------------------------------------------------
     */
-    this.toogleAxis = function () {
+    this.toogleDevMode = function () {
         if (this.axis.enabled) {
             this.axis.enabled = false;
             World.scene.remove(this.axis.clear());

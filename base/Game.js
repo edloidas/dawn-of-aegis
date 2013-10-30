@@ -63,7 +63,7 @@ var Game = new function () {
         Initialize Game
     ---------------------------------------------------------------------------
     */
-    this.init = function init() {
+    this.init = function () {
         this.verify();
         Settings.scaleWindow();
         Player.camera.aspect = Settings.aspect();
@@ -95,12 +95,21 @@ var Game = new function () {
         Bing main game events for button and mouse.
     ---------------------------------------------------------------------------
     */
-    this.bind = function bind() {
-        window.addEventListener( 'keydown', onKeyDown, false );
-        // mouse wheel for Firefox
-        window.addEventListener( 'wheel', onWheel, false );
-        // mouse wheel for Chrome and others
-        window.addEventListener( 'mousewheel', onMouseWheel, false );
+    this.bind = function () {
+        // KEYBOARD
+        window.addEventListener( 'keydown',  onKeyDown,  false );
+        window.addEventListener( 'keyup',    onKeyUp,    false );
+
+        // MOUSE
+        window.oncontextmenu = function () { return false; }; // disable RMB menu
+        window.addEventListener( 'mousedown', onMouseDown, false );
+        window.addEventListener( 'mouseup',   onMouseUp,   false );
+
+        window.addEventListener( 'mousemove', onMouseMove, false );
+
+        // MOUSE WHEEL
+        window.addEventListener( 'wheel',      onWheel,      false ); // fx
+        window.addEventListener( 'mousewheel', onMouseWheel, false ); // chrome
     }
 
     /*
@@ -123,37 +132,32 @@ var Game = new function () {
 
     /*
     ---------------------------------------------------------------------------
-    Camera methods
-        Camere rotation.
+    Other methods
     ---------------------------------------------------------------------------
     */
-    this.cameraRotateXLeft = function () {
-        Player.camera.rotateX(  3 * Math.PI / 180);
-    }
-    this.cameraRotateXRight = function () {
-        Player.camera.rotateX(- 3 * Math.PI / 180);
-    }
+    this.toogleStats = function () {
+        if ( this.stats === null ) {
+            this.stats = new Stats();
+            this.stats.setMode( 0 ); // 0: fps, 1: ms
 
-    this.cameraRotateYLeft = function () {
-        Player.camera.rotateY(  3 * Math.PI / 180);
-    }
-    this.cameraRotateYRight = function () {
-        Player.camera.rotateY(- 3 * Math.PI / 180);
-    }
+            this.stats.domElement.id = 'stats';
+            this.stats.domElement.style.position = 'absolute';
+            this.stats.domElement.style.left = '0px';
+            this.stats.domElement.style.top = '0px';
+            this.stats.domElement.style.zIndex = 99;
+            document.getElementById( 'holder' ).appendChild( this.stats.domElement );
 
-    this.cameraRotateZLeft = function () {
-        Player.camera.rotateZ(  30 * Math.PI / 180);
-    }
-    this.cameraRotateZRight = function () {
-        Player.camera.rotateZ(- 30 * Math.PI / 180);
-    }
-
-    this.cameraZoomIn = function () {
-        Player.camera.position.z -= (Player.camera.position.z >= Settings.minView + 50) ? 50 : 0;
-    }
-
-    this.cameraZoomOut = function () {
-        Player.camera.position.z += (Player.camera.position.z <= Settings.maxView - 50) ? 50 : 0;
+            var st = this.stats;
+            setInterval( function () {
+                st.begin();
+                // do eval
+                st.end();
+            }, 1000 / Settings.fps ); // 1000 == 1s
+        } else if ( document.getElementById( 'stats' ) === null ) {
+            document.getElementById( 'holder' ).appendChild( this.stats.domElement );
+        } else {
+            document.getElementById( 'stats' ).remove();
+        }
     }
 }
 
@@ -185,87 +189,86 @@ function onWindowResize() {
 
 /*
 -------------------------------------------------------------------------------
-onKeyDown
+Keyboard events
     Function register events, when key is down:
         ~ or ` -- to show debug console ( fps/ms ).
+    Key codes ( EN type ):
+    ( Esc )[27], ( Enter )[13], ( Tab )[9]
+    ( LShift )[16], ( LCtrl )[17], ( LAlt )[18]
+    ( w )[87], ( a )[65], ( s )[83], ( d )[68]
+    ( q )[81], ( e )[69], ( r )[82], ( f )[70]
+    ( c )[67], ( i )[73], ( m )[77], ( p )[80]
+    ( ~ )[192], ( z )[90]
 -------------------------------------------------------------------------------
 */
+// Player actions and movement (start)
 function onKeyDown( event ) {
-    // Key codes ( EN type ):
-    // ( ~ )[192], ( Esc )[27], ( Enter )[13]
-    // ( w )[87], ( a )[65], ( s )[83], ( d )[68]
-    // ( q )[81], ( e )[69], ( r )[82], ( f )[70]
-    // ( c )[67], ( i )[73], ( m )[77], ( p )[80]
-    var code = event.keyCode;
+    // Handle by player. Return 0 if handled, otherwise returns keyCode.
+    var code = Player.onKeyDown( event.keyCode );
 
-    if ( event.keyCode === 65 ) { // a
-        Game.cameraRotateYLeft();
-    }
-
-    if ( event.keyCode === 68 ) { // d
-        Game.cameraRotateYRight();
-    }
-
-    if ( event.keyCode === 83 ) { // s
-        Game.cameraRotateXRight();
-    }
-
-    if ( event.keyCode === 87 ) { // w
-        Game.cameraRotateXLeft();
-    }
-
-    if ( event.keyCode === 81 ) { // q
-        Game.cameraRotateZLeft();
-    }
-
-    if ( event.keyCode === 69 ) { // e
-        Game.cameraRotateZRight();
-    }
-
-    if ( event.keyCode === 67 ) { // c
-        Engine.toogleAxis();
-    }
-
-    if ( event.keyCode === 192 ) { // ~
-        if ( Game.stats === null ) {
-            Game.stats = new Stats();
-            Game.stats.setMode( 0 ); // 0: fps, 1: ms
-
-            Game.stats.domElement.id = 'stats';
-            Game.stats.domElement.style.position = 'fixed';
-            Game.stats.domElement.style.left = '0px';
-            Game.stats.domElement.style.top = '0px';
-            Game.stats.domElement.style.zIndex = 99;
-            document.getElementById( 'holder' ).appendChild( Game.stats.domElement );
-
-            setInterval( function () {
-                Game.stats.begin();
-                // do eval
-                Game.stats.end();
-            }, 1000 / Settings.fps ); // 1000 == 1s
-        } else if ( document.getElementById( 'stats' ) === null ) {
-            document.getElementById( 'holder' ).appendChild( Game.stats.domElement );
-        } else {
-            document.getElementById( 'stats' ).remove();
-        }
+    switch ( code ) {
+        case 0: // alredy handled
+            break;
+        case 90:
+            Engine.toogleDevMode();
+            break;
+        case 192:
+            Game.toogleStats();
+            break;
     }
 }
 
-// Wheel event (Firefox, W3 standard)
+// Player actions and movement (stop)
+function onKeyUp( event ) {
+    // Handle by player. Return 0 if handled, otherwise returns keyCode.
+    var code = Player.onKeyUp( event.keyCode );
+
+    switch ( code ) {
+        case 0: // alredy handled
+            break;
+    }
+}
+
+/*
+-------------------------------------------------------------------------------
+Mouse Events
+    button: 0 - LBM
+            1 - MBM
+            2 - RBM
+-------------------------------------------------------------------------------
+*/
+function onMouseDown( event ) {
+    switch ( event.button ) {
+        case 0: break;
+        case 2: break;
+        case 1: break;
+    }
+}
+
+function onMouseUp( event ) {
+    switch ( event.button ) {
+        case 0: break;
+        case 2: break;
+        case 1: break;
+    }
+}
+
+function onMouseMove( event ) {
+}
+
 function onWheel( event ) {
-    if (event.deltaY < 0) {
-        Game.cameraZoomIn();
+    if ( event.deltaY < 0 ) {
+        // up
     } else {
-        Game.cameraZoomOut();
+        // down
     }
 }
 
-// W3 standard (Chrome and others)
 function onMouseWheel( event ) {
-    if (event.wheelDelta > 0) {
-        Game.cameraZoomIn();
+    if ( event.wheelDelta > 0 ) {
+        // up
     } else {
-        Game.cameraZoomOut();
+        // down
     }
 }
 
