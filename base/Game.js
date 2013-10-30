@@ -12,9 +12,7 @@ var Game = new function () {
     /*
     ---------------------------------------------------------------------------
     Verification
-        Method runs first time initializations and checks browser compatibility
-        for the used technologies and loaded modules. Throws exception in case
-        of incompatibility, that prevents further program execution.
+        Checks compatibility and prevent further execution.
     ---------------------------------------------------------------------------
     */
     this.verify = function () {
@@ -189,38 +187,26 @@ function onWindowResize() {
 
 /*
 -------------------------------------------------------------------------------
-Keyboard events
-    Function register events, when key is down:
-        ~ or ` -- to show debug console ( fps/ms ).
-    Key codes ( EN type ):
-    ( Esc )[27], ( Enter )[13], ( Tab )[9]
-    ( LShift )[16], ( LCtrl )[17], ( LAlt )[18]
-    ( w )[87], ( a )[65], ( s )[83], ( d )[68]
-    ( q )[81], ( e )[69], ( r )[82], ( f )[70]
-    ( c )[67], ( i )[73], ( m )[77], ( p )[80]
-    ( ~ )[192], ( z )[90]
+Keyboard Events
 -------------------------------------------------------------------------------
 */
-// Player actions and movement (start)
 function onKeyDown( event ) {
-    // Handle by player. Return 0 if handled, otherwise returns keyCode.
+    // Handled by player. return: 0 - handled, keyCode - otherwise.
     var code = Player.onKeyDown( event.keyCode );
 
     switch ( code ) {
         case 0: // alredy handled
             break;
-        case 90:
+        case 90: // z
             Engine.toogleDevMode();
             break;
-        case 192:
+        case 192: // ~
             Game.toogleStats();
             break;
     }
 }
 
-// Player actions and movement (stop)
 function onKeyUp( event ) {
-    // Handle by player. Return 0 if handled, otherwise returns keyCode.
     var code = Player.onKeyUp( event.keyCode );
 
     switch ( code ) {
@@ -232,24 +218,27 @@ function onKeyUp( event ) {
 /*
 -------------------------------------------------------------------------------
 Mouse Events
-    button: 0 - LBM
-            1 - MBM
-            2 - RBM
 -------------------------------------------------------------------------------
 */
 function onMouseDown( event ) {
     switch ( event.button ) {
-        case 0: break;
-        case 2: break;
-        case 1: break;
+        case 0: // lbm
+            break;
+        case 2: // rbm
+            break;
+        case 1: // mbm
+            break;
     }
 }
 
 function onMouseUp( event ) {
     switch ( event.button ) {
-        case 0: break;
-        case 2: break;
-        case 1: break;
+        case 0: // lbm
+            break;
+        case 2: // rbm
+            break;
+        case 1: // mbm
+            break;
     }
 }
 
@@ -275,7 +264,8 @@ function onMouseWheel( event ) {
 /*
 ===============================================================================
 
-    Start.
+    Entry point
+        Triggered after the page is loaded.
 
 ===============================================================================
 */
