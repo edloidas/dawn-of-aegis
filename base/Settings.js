@@ -33,6 +33,7 @@ var Settings = new function () {
     this.maxView = 2000;
     this.minView = 1;
     this.fov = 90;
+    this.background = 0xFFFFFF;
 
     this.gameVersion = function () {
         return majorVersion + '/' + minorVersion;

@@ -6,18 +6,8 @@
 
 // --------- COMMON -------------
 @color-dark:     #333;
-@color-gray6:    #666;
-@color-gray9:    #999;
-@color-white:    #F5F5F5; // whiteSmoke
+@color-white:    #F5F5F5;
 @color-ash:      #E3E3E3;
-@color-sky:      #87CEEB; // skyBlue
-@color-blue:     #00AAE3;
-@color-pink:     #FF1493; // deepPink
-@color-red:      #FF6666;
-@color-green:    #ADFF2F; // greenYellow
-@color-orange:   #FF8C00; // orange
-@color-yellow:   #F0E68C; // khaki
-
 
 // --------- BACKGROUND ---------
 @color-bg-body: #111;
@@ -31,24 +21,11 @@
 @font-size-medium: 18px;
 @font-size-small:  14px;
 
-// --------- UI -----------------
-@color-ui-shadow: #E3E3E3;
-@color-ui-border: #666;
-@color-ui-sign:   #666;
-
 // --------- SIZE ---------------
 @size-start-x: 600px;
 @size-start-y: 150px;
 
 // --------- CLASSES ------------
-.rounded-corners(@radius: 5px) {
-    -webkit-border-radius: @radius;
-    -moz-border-radius:    @radius;
-    -ms-border-radius:     @radius;
-    -o-border-radius:      @radius;
-    border-radius:         @radius;
-}
-
 .transition(@time: 0.3s) {
     transition:            @time;
     -webkit-transition:    @time;
@@ -61,26 +38,6 @@
     -moz-user-select:      @select;
     -ms-user-select:       @select;
     user-select:           @select;
-}
-
-.gradient() {
-    background-image:    -moz-linear-gradient(@color-gray3, @color-gray4, @color-gray3);
-    background-image: -webkit-linear-gradient(@color-gray3, @color-gray4, @color-gray3);
-    background-image:         linear-gradient(@color-gray3, @color-gray4, @color-gray3);
-}
-
-.gradient-alt() {
-    background-image:    -moz-linear-gradient(@color-ash, @color-white, @color-ash);
-    background-image: -webkit-linear-gradient(@color-ash, @color-white, @color-ash);
-    background-image:         linear-gradient(@color-ash, @color-white, @color-ash);
-}
-
-.box-sizing() {
-        &, &:before, &:after {
-        webkit-box-sizing: border-box;
-        -moz-box-sizing:   border-box;
-        box-sizing:        border-box;
-    }
 }
 
 // --------- FONTS --------------
@@ -207,14 +164,14 @@ body {
     .noselect;
     .logo {
         margin-bottom: 30px;
-        color: #e3e3e3;
+        color: @color-ash;
         font-size: 4em;
         .eff-glow-shadow(0,0);
         .eff-glow;
     }
     .meta {
         .eff-blink;
-        color: #333;
+        color: @color-dark;
         cursor: pointer;
     }
 }

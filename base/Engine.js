@@ -7,20 +7,9 @@
 */
 var Engine = new function () {
     var instance;
+    function Engine() { if ( !instance ) { instance = this; } else { return instance; } }
 
-    // constructor
-    function Engine() {
-
-        if ( !instance ) {
-            instance = this;
-        } else {
-            return instance;
-        }
-    }
-
-    this.camera   = null;
-    this.scene    = null;
-    this.renderer = null;
+    this.renderer = new THREE.WebGLRenderer( { alpha: false } );
 
     this.axis = new DOA.Axis();
 
@@ -32,10 +21,10 @@ var Engine = new function () {
     this.toogleAxis = function () {
         if (this.axis.enabled) {
             this.axis.enabled = false;
-            this.scene.remove(this.axis.clear());
+            World.scene.remove(this.axis.clear());
         } else {
             this.axis.enabled = true;
-            this.scene.add(this.axis.create());
+            World.scene.add(this.axis.create());
         }
     }
 }

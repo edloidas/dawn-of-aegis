@@ -7,14 +7,7 @@
 */
 var Game = new function () {
     var instance;
-
-    function Game() {
-        if ( !instance ) {
-            instance = this;
-        } else {
-            return instance;
-        }
-    }
+    function Game() { if ( !instance ) { instance = this; } else { return instance; } }
 
     /*
     ---------------------------------------------------------------------------
@@ -27,89 +20,42 @@ var Game = new function () {
     this.verify = function () {
         var isSupported = true;
 
-        if ( typeof console === "undefined"
-                || typeof console.log === "undefined"
-                || typeof console.info === "undefined"
-                || typeof console.warn === "undefined"
-                || typeof console.error === "undefined" ) {
-            throw "Exception : initialization failed. \"console\" is not available."
-        }
-
         console.group( "Verification" );
-        console.group( "Browser" );
-        console.info( "Checking [ Console] :: OK." );
 
         if ( typeof Storage === "undefined" ) {
-            console.info( "Checking [ Storage] :: FAILED." );
+            console.info( "Checking [Storage] :: FAILED." );
             isSupported = false;
         } else {
-            console.info( "Checking [ Storage] :: OK." );
+            console.info( "Checking [Storage] :: OK." );
+        }
+
+        if ( ! Detector.webgl ) {
+            Detector.addGetWebGLMessage();
+            document.getElementById( 'holder' ).innerHTML = "";
+            console.info( "Checking [  WebGl] :: FAILED." );
+        } else {
+            console.info( "Checking [  WebGl] :: OK." );
         }
 
         console.groupEnd(); // close Browser
-        console.group( "Game Modules" );
-
-        if ( typeof Settings === "undefined" ) {
-            console.info( "Checking [Settings] :: FAILED." );
-            isSupported = false;
-        } else {
-            console.info( "Checking [Settings] :: OK." );
-        }
-
-        if ( typeof DOA === "undefined" ) { // Objects
-            console.info( "Checking [ Objects] :: FAILED." );
-            isSupported = false;
-        } else {
-            console.info( "Checking [ Objects] :: OK." );
-        }
-
-        if ( typeof Engine === "undefined" ) {
-            console.info( "Checking [  Engine] :: FAILED." );
-            isSupported = false;
-        } else {
-            console.info( "Checking [  Engine] :: OK." );
-        }
-
-        console.groupEnd(); // close Game Modules
-        console.group( "Libraries" );
-
-        if ( typeof THREE === "undefined" ) {
-            console.info( "Checking [   THREE] :: FAILED." );
-            isSupported = false;
-        } else {
-            console.info( "Checking [   THREE] :: OK." );
-        }
-
-        if ( typeof Stats === "undefined" ) {
-            console.info( "Checking [   Stats] :: FAILED." );
-            isSupported = false;
-        } else {
-            console.info( "Checking [   Stats] :: OK." );
-        }
-
-        if ( typeof Detector === "undefined" ) {
-            console.info( "Checking [Detector] :: FAILED." );
-            isSupported = false;
-        } else {
-            console.info( "Checking [Detector] :: OK." );
-        }
-
-        console.groupEnd(); // close Libraries
-        console.groupEnd(); // close Verification
 
         if ( !isSupported ) {
             console.warn( "Execution will be aborted due to previous errors." );
-            // Exception should not be caught. Termination is expected.
             throw new Error( "Verification failed. Browser not fully supported." );
         }
     }
 
-    this.Status = {ready: -1, running: 0, paused: 1};
-    this.status = null;
+    /*
+    ---------------------------------------------------------------------------
+    Game globals
+    ---------------------------------------------------------------------------
+    */
+    this.isRunnig = false;
+    this.stats    = null;
 
+    //@# REMOVE
     var geometry, material, mesh;
-
-    this.stats = null;
+    //## REMOVE
 
     /*
     ---------------------------------------------------------------------------
@@ -121,21 +67,20 @@ var Game = new function () {
         this.verify();
         Settings.scaleWindow();
 
-        Engine.camera = new THREE.PerspectiveCamera( Settings.fov, Settings.aspect(), Settings.minView, Settings.maxView );
-        Engine.camera.position.z = Settings.maxView / 2;
-
-        Engine.scene = new THREE.Scene();
-
+        //@# REMOVE
+        Player.camera.position.z = Settings.maxView / 4;
+        Player.camera.position.y = Settings.maxView / 4;
+        Player.camera.position.x = Settings.maxView / 4;
+        Player.camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
         geometry = new THREE.CubeGeometry( 200, 200, 200 );
         material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-
         mesh = new THREE.Mesh( geometry, material );
-        Engine.scene.add( mesh );
+        World.scene.add( mesh );
+        //## REMOVE
 
-        Engine.renderer = new THREE.CanvasRenderer();
         Engine.renderer.setSize( Settings.width, Settings.height );
-
-        Engine.renderer.domElement.id = "scene";
+        Engine.renderer.setClearColor( Settings.background );
+        Engine.renderer.domElement.id = 'scene';
 
         document.getElementById( 'holder' ).appendChild( Engine.renderer.domElement );
 
@@ -165,10 +110,13 @@ var Game = new function () {
     this.animate = function animate() {
         // render
         requestAnimationFrame( animate );
+
+        //@# REMOVE
         mesh.rotation.x += 0.01;
         mesh.rotation.y += 0.02;
+        //## REMOVE
 
-        Engine.renderer.render( Engine.scene, Engine.camera );
+        Engine.renderer.render( World.scene, Player.camera );
     }
 
     /*
@@ -178,32 +126,32 @@ var Game = new function () {
     ---------------------------------------------------------------------------
     */
     this.cameraRotateXLeft = function () {
-        Engine.camera.rotateX(  3 * Math.PI / 180);
+        Player.camera.rotateX(  3 * Math.PI / 180);
     }
     this.cameraRotateXRight = function () {
-        Engine.camera.rotateX(- 3 * Math.PI / 180);
+        Player.camera.rotateX(- 3 * Math.PI / 180);
     }
 
     this.cameraRotateYLeft = function () {
-        Engine.camera.rotateY(  3 * Math.PI / 180);
+        Player.camera.rotateY(  3 * Math.PI / 180);
     }
     this.cameraRotateYRight = function () {
-        Engine.camera.rotateY(- 3 * Math.PI / 180);
+        Player.camera.rotateY(- 3 * Math.PI / 180);
     }
 
     this.cameraRotateZLeft = function () {
-        Engine.camera.rotateZ(  30 * Math.PI / 180);
+        Player.camera.rotateZ(  30 * Math.PI / 180);
     }
     this.cameraRotateZRight = function () {
-        Engine.camera.rotateZ(- 30 * Math.PI / 180);
+        Player.camera.rotateZ(- 30 * Math.PI / 180);
     }
 
     this.cameraZoomIn = function () {
-        Engine.camera.position.z -= (Engine.camera.position.z >= Settings.minView + 50) ? 50 : 0;
+        Player.camera.position.z -= (Player.camera.position.z >= Settings.minView + 50) ? 50 : 0;
     }
 
     this.cameraZoomOut = function () {
-        Engine.camera.position.z += (Engine.camera.position.z <= Settings.maxView - 50) ? 50 : 0;
+        Player.camera.position.z += (Player.camera.position.z <= Settings.maxView - 50) ? 50 : 0;
     }
 }
 
@@ -227,8 +175,8 @@ function onWindowResize() {
     // Condition will prevent double call
     if ( window.innerWidth !== Settings.width || window.innerHeight !== Settings.height ) {
         Settings.scaleWindow();
-        Engine.camera.aspect = Settings.aspect();
-        Engine.camera.updateProjectionMatrix();
+        Player.camera.aspect = Settings.aspect();
+        Player.camera.updateProjectionMatrix();
         Engine.renderer.setSize( Settings.width, Settings.height );
     }
 }
@@ -249,19 +197,19 @@ function onKeyDown( event ) {
     var code = event.keyCode;
 
     if ( event.keyCode === 65 ) { // a
-        Game.cameraRotateXLeft();
-    }
-
-    if ( event.keyCode === 68 ) { // d
-        Game.cameraRotateXRight();
-    }
-
-    if ( event.keyCode === 83 ) { // s
         Game.cameraRotateYLeft();
     }
 
-    if ( event.keyCode === 87 ) { // w
+    if ( event.keyCode === 68 ) { // d
         Game.cameraRotateYRight();
+    }
+
+    if ( event.keyCode === 83 ) { // s
+        Game.cameraRotateXRight();
+    }
+
+    if ( event.keyCode === 87 ) { // w
+        Game.cameraRotateXLeft();
     }
 
     if ( event.keyCode === 81 ) { // q
@@ -339,15 +287,13 @@ if ( document.readyState === "complete" ) {
             Game.bind();
             Game.animate();
 
-            Game.status = Game.Status.running;
+            Game.isRunnig = true;
         }
         document.onkeydown = hidePreload;
         elemPreload.onclick = hidePreload;
         document.getElementById( 'loading-tip' ).textContent = "Press any key to continue";
 
         Game.init();
-        Game.status = Game.Status.ready;
-
 
         hidePreload();
     }

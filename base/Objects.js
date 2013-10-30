@@ -7,14 +7,7 @@
 */
 var DOA = new function () {
     var instance;
-
-    function DOA() {
-        if ( !instance ) {
-            instance = this;
-        } else {
-            return instance;
-        }
-    }
+    function DOA() { if ( !instance ) { instance = this; } else { return instance; } }
 
     /*
     ---------------------------------------------------------------------------
@@ -59,7 +52,7 @@ var DOA = new function () {
     function Axis() {
         this.enabled = false;
 
-        this.mesh = new THREE.AxisHelper( 200 );
+        this.mesh = new THREE.AxisHelper( Settings.maxView );
 
         this.create = function () {
             this.mesh.position.set( this.x, this.y, this.z );
