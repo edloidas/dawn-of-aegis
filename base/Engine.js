@@ -12,6 +12,7 @@ var Engine = new function () {
     this.renderer = new THREE.WebGLRenderer( { alpha: false } );
 
     this.axis = new DOA.Axis();
+    this.grid = new DOA.Grid();
 
     /*
     ---------------------------------------------------------------------------
@@ -27,6 +28,14 @@ var Engine = new function () {
         } else {
             this.axis.enabled = true;
             World.scene.add(this.axis.create());
+        }
+
+        if (this.grid.enabled) {
+            this.grid.enabled = false;
+            World.scene.remove(this.grid.clear());
+        } else {
+            this.grid.enabled = true;
+            World.scene.add(this.grid.create());
         }
     }
 }

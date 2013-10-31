@@ -61,4 +61,24 @@ var DOA = new function () {
     }
     Axis.prototype = new Actor();
     this.Axis = Axis;
+
+    /*
+    ---------------------------------------------------------------------------
+    Axis
+        Represents axis, as three vectors.
+    ---------------------------------------------------------------------------
+    */
+    function Grid( step ) {
+        step = step || 50;
+        this.enabled = false;
+
+        this.mesh = new THREE.GridHelper( Settings.maxView, step );
+
+        this.create = function () {
+            this.mesh.position.set( this.x, this.y, this.z );
+            return this.mesh;
+        }
+    }
+    Grid.prototype = new Actor();
+    this.Grid = Grid;
 }
