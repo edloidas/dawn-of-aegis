@@ -21,18 +21,35 @@ var Game = new function () {
         console.group( "Verification" );
 
         if ( typeof Storage === "undefined" ) {
-            console.info( "Checking [Storage] :: FAILED." );
+            console.info( "Storage support :     NO" );
             isSupported = false;
         } else {
-            console.info( "Checking [Storage] :: OK." );
+            console.info( "Storage support :     YES" );
         }
 
-        if ( ! Detector.webgl ) {
-            Detector.addGetWebGLMessage();
-            document.getElementById( 'holder' ).innerHTML = "";
-            console.info( "Checking [  WebGl] :: FAILED." );
+        if ( Detector.webgl ) {
+            console.info( "WebGL support :       YES" );
         } else {
-            console.info( "Checking [  WebGl] :: OK." );
+            console.info( "WebGL support :       NO" );
+            isSupported = false;
+        }
+
+        if ( 'pointerLockElement' in document ||
+             'mozPointerLockElement' in document ||
+             'webkitPointerLockElement' in document ) {
+            console.info( "PointerLock support : YES" );
+        } else {
+            console.info( "PointerLock support : NO" );
+            isSupported = false;
+        }
+
+        if ( 'mozFullScreenElement' in document ||
+             'mozFullscreenElement' in document ||
+             'webkitFullscreenElement' in document ) {
+            console.info( "Fullscreen support :  YES" );
+        } else {
+            console.info( "Fullscreen support :  NO" );
+            isSupported = false;
         }
 
         console.groupEnd(); // close Browser
@@ -48,8 +65,12 @@ var Game = new function () {
     Game globals
     ---------------------------------------------------------------------------
     */
-    this.isRunnig = false;
-    this.stats    = null;
+    this.isRunnig = false; // scene animation on / off
+
+    this.stats         = null; // stats DOM element
+    this.canvas = null; // element, that locks pointer
+
+    this.status = 0; // active game element index
 
     //@# REMOVE
     var geometry, material, mesh;
@@ -95,8 +116,8 @@ var Game = new function () {
     */
     this.bind = function () {
         // KEYBOARD
-        window.addEventListener( 'keydown',  onKeyDown,  false );
-        window.addEventListener( 'keyup',    onKeyUp,    false );
+        window.addEventListener( 'keydown', onKeyDown, false );
+        window.addEventListener( 'keyup',   onKeyUp,   false );
 
         // MOUSE
         window.oncontextmenu = function () { return false; }; // disable RMB menu
@@ -108,6 +129,15 @@ var Game = new function () {
         // MOUSE WHEEL
         window.addEventListener( 'wheel',      onWheel,      false ); // fx
         window.addEventListener( 'mousewheel', onMouseWheel, false ); // chrome
+
+        // POINTER LOCK
+        document.addEventListener( 'pointerlockchange',       onPointerLockChange, false );
+        document.addEventListener( 'mozpointerlockchange',    onPointerLockChange, false );
+        document.addEventListener( 'webkitpointerlockchange', onPointerLockChange, false );
+
+        document.addEventListener( 'pointerlockerror',        onPointerLockError,  false );
+        document.addEventListener( 'mozpointerlockerror',     onPointerLockError,  false );
+        document.addEventListener( 'webkitpointerlockerror',  onPointerLockError,  false );
     }
 
     /*
@@ -157,6 +187,34 @@ var Game = new function () {
             document.getElementById( 'stats' ).remove();
         }
     }
+
+    this.toogleMenu = function () {
+        if ( this.status === 1 ) {
+            this.canvas.requestPointerLock();
+            this.status = 0;
+        } else {
+            document.exitPointerLock();
+            this.status = 1;
+        }
+    }
+
+    this.toogleFullscreen = function () {
+        if ( document.mozFullscreenElement === this.canvas ||
+             document.mozFullScreenElement === this.canvas ||
+             document.webkitFullscreenElement === this.canvas ) {
+
+            if ( document.cancelFullScreen ) {
+                document.cancelFullScreen();
+            } else if ( document.mozCancelFullScreen ) {
+                document.mozCancelFullScreen();
+            } else if ( document.webkitCancelFullScreen ) {
+                document.webkitCancelFullScreen();
+            }
+
+        } else {
+            this.canvas.requestFullscreen();
+        }
+    }
 }
 
 
@@ -193,9 +251,14 @@ Keyboard Events
 function onKeyDown( event ) {
     // Handled by player. return: 0 - handled, keyCode - otherwise.
     var code = Player.onKeyDown( event.keyCode );
-
     switch ( code ) {
         case 0: // alredy handled
+            break;
+        case 77: // m
+            Game.toogleMenu();
+            break;
+        case 88: // x
+            Game.toogleFullscreen();
             break;
         case 90: // z
             Engine.toogleDevMode();
@@ -221,28 +284,33 @@ Mouse Events
 -------------------------------------------------------------------------------
 */
 function onMouseDown( event ) {
-    switch ( event.button ) {
-        case 0: // lbm
+    switch ( Game.status ) {
+        case 0: // game active
+            if ( !Player.isActive ) { // player not active
+                Game.canvas.requestPointerLock();
+            } else { // player active
+                Player.onMouseDown( event.button );
+            }
             break;
-        case 2: // rbm
+        case 1: // main menu
             break;
-        case 1: // mbm
-            break;
+        // other menus
     }
 }
 
 function onMouseUp( event ) {
-    switch ( event.button ) {
-        case 0: // lbm
+    switch ( Game.status ) {
+        case 0: // game active
+            Player.onMouseUp( event.button );
             break;
-        case 2: // rbm
+        case 1: // main menu
             break;
-        case 1: // mbm
-            break;
+        // other menus
     }
 }
 
 function onMouseMove( event ) {
+    Player.onMouseMove( event );
 }
 
 function onWheel( event ) {
@@ -259,6 +327,21 @@ function onMouseWheel( event ) {
     } else {
         // down
     }
+}
+
+/*
+-------------------------------------------------------------------------------
+Ponter Lock Events
+-------------------------------------------------------------------------------
+*/
+var onPointerLockChange = function ( event ) {
+    Player.isActive = ( document.pointerLockElement === Game.canvas ||
+                        document.mozPointerLockElement === Game.canvas ||
+                        document.webkitPointerLockElement === Game.canvas );
+}
+
+var onPointerLockError = function ( event ) {
+    console.warn( 'Pointer lock error.' );
 }
 
 /*
@@ -283,6 +366,19 @@ if ( document.readyState === "complete" ) {
             Game.animate();
 
             Game.isRunnig = true;
+            Game.status = 0;
+
+            Game.canvas = Engine.renderer.domElement;
+            Game.canvas.requestPointerLock = Game.canvas.requestPointerLock    ||
+                                             Game.canvas.mozRequestPointerLock ||
+                                             Game.canvas.webkitRequestPointerLock;
+            document.exitPointerLock = document.exitPointerLock    ||
+                                       document.mozExitPointerLock ||
+                                       document.webkitExitPointerLock;
+            Game.canvas.requestFullscreen = Game.canvas.requestFullscreen    ||
+                                            Game.canvas.mozRequestFullscreen ||
+                                            Game.canvas.mozRequestFullScreen || // Older API upper case 'S'.
+                                            Game.canvas.webkitRequestFullscreen;
         }
         document.onkeydown = hidePreload;
         elemPreload.onclick = hidePreload;

@@ -14,13 +14,15 @@ Common hierarchy and initialization:
 
 ## Controls ##
 Active keys:
+* ( Esc )[27] - exit pointer lock.
 * ( ~ )[192] - show/hide degug statistics.
 * ( z )[90]  - turn developer mode on/off.
+* ( m )[77] - toogle menu (currently virtual). disable pointer lock
+* ( x )[88] - toogle fullscreen for canvas.
 
 Inactive keys:
-* ( Esc )[27]
+
 * ( Enter )[13]
-* ( Tab )[9]
 * ( LShift )[16]
 * ( LCtrl )[17]
 * ( LAlt )[18]
@@ -34,5 +36,9 @@ Inactive keys:
 * ( f )[70]
 * ( c )[67]
 * ( i )[73]
-* ( m )[77]
+* ( n )[78]
 * ( p )[80]
+
+Unacceptable keys:
+* ( Tab )[9] - tabulation trough all browser.
+* ( Esc )[27] - should be only used by system.
