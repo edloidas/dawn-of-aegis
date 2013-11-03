@@ -102,8 +102,9 @@ var Game = new function () {
         Engine.renderer.setSize( Settings.width, Settings.height );
         Engine.renderer.setClearColor( Settings.background );
         Engine.renderer.domElement.id = 'scene';
+        Engine.renderer.domElement.style.display = 'none';
 
-        document.getElementById( 'holder' ).appendChild( Engine.renderer.domElement );
+        document.body.appendChild( Engine.renderer.domElement );
 
         window.addEventListener( 'resize', onWindowResize, false );
     }
@@ -138,6 +139,11 @@ var Game = new function () {
         document.addEventListener( 'pointerlockerror',        onPointerLockError,  false );
         document.addEventListener( 'mozpointerlockerror',     onPointerLockError,  false );
         document.addEventListener( 'webkitpointerlockerror',  onPointerLockError,  false );
+
+        // FULLSCREEN
+        document.addEventListener('fullscreenchange',       fullscreenChange, false);
+        document.addEventListener('mozfullscreenchange',    fullscreenChange, false);
+        document.addEventListener('webkitfullscreenchange', fullscreenChange, false);
     }
 
     /*
@@ -173,7 +179,7 @@ var Game = new function () {
             this.stats.domElement.style.left = '0px';
             this.stats.domElement.style.top = '0px';
             this.stats.domElement.style.zIndex = 99;
-            document.getElementById( 'holder' ).appendChild( this.stats.domElement );
+            document.body.appendChild( this.stats.domElement );
 
             var st = this.stats;
             setInterval( function () {
@@ -182,7 +188,7 @@ var Game = new function () {
                 st.end();
             }, 1000 / Settings.fps ); // 1000 == 1s
         } else if ( document.getElementById( 'stats' ) === null ) {
-            document.getElementById( 'holder' ).appendChild( this.stats.domElement );
+            document.body.appendChild( this.stats.domElement );
         } else {
             document.getElementById( 'stats' ).remove();
         }
@@ -345,6 +351,20 @@ var onPointerLockError = function ( event ) {
 }
 
 /*
+-------------------------------------------------------------------------------
+Fullscreen Events
+-------------------------------------------------------------------------------
+*/
+function fullscreenChange() {
+    // lock pointer only for manual fullscreen via 'x'
+    if ( document.mozFullscreenElement === Game.canvas ||
+         document.mozFullScreenElement === Game.canvas ||
+         document.webkitFullscreenElement === Game.canvas ) {
+        Game.canvas.requestPointerLock();
+    }
+}
+
+/*
 ===============================================================================
 
     Entry point
@@ -355,12 +375,12 @@ var onPointerLockError = function ( event ) {
 document.onreadystatechange = function () {
 if ( document.readyState === "complete" ) {
         var elemPreload = document.getElementById( 'preload' );
-        var elemHolder  = document.getElementById( 'holder' );
+
         function hidePreload() {
             document.onkeydown = null;
             elemPreload.onclick = null;
             elemPreload.remove();
-            elemHolder.classList.remove( 'hidden' );
+            Engine.renderer.domElement.style.display = 'block';
 
             Game.bind();
             Game.animate();
@@ -386,6 +406,6 @@ if ( document.readyState === "complete" ) {
 
         Game.init();
 
-        hidePreload();
+        //hidePreload();
     }
 }
