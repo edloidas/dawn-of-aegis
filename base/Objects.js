@@ -9,6 +9,7 @@ var DOA = new function () {
     var instance;
     function DOA() { if ( !instance ) { instance = this; } else { return instance; } }
 
+    this.PI_2 = Math.PI / 2;
     /*
     ---------------------------------------------------------------------------
     Actor
@@ -91,8 +92,9 @@ var DOA = new function () {
     function Target( camera ) {
         this.camera = camera;
 
-        this.radius = 100;
-        this.omega = 0.1; // radial speed
+        this.radius = 200;
+        this.velocity = 0;
+        this.omega = 0.001; // radial speed
         this.theta = 0;
         this.phi   = 0;
 
@@ -101,7 +103,7 @@ var DOA = new function () {
         this.z = camera.position.z;
 
         this.material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-        this.geometry = new THREE.CircleGeometry( 10 );
+        this.geometry = new THREE.SphereGeometry( 5 );
         this.mesh = new THREE.Mesh( this.geometry, this.material );
 
         this.moveForward = function () {}
@@ -111,12 +113,36 @@ var DOA = new function () {
 
         this.look = function ( wx, wy ) {
             // calculations
+            this.theta += wx * this.omega * Math.PI;
+            //if ( this.theta >   Math.PI2 ) this.theta -= Math.PI2;
+            //if ( this.theta < - Math.PI2 ) this.theta += Math.PI2;
 
-            this.theta += wy * this.omega * Math.PI;
+            this.phi += wy * this.omega * Math.PI;
+            //if ( this.phi >   Math.PI_2 ) this.phi =   Math.PI_2;
+            //if ( this.phi < - Math.PI_2 ) this.phi = - Math.PI_2;
 
-            this.y = this.radius * Math.sin (this.theta);
+            // this.x = camera.position.x - this.radius * Math.sin( this.phi );
+            // this.y = camera.position.y - this.radius * Math.sin( this.theta );
+            // this.z = camera.position.z + this.radius * (Math.cos( this.phi ) + Math.cos( this.theta ) -1);
+            this.x = camera.position.x + this.radius * Math.cos( this.theta ) * Math.sin( this.phi );
+            this.y = camera.position.y + this.radius * Math.sin( this.theta ) * Math.sin( this.phi );
+            // this.z = camera.position.z - this.radius * Math.cos( this.phi );
+
+            this.mesh.position.x = this.x;
+            this.mesh.position.y = this.y;
+            this.mesh.position.z = this.z;
+
+            console.log(camera.position.x+" "+camera.position.y+" "+camera.position.z);
+            console.log(this.x+" "+this.y+" "+this.z);
+            console.log(this.phi+" "+this.theta);
+
+            // console.log( this.x + " : " + this.y + " : " + this.z );
 
             this.camera.lookAt( new THREE.Vector3( this.x, this.y, this.z ) );
+        }
+
+        function update() {
+
         }
     }
     Target.prototype = new Actor();

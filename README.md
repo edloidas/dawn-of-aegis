@@ -5,6 +5,7 @@ dawn-of-aegis
 JavaScript game. Uses WebGL.
 
 Common hierarchy and initialization:
+* Math.js - Additions to the standard math library.
 * Settings.js - [version, savegame] - Game settings, like width, height, effects, difficulty.
 * Objects.js - World objects, that can be created from template.
 * Player.js - [camera] - Player settings and camera manipulation.
