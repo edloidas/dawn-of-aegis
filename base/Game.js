@@ -406,6 +406,6 @@ if ( document.readyState === "complete" ) {
 
         Game.init();
 
-        //hidePreload();
+        hidePreload();
     }
 }

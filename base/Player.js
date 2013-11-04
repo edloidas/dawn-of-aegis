@@ -15,6 +15,7 @@ var Player = new function () {
     this.mouseY = 0;
 
     this.camera = new THREE.PerspectiveCamera( Settings.fov, Settings.aspect(), Settings.minView, Settings.maxView );
+    this.target = new DOA.Target( this.camera );
 
     /*
     ---------------------------------------------------------------------------
@@ -77,6 +78,8 @@ var Player = new function () {
         if ( this.isActive ) { // get delta
             this.mouseX = event.movementX || event.mozMovementX || event.webkitMovementX || 0,
             this.mouseY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+
+            this.target.look( this.mouseX, this.mouseY );
         } else if( event.offsetX ) { // get coordinates
             this.mouseX = event.offsetX;
             this.mouseY = event.offsetY;
