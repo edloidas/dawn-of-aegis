@@ -4,33 +4,21 @@
  * @link http://edloidas.github.io/dawn-of-aegis
  */
 
-// --------- COMMON -------------
-@color-dark:     #333;
-@color-white:    #F5F5F5;
-@color-ash:      #E3E3E3;
-
 // --------- BACKGROUND ---------
 @color-bg-body: #111;
 
 // --------- FONT ---------------
-@font-color:     #F5F5F5;
-@font-color-na:  #222;
-@font-color-alt: #333;
+@font-color:      #F5F5F5;
+@font-color-na:   #222;
+@font-color-logo: #E3E3E3;
 
-@font-size-big:    32px;
-@font-size-medium: 18px;
-@font-size-small:  14px;
+@font-size: 18px;
 
 // --------- SIZE ---------------
 @size-start-x: 600px;
 @size-start-y: 150px;
 
 // --------- CLASSES ------------
-.transition(@time: 0.3s) {
-    transition:            @time;
-    -webkit-transition:    @time;
-}
-
 .noselect(@select: none) {
     -webkit-touch-callout: @select;
     -webkit-user-select:   @select;
@@ -50,15 +38,8 @@
     font-family: "Archive", Consolas, Lucida Console, Courier New, monospace;
 }
 
-.font-family-alt() {
-    font-family: Tahoma, Geneva, sans-serif;
-}
 
-/*
--------------------------------------------------------------------------------
- EFFECTS
--------------------------------------------------------------------------------
-*/
+// --------- EFFECTS ------------
 .eff-blink-src() {
     0%   {color: @font-color-na;}
     100% {color: @font-color;}
@@ -93,11 +74,8 @@
    -webkit-animation: @anim;
 }
 
-/*
--------------------------------------------------------------------------------
- GLOBALS
--------------------------------------------------------------------------------
-*/
+
+// --------- GLOBALS ------------
 html {
     height: 100%;
     margin: 0;
@@ -108,7 +86,7 @@ body {
     margin: 0;
     background: @color-bg-body;
     color: @font-color;
-    font-size: @font-size-medium;
+    font-size: @font-size;
     cursor: default;
     .font-family;
     .noselect;
@@ -122,11 +100,7 @@ body {
     left: 0;
 }
 
-/*
--------------------------------------------------------------------------------
- Page START
--------------------------------------------------------------------------------
-*/
+// --------- START PAGE ---------
 .start {
     z-index: 99;
     height: @size-start-y;
@@ -139,23 +113,19 @@ body {
     .noselect;
     .logo {
         margin-bottom: 30px;
-        color: @color-ash;
+        color: @font-color-logo;
         font-size: 4em;
         .eff-glow-shadow(0,0);
         .eff-glow;
     }
     .meta {
         .eff-blink;
-        color: @color-dark;
+        color: @font-color-na;
         cursor: pointer;
     }
 }
 
-/*
--------------------------------------------------------------------------------
- Page MAIN (UI)
--------------------------------------------------------------------------------
-*/
+// --------- CANVAS -------------
 #scene {
     position: absolute;
     top: 0;
