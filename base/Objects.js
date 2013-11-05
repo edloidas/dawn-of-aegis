@@ -94,8 +94,8 @@ var DOA = new function () {
         this.enabled = false;
 
         this.radius = 200;
-        this.velocity = 1; // movement speed
-        this.omega = 0.1;  // radial (rotation) speed
+        this.velocity = 10; // movement speed
+        this.omega = 0.1 || Settings.mouseSensitivity;  // radial (rotation) speed
         this.theta = -90;
         this.phi   = 90;
 
@@ -106,11 +106,6 @@ var DOA = new function () {
         this.material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
         this.geometry = new THREE.CircleGeometry( 1 );
         this.mesh = new THREE.Mesh( this.geometry, this.material );
-
-        this.moveForward = function () {}
-        this.moveBackward = function () {}
-        this.moveLeft = function () {}
-        this.moveRight = function () {}
 
         this.look = function ( wx, wy ) {
             /* See http://mathworld.wolfram.com/SphericalCoordinates.html
@@ -127,26 +122,77 @@ var DOA = new function () {
             this.phi += wy * this.omega;
             this.phi = Math.max( Settings.minLook, Math.min( Settings.maxLook, this.phi ) );
 
+            this.update();
+
+            this.camera.lookAt( new THREE.Vector3( this.x, this.y, this.z ) );
+
+            if ( this.enabled ) {
+                this.mesh.rotation.x = this.camera.rotation.x;
+                this.mesh.rotation.y = this.camera.rotation.y;
+                this.mesh.rotation.z = this.camera.rotation.z;
+            }
+        }
+
+        this.moveForward = function () {
+            camera.position.deltaX = this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) )
+                                                   * Math.sin( THREE.Math.degToRad( this.phi ) );
+            camera.position.deltaY = this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
+            camera.position.deltaZ = this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
+                                                   * Math.sin( THREE.Math.degToRad( this.phi ) );
+
+
+            camera.position.x += camera.position.deltaX;
+            camera.position.y += camera.position.deltaY;
+            camera.position.z += camera.position.deltaZ;
+
+            this.x += camera.position.deltaX;
+            this.y += camera.position.deltaY;
+            this.z += camera.position.deltaZ;
+
+            if ( this.enabled ) {
+                this.mesh.position.x = this.x;
+                this.mesh.position.y = this.y;
+                this.mesh.position.z = this.z;
+            }
+        }
+
+        this.moveBackward = function () {
+            camera.position.deltaX = this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) )
+                                                   * Math.sin( THREE.Math.degToRad( this.phi ) );
+            camera.position.deltaY = this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
+            camera.position.deltaZ = this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
+                                                   * Math.sin( THREE.Math.degToRad( this.phi ) );
+
+
+            camera.position.x -= camera.position.deltaX;
+            camera.position.y -= camera.position.deltaY;
+            camera.position.z -= camera.position.deltaZ;
+
+            this.x -= camera.position.deltaX;
+            this.y -= camera.position.deltaY;
+            this.z -= camera.position.deltaZ;
+
+            if ( this.enabled ) {
+                this.mesh.position.x = this.x;
+                this.mesh.position.y = this.y;
+                this.mesh.position.z = this.z;
+            }
+        }
+
+        this.moveLeft = function () {}
+        this.moveRight = function () {}
+
+        this.update = function update() {
             this.x = camera.position.x + this.radius * Math.cos( THREE.Math.degToRad( this.theta ) )
                                                      * Math.sin( THREE.Math.degToRad( this.phi ) );
-            this.y = camera.position.x + this.radius * Math.cos( THREE.Math.degToRad( this.phi ) );
+            this.y = camera.position.y + this.radius * Math.cos( THREE.Math.degToRad( this.phi ) );
             this.z = camera.position.z + this.radius * Math.sin( THREE.Math.degToRad( this.theta ) )
                                                      * Math.sin( THREE.Math.degToRad( this.phi ) );
             if ( this.enabled ) {
                 this.mesh.position.x = this.x;
                 this.mesh.position.y = this.y;
                 this.mesh.position.z = this.z;
-
-                this.mesh.rotation.x = this.camera.rotation.x;
-                this.mesh.rotation.y = this.camera.rotation.y;
-                this.mesh.rotation.z = this.camera.rotation.z;
             }
-
-            this.camera.lookAt( new THREE.Vector3( this.x, this.y, this.z ) );
-        }
-
-        function update() {
-
         }
     }
     Target.prototype = new Actor();

@@ -32,11 +32,12 @@ var Settings = new function () {
     // Camera settings
     this.maxView = 2000;
     this.minView = 0.1;
-    this.fov = 50;
+    this.fov = 90;
 
-    // Camera rotation (latitude)
+    // Controls settings
     this.minLook = 5;   // deg. Top is 0
     this.maxLook = 175; // deg. Bottom is 180
+    this.mouseSensitivity = 0.2; // 0.05 - slow, 0.5 - fast
 
     this.background = 0xFFFFFF;
 

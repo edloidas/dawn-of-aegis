@@ -14,6 +14,11 @@ var Player = new function () {
     this.mouseX = 0;
     this.mouseY = 0;
 
+    this.moveForward  = false;
+    this.moveBackward = false;
+    this.moveLeft     = false;
+    this.moveRight    = false;
+
     this.camera = new THREE.PerspectiveCamera( Settings.fov, Settings.aspect(), Settings.minView, Settings.maxView );
     this.target = new DOA.Target( this.camera );
 
@@ -26,6 +31,12 @@ var Player = new function () {
         if ( !this.isActive ) return code;
 
         switch ( code ) {
+            case 87: // w
+                this.moveForward = true;
+                break;
+            case 83: // s
+                this.moveBackward = true;
+                break;
             default:
                 return code;
         }
@@ -36,6 +47,12 @@ var Player = new function () {
         if ( !this.isActive ) return code;
 
         switch ( code ) {
+            case 87: // w
+                this.moveForward = false;
+                break;
+            case 83: // s
+                this.moveBackward = false;
+                break;
             default:
                 return code;
         }
@@ -88,5 +105,10 @@ var Player = new function () {
             this.mouseX = event.layerX;
             this.mouseY = event.layerY;
         }
+    }
+
+    this.animate = function () {
+        if (this.moveForward) this.target.moveForward();
+        if (this.moveBackward) this.target.moveBackward();
     }
 }

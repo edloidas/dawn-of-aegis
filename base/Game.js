@@ -156,6 +156,8 @@ var Game = new function () {
         // render
         requestAnimationFrame( animate );
 
+        Player.animate();
+
         //@# REMOVE
         mesh.rotation.x += 0.01;
         mesh.rotation.y += 0.02;

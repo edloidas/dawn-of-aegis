@@ -20,6 +20,8 @@ Active keys:
 * ( z )[90]  - turn developer mode on/off.
 * ( m )[77] - toogle menu (currently virtual). disable pointer lock
 * ( x )[88] - toogle fullscreen for canvas.
+* ( w )[87] - move forward
+* ( s )[83] - move backward
 
 Inactive keys:
 
@@ -27,9 +29,7 @@ Inactive keys:
 * ( LShift )[16]
 * ( LCtrl )[17]
 * ( LAlt )[18]
-* ( w )[87]
 * ( a )[65]
-* ( s )[83]
 * ( d )[68]
 * ( q )[81]
 * ( e )[69]
