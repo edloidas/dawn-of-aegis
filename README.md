@@ -22,6 +22,8 @@ Active keys:
 * ( x )[88] - toogle fullscreen for canvas.
 * ( w )[87] - move forward
 * ( s )[83] - move backward
+* ( a )[65] - move left
+* ( d )[68] - move right
 
 Inactive keys:
 
@@ -29,8 +31,6 @@ Inactive keys:
 * ( LShift )[16]
 * ( LCtrl )[17]
 * ( LAlt )[18]
-* ( a )[65]
-* ( d )[68]
 * ( q )[81]
 * ( e )[69]
 * ( r )[82]

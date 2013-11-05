@@ -37,6 +37,12 @@ var Player = new function () {
             case 83: // s
                 this.moveBackward = true;
                 break;
+            case 65: // a
+                this.moveLeft = true;
+                break;
+            case 68: // d
+                this.moveRight = true;
+                break;
             default:
                 return code;
         }
@@ -52,6 +58,12 @@ var Player = new function () {
                 break;
             case 83: // s
                 this.moveBackward = false;
+                break;
+            case 65: // a
+                this.moveLeft = false;
+                break;
+            case 68: // d
+                this.moveRight = false;
                 break;
             default:
                 return code;
@@ -108,7 +120,17 @@ var Player = new function () {
     }
 
     this.animate = function () {
-        if (this.moveForward) this.target.moveForward();
-        if (this.moveBackward) this.target.moveBackward();
+        if (this.moveForward) {
+            this.target.moveForward();
+        }
+        if (this.moveBackward) {
+            this.target.moveBackward();
+        }
+        if (this.moveLeft) {
+            this.target.moveLeft();
+        }
+        if (this.moveRight) {
+            this.target.moveRight();
+        }
     }
 }

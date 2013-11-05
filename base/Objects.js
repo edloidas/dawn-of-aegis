@@ -91,11 +91,13 @@ var DOA = new function () {
     */
     function Target( camera ) {
         this.camera = camera;
+        this.camera.position.delta = { x: 0, y: 0, z: 0 };
+
         this.enabled = false;
 
         this.radius = 200;
         this.velocity = 10; // movement speed
-        this.omega = 0.1 || Settings.mouseSensitivity;  // radial (rotation) speed
+        this.omega = Settings.mouseSensitivity;  // radial (rotation) speed
         this.theta = -90;
         this.phi   = 90;
 
@@ -116,13 +118,17 @@ var DOA = new function () {
              *   y = r * sin(theta) * sin(phi)
              *   z = r * cos(phi)
              */
-            // calculations
             this.theta += wx * this.omega;
             this.theta %= 360;
             this.phi += wy * this.omega;
             this.phi = Math.max( Settings.minLook, Math.min( Settings.maxLook, this.phi ) );
 
-            this.update();
+            this.x = camera.position.x + this.radius * Math.cos( THREE.Math.degToRad( this.theta ) )
+                                                     * Math.sin( THREE.Math.degToRad( this.phi ) );
+            this.y = camera.position.y + this.radius * Math.cos( THREE.Math.degToRad( this.phi ) );
+            this.z = camera.position.z + this.radius * Math.sin( THREE.Math.degToRad( this.theta ) )
+                                                     * Math.sin( THREE.Math.degToRad( this.phi ) );
+            this.updateMesh();
 
             this.camera.lookAt( new THREE.Vector3( this.x, this.y, this.z ) );
 
@@ -134,44 +140,67 @@ var DOA = new function () {
         }
 
         this.moveForward = function () {
-            camera.position.deltaX = this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) )
-                                                   * Math.sin( THREE.Math.degToRad( this.phi ) );
-            camera.position.deltaY = this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
-            camera.position.deltaZ = this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
-                                                   * Math.sin( THREE.Math.degToRad( this.phi ) );
+            this.calcDelta();
 
+            camera.position.x += camera.position.delta.x;
+            camera.position.y += camera.position.delta.y;
+            camera.position.z += camera.position.delta.z;
 
-            camera.position.x += camera.position.deltaX;
-            camera.position.y += camera.position.deltaY;
-            camera.position.z += camera.position.deltaZ;
+            this.x += camera.position.delta.x;
+            this.y += camera.position.delta.y;
+            this.z += camera.position.delta.z;
 
-            this.x += camera.position.deltaX;
-            this.y += camera.position.deltaY;
-            this.z += camera.position.deltaZ;
-
-            if ( this.enabled ) {
-                this.mesh.position.x = this.x;
-                this.mesh.position.y = this.y;
-                this.mesh.position.z = this.z;
-            }
+            this.updateMesh();
         }
 
         this.moveBackward = function () {
-            camera.position.deltaX = this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) )
-                                                   * Math.sin( THREE.Math.degToRad( this.phi ) );
-            camera.position.deltaY = this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
-            camera.position.deltaZ = this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
-                                                   * Math.sin( THREE.Math.degToRad( this.phi ) );
+            this.calcDelta();
 
+            camera.position.x -= camera.position.delta.x;
+            camera.position.y -= camera.position.delta.y;
+            camera.position.z -= camera.position.delta.z;
 
-            camera.position.x -= camera.position.deltaX;
-            camera.position.y -= camera.position.deltaY;
-            camera.position.z -= camera.position.deltaZ;
+            this.x -= camera.position.delta.x;
+            this.y -= camera.position.delta.y;
+            this.z -= camera.position.delta.z;
 
-            this.x -= camera.position.deltaX;
-            this.y -= camera.position.deltaY;
-            this.z -= camera.position.deltaZ;
+            this.updateMesh();
+        }
 
+        this.moveLeft = function () {
+            camera.position.delta.x = -this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) + Math.PI_2);
+            camera.position.delta.z = -this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) + Math.PI_2);
+
+            camera.position.x += camera.position.delta.x;
+            camera.position.z += camera.position.delta.z;
+
+            this.x += camera.position.delta.x;
+            this.z += camera.position.delta.z;
+
+            this.updateMeshPlane();
+        }
+        this.moveRight = function () {
+            camera.position.delta.x = -this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) - Math.PI_2);
+            camera.position.delta.z = -this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) - Math.PI_2);
+
+            camera.position.x += camera.position.delta.x;
+            camera.position.z += camera.position.delta.z;
+
+            this.x += camera.position.delta.x;
+            this.z += camera.position.delta.z;
+
+            this.updateMeshPlane();
+        }
+
+        this.calcDelta = function ( minus ) {
+            camera.position.delta.x = this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) )
+                                                    * Math.sin( THREE.Math.degToRad( this.phi ) );
+            camera.position.delta.y = this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
+            camera.position.delta.z = this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
+                                                    * Math.sin( THREE.Math.degToRad( this.phi ) );
+        }
+
+        this.updateMesh = function () {
             if ( this.enabled ) {
                 this.mesh.position.x = this.x;
                 this.mesh.position.y = this.y;
@@ -179,18 +208,9 @@ var DOA = new function () {
             }
         }
 
-        this.moveLeft = function () {}
-        this.moveRight = function () {}
-
-        this.update = function update() {
-            this.x = camera.position.x + this.radius * Math.cos( THREE.Math.degToRad( this.theta ) )
-                                                     * Math.sin( THREE.Math.degToRad( this.phi ) );
-            this.y = camera.position.y + this.radius * Math.cos( THREE.Math.degToRad( this.phi ) );
-            this.z = camera.position.z + this.radius * Math.sin( THREE.Math.degToRad( this.theta ) )
-                                                     * Math.sin( THREE.Math.degToRad( this.phi ) );
+        this.updateMeshPlane = function () {
             if ( this.enabled ) {
                 this.mesh.position.x = this.x;
-                this.mesh.position.y = this.y;
                 this.mesh.position.z = this.z;
             }
         }
