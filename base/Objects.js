@@ -91,19 +91,20 @@ var DOA = new function () {
     */
     function Target( camera ) {
         this.camera = camera;
+        this.enabled = false;
 
         this.radius = 200;
-        this.velocity = 0;
-        this.omega = 0.001; // radial speed
-        this.theta = 0;
-        this.phi   = 0;
+        this.velocity = 1; // movement speed
+        this.omega = 0.1;  // radial (rotation) speed
+        this.theta = -90;
+        this.phi   = 90;
 
-        this.x = camera.position.x + this.radius;
+        this.x = camera.position.x;
         this.y = camera.position.y;
         this.z = camera.position.z;
 
         this.material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-        this.geometry = new THREE.SphereGeometry( 5 );
+        this.geometry = new THREE.CircleGeometry( 1 );
         this.mesh = new THREE.Mesh( this.geometry, this.material );
 
         this.moveForward = function () {}
@@ -112,31 +113,34 @@ var DOA = new function () {
         this.moveRight = function () {}
 
         this.look = function ( wx, wy ) {
+            /* See http://mathworld.wolfram.com/SphericalCoordinates.html
+             *    z             y
+             *    |__ y  ==>    |__ x
+             * x /           z /
+             *   x = r * cos(theta) * sin(phi)
+             *   y = r * sin(theta) * sin(phi)
+             *   z = r * cos(phi)
+             */
             // calculations
-            this.theta += wx * this.omega * Math.PI;
-            //if ( this.theta >   Math.PI2 ) this.theta -= Math.PI2;
-            //if ( this.theta < - Math.PI2 ) this.theta += Math.PI2;
+            this.theta += wx * this.omega;
+            this.theta %= 360;
+            this.phi += wy * this.omega;
+            this.phi = Math.max( Settings.minLook, Math.min( Settings.maxLook, this.phi ) );
 
-            this.phi += wy * this.omega * Math.PI;
-            //if ( this.phi >   Math.PI_2 ) this.phi =   Math.PI_2;
-            //if ( this.phi < - Math.PI_2 ) this.phi = - Math.PI_2;
+            this.x = camera.position.x + this.radius * Math.cos( THREE.Math.degToRad( this.theta ) )
+                                                     * Math.sin( THREE.Math.degToRad( this.phi ) );
+            this.y = camera.position.x + this.radius * Math.cos( THREE.Math.degToRad( this.phi ) );
+            this.z = camera.position.z + this.radius * Math.sin( THREE.Math.degToRad( this.theta ) )
+                                                     * Math.sin( THREE.Math.degToRad( this.phi ) );
+            if ( this.enabled ) {
+                this.mesh.position.x = this.x;
+                this.mesh.position.y = this.y;
+                this.mesh.position.z = this.z;
 
-            // this.x = camera.position.x - this.radius * Math.sin( this.phi );
-            // this.y = camera.position.y - this.radius * Math.sin( this.theta );
-            // this.z = camera.position.z + this.radius * (Math.cos( this.phi ) + Math.cos( this.theta ) -1);
-            this.x = camera.position.x + this.radius * Math.cos( this.theta ) * Math.sin( this.phi );
-            this.y = camera.position.y + this.radius * Math.sin( this.theta ) * Math.sin( this.phi );
-            // this.z = camera.position.z - this.radius * Math.cos( this.phi );
-
-            this.mesh.position.x = this.x;
-            this.mesh.position.y = this.y;
-            this.mesh.position.z = this.z;
-
-            console.log(camera.position.x+" "+camera.position.y+" "+camera.position.z);
-            console.log(this.x+" "+this.y+" "+this.z);
-            console.log(this.phi+" "+this.theta);
-
-            // console.log( this.x + " : " + this.y + " : " + this.z );
+                this.mesh.rotation.x = this.camera.rotation.x;
+                this.mesh.rotation.y = this.camera.rotation.y;
+                this.mesh.rotation.z = this.camera.rotation.z;
+            }
 
             this.camera.lookAt( new THREE.Vector3( this.x, this.y, this.z ) );
         }

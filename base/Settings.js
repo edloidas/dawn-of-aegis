@@ -33,6 +33,11 @@ var Settings = new function () {
     this.maxView = 2000;
     this.minView = 0.1;
     this.fov = 50;
+
+    // Camera rotation (latitude)
+    this.minLook = 5;   // deg. Top is 0
+    this.maxLook = 175; // deg. Bottom is 180
+
     this.background = 0xFFFFFF;
 
     this.gameVersion = function () {

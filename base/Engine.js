@@ -25,11 +25,9 @@ var Engine = new function () {
         if (this.axis.enabled) {
             this.axis.enabled = false;
             World.scene.remove(this.axis.clear());
-            World.scene.add(Player.target.clear());
         } else {
             this.axis.enabled = true;
             World.scene.add(this.axis.create());
-            World.scene.add(Player.target.create());
         }
 
         if (this.grid.enabled) {
@@ -38,6 +36,14 @@ var Engine = new function () {
         } else {
             this.grid.enabled = true;
             World.scene.add(this.grid.create());
+        }
+
+        if (Player.target.enabled) {
+            Player.target.enabled = false;
+            World.scene.remove(Player.target.clear());
+        } else {
+            Player.target.enabled = true;
+            World.scene.add(Player.target.create());
         }
     }
 }
