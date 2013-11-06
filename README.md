@@ -1,34 +1,33 @@
-dawn-of-aegis
+Dawn of Aegis
 =============
-#### Tactical Role Playing Game ####
-
-JavaScript game. Uses WebGL.
+JavaScript 3D game. Uses WebGL.
 
 
-## Running locally ##
+## How to run locally ##
+
 #### Node.js local server ####
-1. Install Node.js;
-2. Install [Connect](http://senchalabs.github.com/connect).
+1. Install [Node.js](http://nodejs.org)
+2. Install [Connect](http://senchalabs.github.com/connect): `npm install connect`
 
-   `npm install connect`
-
-3. Run `server.js` from the repository root.
+3. Run `server.js` from the repository root
 
 #### Other solutions ####
-See [article](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally) on [Three.js](https://github.com/mrdoob/three.js) wiki.
-
-Common hierarchy and initialization:
-* `Math.js` - Additions to the standard math library.
-* `Settings.js` - [version, savegame] - Game settings, like width, height, effects, difficulty.
-* `Objects.js` - World objects, that can be created from template.
-* `Player.js` - [camera] - Player settings and camera manipulation.
-* `World.js` - [scene] - World settings, like map, size, state.
-* `Engine.js` - [renderer] - Methods to render objects.
-* `Game.js` - [bindings, init, animate] - Game initialization, bindings, main cycle.
+See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally) from the [Three.js](https://github.com/mrdoob/three.js) wiki.
 
 
-### Controls ###
-Active keys:
+## Dev Information ##
+
+#### Base content ####
+* `Math.js` - additions to the standard math library.
+* `Settings.js` - changeable game settings: window size, fov, mouse sensitivity.
+* `Objects.js` - simple world objects.
+* `Player.js` - camera and user controls.
+* `World.js` - scene and complex game objects.
+* `Engine.js` - renderer and rendering methods.
+* `Game.js` - initialization, bindings and main game cycle.
+
+#### Controls ####
+##### Active keys #####
 * ( Esc )[27] - exit pointer lock.
 * ( ~ )[192] - show/hide degug statistics.
 * ( z )[90]  - turn developer mode on/off.
@@ -39,8 +38,7 @@ Active keys:
 * ( a )[65] - move left
 * ( d )[68] - move right
 
-Inactive keys:
-
+##### Inactive keys #####
 * ( Enter )[13]
 * ( LShift )[16]
 * ( LCtrl )[17]
@@ -54,6 +52,6 @@ Inactive keys:
 * ( n )[78]
 * ( p )[80]
 
-Unacceptable keys:
+##### Unacceptable keys #####
 * ( Tab )[9] - tabulation trough all browser.
 * ( Esc )[27] - should be only used by system.
