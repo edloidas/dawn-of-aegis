@@ -3,19 +3,28 @@ Dawn of Aegis
 JavaScript 3D game. Uses WebGL.
 
 
-## How to run locally ##
+## HOWTO: Run ##
 
-#### Node.js local server ####
+Basically, this web application should run on a server. Game won't work properly due to cross-origin requests restrictions in browser's security policy.
+
+#### Step 1 : Game ####
+Clone this repository or just download the [master archive](https://github.com/edloidas/dawn-of-aegis/archive/master.zip) and unpack it in the desired folder.
+
+#### Step 2 : Textures ####
+Textures is a binary data, so they are not included into the repository and you must download them manually. Get this [data archive](https://dl.dropboxusercontent.com/u/40688668/doa/data.zip), unpack and place the textures into `base/data` directory under your game folder.
+
+#### Step 3 : Server ####
+As been said, you must run game on the server (best practice), or make changes to the browser security settings.
+
+##### Step 3A: Node.js server #####
 1. Install [Node.js](http://nodejs.org)
 2. Install [Connect](http://senchalabs.github.com/connect): `npm install connect`
+3. Run `server.js` from the repository root.
 
-3. Run `server.js` from the repository root
+##### Step 3B: Other solutions #####
+See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally).
 
-#### Other solutions ####
-See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally) from the [Three.js](https://github.com/mrdoob/three.js) wiki.
-
-
-## Dev Information ##
+## Dev information ##
 
 #### Base content ####
 * `Math.js` - additions to the standard math library.
@@ -27,31 +36,37 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 * `Game.js` - initialization, bindings and main game cycle.
 
 #### Controls ####
+
 ##### Active keys #####
-* ( Esc )[27] - exit pointer lock.
-* ( ~ )[192] - show/hide degug statistics.
-* ( z )[90]  - turn developer mode on/off.
-* ( m )[77] - toogle menu (currently virtual). disable pointer lock
-* ( x )[88] - toogle fullscreen for canvas.
-* ( w )[87] - move forward
-* ( s )[83] - move backward
-* ( a )[65] - move left
-* ( d )[68] - move right
+| Code |  #  | Description                       |
+| ---- | --- | --------------------------------- |
+|  ~   | 192 | show/hide degug statistics        |
+|  z   | 90  | turn developer mode on/off        |
+|  m   | 77  | toogle menu, disable pointer lock |
+|  x   | 88  | toogle fullscreen for canvas      |
+|  w   | 87  | move forward                      |
+|  s   | 83  | move backward                     |
+|  a   | 65  | move left                         |
+|  d   | 68  | move right                        |
 
 ##### Inactive keys #####
-* ( Enter )[13]
-* ( LShift )[16]
-* ( LCtrl )[17]
-* ( LAlt )[18]
-* ( q )[81]
-* ( e )[69]
-* ( r )[82]
-* ( f )[70]
-* ( c )[67]
-* ( i )[73]
-* ( n )[78]
-* ( p )[80]
+| Code   |  #  |
+| ------ | --- |
+| Enter  |  13 |
+| LShift |  16 |
+| LCtrl  |  17 |
+| LAlt   |  18 |
+| q      |  81 |
+| e      |  69 |
+| r      |  82 |
+| f      |  70 |
+| c      |  67 |
+| i      |  73 |
+| n      |  78 |
+| p      |  80 |
 
 ##### Unacceptable keys #####
-* ( Tab )[9] - tabulation trough all browser.
-* ( Esc )[27] - should be only used by system.
+| Code |  #  |
+| ---- | --- |
+| Tab  |   9 |
+| Esc  |  27 |

@@ -9,7 +9,6 @@ var DOA = new function () {
     var instance;
     function DOA() { if ( !instance ) { instance = this; } else { return instance; } }
 
-    this.PI_2 = Math.PI / 2;
     /*
     ---------------------------------------------------------------------------
     Actor
