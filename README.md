@@ -16,12 +16,12 @@ Textures is a binary data, so they are not included into the repository and you 
 #### Step 3 : Server ####
 As been said, you must run game on the server (best practice), or make changes to the browser security settings.
 
-##### Step 3A: Node.js server #####
+##### Step 3 A: Node.js server #####
 1. Install [Node.js](http://nodejs.org)
 2. Install [Connect](http://senchalabs.github.com/connect): `npm install connect`
 3. Run `server.js` from the repository root.
 
-##### Step 3B: Other solutions #####
+##### Step 3 B: Other solutions #####
 See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally).
 
 ## Dev information ##
@@ -50,23 +50,17 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 |  d   | 68  | move right                        |
 
 ##### Inactive keys #####
-| Code   |  #  |
-| ------ | --- |
-| Enter  |  13 |
-| LShift |  16 |
-| LCtrl  |  17 |
-| LAlt   |  18 |
-| q      |  81 |
-| e      |  69 |
-| r      |  82 |
-| f      |  70 |
-| c      |  67 |
-| i      |  73 |
-| n      |  78 |
-| p      |  80 |
+| Code   |  #  | Code   |  #  |
+| ------ | --- | ------ | --- |
+| q      |  81 | e      |  69 |
+| r      |  82 | f      |  70 |
+| c      |  67 | i      |  73 |
+| n      |  78 | p      |  80 |
+| Enter  |  13 | LShift |  16 |
+| LCtrl  |  17 | LAlt   |  18 |
 
 ##### Unacceptable keys #####
-| Code |  #  |
-| ---- | --- |
-| Tab  |   9 |
-| Esc  |  27 |
+| Code |  #  | Code |  #  |
+| ---- | --- | ---- | --- |
+| Tab  |   9 | Esc  |  27 |
+
