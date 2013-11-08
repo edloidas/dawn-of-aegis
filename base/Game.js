@@ -72,6 +72,9 @@ var Game = new function () {
 
     this.status = 0; // active game element index
 
+    var clock = new THREE.Clock();
+    this.delta = 0;
+
     //@# REMOVE
     var geometry, material, mesh;
     //## REMOVE
@@ -158,8 +161,9 @@ var Game = new function () {
     this.animate = function animate() {
         // render
         requestAnimationFrame( animate );
+        this.delta = clock.getDelta();
 
-        Player.animate();
+        Player.animate( this.delta );
 
         //@# REMOVE
         mesh.rotation.x += 0.01;

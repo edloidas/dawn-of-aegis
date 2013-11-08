@@ -93,9 +93,10 @@ var DOA = new function () {
         this.camera.position.delta = { x: 0, y: 0, z: 0 };
 
         this.enabled = false;
+        this.delta = 1; // time delta
 
         this.omega = Settings.mouseSensitivity;  // radial speed
-        this.velocity = 10; // movement speed
+        this.velocity = 300; // movement speed
         this.radius = 200;
         this.theta = -90;
         this.phi = 90;
@@ -167,26 +168,26 @@ var DOA = new function () {
         }
 
         this.moveLeft = function () {
-            camera.position.delta.x = - this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
-            camera.position.delta.z = - this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
+            camera.position.delta.x = -this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
+            camera.position.delta.z = -this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
 
             this.updatePlane();
         }
 
         this.moveRight = function () {
-            camera.position.delta.x = -this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) - Math.PI_2);
-            camera.position.delta.z = -this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) - Math.PI_2);
+            camera.position.delta.x = -this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) - Math.PI_2);
+            camera.position.delta.z = -this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) - Math.PI_2);
 
             this.updatePlane();
         }
 
 
-        this.calcDelta = function ( minus ) {
-            camera.position.delta.x = this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) )
-                                                    * Math.sin( THREE.Math.degToRad( this.phi ) );
-            camera.position.delta.y = this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
-            camera.position.delta.z = this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
-                                                    * Math.sin( THREE.Math.degToRad( this.phi ) );
+        this.calcDelta = function () {
+            camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) )
+                                                                 * Math.sin( THREE.Math.degToRad( this.phi ) );
+            camera.position.delta.y = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
+            camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
+                                                                 * Math.sin( THREE.Math.degToRad( this.phi ) );
         }
 
         this.updateMesh = function () {

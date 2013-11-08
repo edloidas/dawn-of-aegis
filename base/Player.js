@@ -119,7 +119,9 @@ var Player = new function () {
         }
     }
 
-    this.animate = function () {
+    this.animate = function ( delta ) {
+        this.target.delta = delta;
+
         if (this.moveForward) {
             this.target.moveForward();
         }

@@ -15,10 +15,10 @@ var UI = new function () {
     this.scene = new THREE.Scene();
 
     this.updateSize = function() {
-        UI.camera.left   = Settings.width  / - 2;
-        UI.camera.right  = Settings.width  /   2;
-        UI.camera.top    = Settings.height /   2;
-        UI.camera.bottom = Settings.height / - 2;
-        UI.camera.updateProjectionMatrix();
+        this.camera.left   = Settings.width  / - 2;
+        this.camera.right  = Settings.width  /   2;
+        this.camera.top    = Settings.height /   2;
+        this.camera.bottom = Settings.height / - 2;
+        this.camera.updateProjectionMatrix();
     }
 }
