@@ -31,6 +31,7 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 * `Settings.js` - changeable game settings: window size, fov, mouse sensitivity.
 * `Objects.js` - simple world objects.
 * `Player.js` - camera and user controls.
+* `UI.js` - user interface.
 * `World.js` - scene and complex game objects.
 * `Engine.js` - renderer and rendering methods.
 * `Game.js` - initialization, bindings and main game cycle.
@@ -63,4 +64,3 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 | Code |  #  | Code |  #  |
 | ---- | --- | ---- | --- |
 | Tab  |   9 | Esc  |  27 |
-

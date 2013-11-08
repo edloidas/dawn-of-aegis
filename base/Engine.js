@@ -9,7 +9,7 @@ var Engine = new function () {
     var instance;
     function Engine() { if ( !instance ) { instance = this; } else { return instance; } }
 
-    this.renderer = new THREE.WebGLRenderer( { alpha: false } );
+    this.renderer = new THREE.WebGLRenderer( { antialias: true, alpha: false } );
 
     this.axis = new DOA.Axis();
     this.grid = new DOA.Grid();
@@ -38,12 +38,12 @@ var Engine = new function () {
             World.scene.add(this.grid.create());
         }
 
-        if (Player.target.enabled) {
-            Player.target.enabled = false;
-            World.scene.remove(Player.target.clear());
-        } else {
-            Player.target.enabled = true;
-            World.scene.add(Player.target.create());
-        }
+        // if (Player.target.enabled) {
+        //     Player.target.enabled = false;
+        //     World.scene.remove(Player.target.clear());
+        // } else {
+        //     Player.target.enabled = true;
+        //     World.scene.add(Player.target.create());
+        // }
     }
 }

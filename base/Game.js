@@ -87,6 +87,7 @@ var Game = new function () {
         Settings.scaleWindow();
         Player.camera.aspect = Settings.aspect();
         Player.camera.updateProjectionMatrix();
+        UI.updateSize();
 
         //@# REMOVE
         Player.camera.position.z = Settings.maxView / 4;
@@ -103,6 +104,8 @@ var Game = new function () {
         Engine.renderer.setClearColor( Settings.background );
         Engine.renderer.domElement.id = 'scene';
         Engine.renderer.domElement.style.display = 'none';
+        // Manual clean for the multiple camera rendering.
+        Engine.renderer.autoClear = false;
 
         document.body.appendChild( Engine.renderer.domElement );
 
@@ -163,7 +166,12 @@ var Game = new function () {
         mesh.rotation.y += 0.02;
         //## REMOVE
 
+        // Clean previous buffer
+        Engine.renderer.clear();
+        // Render world (Layer 1)
         Engine.renderer.render( World.scene, Player.camera );
+        // Render User Interface (Layer 2)
+        Engine.renderer.render( UI.scene, UI.camera );
     }
 
     /*
@@ -247,6 +255,7 @@ function onWindowResize() {
         Settings.scaleWindow();
         Player.camera.aspect = Settings.aspect();
         Player.camera.updateProjectionMatrix();
+        UI.updateSize();
         Engine.renderer.setSize( Settings.width, Settings.height );
     }
 }
