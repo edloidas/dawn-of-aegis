@@ -1,7 +1,7 @@
 /*
 ===============================================================================
 
-    Class defines additional methods and variables to the standard math library.
+    Class defines additional methods and variables.
 
 ===============================================================================
 */
