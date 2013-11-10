@@ -27,7 +27,7 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 ## Dev information ##
 
 #### Base content ####
-* `Math.js` - additions to the standard math library.
+* `Utils.js` - additions to the standard math library.
 * `Settings.js` - changeable game settings: window size, fov, mouse sensitivity.
 * `Objects.js` - simple world objects.
 * `Player.js` - camera and user controls.
