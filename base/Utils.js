@@ -1,7 +1,8 @@
 /*
 ===============================================================================
 
-    Class defines additional methods and variables.
+    Element defines additional game variables and methods to perform
+    mathematical calculations, simplify inheritance and work with HTML5.
 
 ===============================================================================
 */
