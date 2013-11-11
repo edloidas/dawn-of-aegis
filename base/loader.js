@@ -1,9 +1,11 @@
-/**
- * DAWN OF AEGIS
- * Game loader, using Modernizr.js load() via yepnope.js
- * Load files and initializes the game.
- * @author edloidas
- */
+/*
+===============================================================================
+
+    Element, that perform game preload and initialization.
+    Uses Modernizr library ( load() module from YepNope library ).
+
+===============================================================================
+*/
 
 // Essential game files
 var files = [
@@ -16,8 +18,9 @@ var files = [
     "base/Engine.js",
     "base/Game.js"];
 
-// Non-essential game files, that can be loaded with a delay.
-var data = []; //#@ ["preload!base/data/textures/button.gif"]; @#
+// Non-essential game files.
+// #@ use preload "preload!base/data/textures/img.gif" @#
+var data = [];
 
 
 /*
@@ -28,7 +31,8 @@ OnReadyStateChanage
 */
 document.onreadystatechange = function () {
     if ( document.readyState === 'complete' ) {
-        var n = 0;
+        var i = 0;
+        // regex converts full path to file name.
         var filePath = /.*\//gi;
 
         var progress = document.getElementById('loading-tip'),
@@ -39,7 +43,7 @@ document.onreadystatechange = function () {
                 load : files,
                 callback : function ( file ) {
                     progress.textContent = "Loading... " +
-                                           "[" + (++n) + "/" + files.length + "] " +
+                                           "[" + (++i) + "/" + files.length + "] " +
                                            file.replace(filePath, '');
                 },
                 complete : function () {
