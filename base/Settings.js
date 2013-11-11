@@ -50,8 +50,8 @@ var Settings = new function () {
     }
 
     this.scaleWindow = function () {
-        this.width = (window.innerWidth < 800) ? 800 : window.innerWidth;
-        this.height = (window.innerHeight < 600) ? 600 : window.innerHeight;
+        this.width =  ( window.innerWidth < 800 )  ? 800 : window.innerWidth;
+        this.height = ( window.innerHeight < 600 ) ? 600 : window.innerHeight;
     }
 
     this.quickSave = function () {
@@ -61,11 +61,11 @@ var Settings = new function () {
     }
 
     this.quickLoad = function () {
-        if (localStorage.doa_quicksave === undefined) {
+        if ( localStorage.doa_quicksave === undefined ) {
             return;
         }
 
-        var quicksave = JSON.parse(localStorage.doa_quicksave);
+        var quicksave = JSON.parse( localStorage.doa_quicksave );
         Settings.width = quicksave.width;
         Settings.height = quicksave.height;
     }

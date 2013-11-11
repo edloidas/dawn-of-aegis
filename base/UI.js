@@ -14,7 +14,7 @@ var UI = new function () {
                                                 Settings.minView, Settings.maxView );
     this.scene = new THREE.Scene();
 
-    this.updateSize = function() {
+    this.updateSize = function () {
         this.camera.left   = Settings.width  / - 2;
         this.camera.right  = Settings.width  /   2;
         this.camera.top    = Settings.height /   2;

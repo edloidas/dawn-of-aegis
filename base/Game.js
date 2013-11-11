@@ -20,7 +20,7 @@ var Game = new function () {
 
         console.group( "Verification" );
 
-        if ( typeof Storage === "undefined" ) {
+        if ( typeof Storage === 'undefined' ) {
             console.info( "Storage support :     NO" );
             isSupported = false;
         } else {
@@ -388,7 +388,7 @@ function fullscreenChange() {
 ===============================================================================
 */
 document.onreadystatechange = function () {
-if ( document.readyState === "complete" ) {
+if ( document.readyState === 'complete' ) {
         var elemPreload = document.getElementById( 'preload' );
 
         function hidePreload() {

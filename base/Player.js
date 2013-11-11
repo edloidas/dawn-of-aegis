@@ -122,16 +122,16 @@ var Player = new function () {
     this.animate = function ( delta ) {
         this.target.delta = delta;
 
-        if (this.moveForward) {
+        if ( this.moveForward ) {
             this.target.moveForward();
         }
-        if (this.moveBackward) {
+        if ( this.moveBackward ) {
             this.target.moveBackward();
         }
-        if (this.moveLeft) {
+        if ( this.moveLeft ) {
             this.target.moveLeft();
         }
-        if (this.moveRight) {
+        if ( this.moveRight ) {
             this.target.moveRight();
         }
     }
