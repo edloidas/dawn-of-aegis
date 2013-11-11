@@ -10,10 +10,10 @@ var Game = new function () {
     function Game() { if ( !instance ) { instance = this; } else { return instance; } }
 
     /*
-    ---------------------------------------------------------------------------
+    ================
     Verification
         Checks compatibility and prevent further execution.
-    ---------------------------------------------------------------------------
+    ================
     */
     this.verify = function () {
         var isSupported = true;
@@ -80,10 +80,10 @@ var Game = new function () {
     //## REMOVE
 
     /*
-    ---------------------------------------------------------------------------
+    ================
     Initialization
-        Initialize Game
-    ---------------------------------------------------------------------------
+        Initializes Game
+    ================
     */
     this.init = function () {
         this.verify();
@@ -116,10 +116,10 @@ var Game = new function () {
     }
 
     /*
-    ---------------------------------------------------------------------------
+    ================
     Binding
         Bind main game events for button and mouse.
-    ---------------------------------------------------------------------------
+    ================
     */
     this.bind = function () {
         // KEYBOARD
@@ -153,10 +153,10 @@ var Game = new function () {
     }
 
     /*
-    ---------------------------------------------------------------------------
+    ================
     Animate
         The main rendering process.
-    ---------------------------------------------------------------------------
+    ================
     */
     this.animate = function animate() {
         // render
@@ -247,11 +247,11 @@ var Game = new function () {
 */
 
 /*
--------------------------------------------------------------------------------
+================
 onWindowResize
     Function changes 'holder' element size with minimum of 800x600. It also
     normalizes camera aspect ratio to fit new resolution.
--------------------------------------------------------------------------------
+================
 */
 function onWindowResize() {
     // Condition will prevent double call
@@ -376,51 +376,5 @@ function fullscreenChange() {
          document.mozFullScreenElement === Game.canvas ||
          document.webkitFullscreenElement === Game.canvas ) {
         Game.canvas.requestPointerLock();
-    }
-}
-
-/*
-===============================================================================
-
-    Entry point
-        Triggered after the page is loaded.
-
-===============================================================================
-*/
-document.onreadystatechange = function () {
-if ( document.readyState === 'complete' ) {
-        var elemPreload = document.getElementById( 'preload' );
-
-        function hidePreload() {
-            document.onkeydown = null;
-            elemPreload.onclick = null;
-            elemPreload.remove();
-            Engine.renderer.domElement.style.display = 'block';
-
-            Game.bind();
-            Game.animate();
-
-            Game.isRunnig = true;
-            Game.status = 0;
-
-            Game.canvas = Engine.renderer.domElement;
-            Game.canvas.requestPointerLock = Game.canvas.requestPointerLock    ||
-                                             Game.canvas.mozRequestPointerLock ||
-                                             Game.canvas.webkitRequestPointerLock;
-            document.exitPointerLock = document.exitPointerLock    ||
-                                       document.mozExitPointerLock ||
-                                       document.webkitExitPointerLock;
-            Game.canvas.requestFullscreen = Game.canvas.requestFullscreen    ||
-                                            Game.canvas.mozRequestFullscreen ||
-                                            Game.canvas.mozRequestFullScreen || // Older API upper case 'S'.
-                                            Game.canvas.webkitRequestFullscreen;
-        }
-        document.onkeydown = hidePreload;
-        elemPreload.onclick = hidePreload;
-        document.getElementById( 'loading-tip' ).textContent = "Press any key to continue";
-
-        Game.init();
-
-        hidePreload();
     }
 }

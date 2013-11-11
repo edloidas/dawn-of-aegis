@@ -27,6 +27,7 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 ## Dev information ##
 
 #### Base content ####
+* `loader.js` - resource load and game initialization.
 * `Utils.js` - additions to the standard math library.
 * `Settings.js` - changeable game settings: window size, fov, mouse sensitivity.
 * `Objects.js` - simple world objects.
@@ -35,6 +36,9 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 * `World.js` - scene and complex game objects.
 * `Engine.js` - renderer and rendering methods.
 * `Game.js` - initialization, bindings and main game cycle.
+
+#### Code ####
+* Section, that matches `#@.*@#` regex serves as an example and will be removed in future.
 
 #### Controls ####
 
