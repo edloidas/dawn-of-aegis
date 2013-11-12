@@ -2,17 +2,11 @@
 ===============================================================================
 
     Element defines out-of-game settings, that will be used to configure
-    render engine ang game itself.
+    render engine and game itself.
 
 ===============================================================================
 */
-
-/*
-================
-Settings
-    Constructor
-================
-*/
+// constructor
 function Settings() {
     if ( !(this instanceof Settings) ) return new Settings();
 
@@ -144,7 +138,7 @@ Settings.prototype.quickLoad = function () {
 
 /*
 ---------------------------------------------------------------------------
-DOA properties
+DOA
 ---------------------------------------------------------------------------
 */
 DOA.Settings = new Settings();
