@@ -87,15 +87,15 @@ var Game = new function () {
     */
     this.init = function () {
         this.verify();
-        Settings.scaleWindow();
-        Player.camera.aspect = Settings.aspect();
+        DOA.Settings.scaleWindow();
+        Player.camera.aspect = DOA.Settings.aspect();
         Player.camera.updateProjectionMatrix();
         UI.updateSize();
 
         //@# REMOVE
-        Player.camera.position.z = Settings.maxView / 4;
-        Player.camera.position.y = Settings.maxView / 4;
-        Player.camera.position.x = Settings.maxView / 4;
+        Player.camera.position.z = DOA.Settings.maxView / 4;
+        Player.camera.position.y = DOA.Settings.maxView / 4;
+        Player.camera.position.x = DOA.Settings.maxView / 4;
         Player.camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
         geometry = new THREE.CubeGeometry( 200, 200, 200 );
         material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
@@ -103,8 +103,8 @@ var Game = new function () {
         World.scene.add( mesh );
         //## REMOVE
 
-        Engine.renderer.setSize( Settings.width, Settings.height );
-        Engine.renderer.setClearColor( Settings.background );
+        Engine.renderer.setSize( DOA.Settings.width, DOA.Settings.height );
+        Engine.renderer.setClearColor( DOA.Settings.background );
         Engine.renderer.domElement.id = 'scene';
         Engine.renderer.domElement.style.display = 'none';
         // Manual clean for the multiple camera rendering.
@@ -200,7 +200,7 @@ var Game = new function () {
                 st.begin();
                 // do eval
                 st.end();
-            }, 1000 / Settings.fps ); // 1000 == 1s
+            }, 1000 / DOA.Settings.fps ); // 1000 == 1s
         } else if ( document.getElementById( 'stats' ) === null ) {
             document.body.appendChild( this.stats.domElement );
         } else {
@@ -255,12 +255,12 @@ onWindowResize
 */
 function onWindowResize() {
     // Condition will prevent double call
-    if ( window.innerWidth !== Settings.width || window.innerHeight !== Settings.height ) {
-        Settings.scaleWindow();
-        Player.camera.aspect = Settings.aspect();
+    if ( window.innerWidth !== DOA.Settings.width || window.innerHeight !== DOA.Settings.height ) {
+        DOA.Settings.scaleWindow();
+        Player.camera.aspect = DOA.Settings.aspect();
         Player.camera.updateProjectionMatrix();
         UI.updateSize();
-        Engine.renderer.setSize( Settings.width, Settings.height );
+        Engine.renderer.setSize( DOA.Settings.width, DOA.Settings.height );
     }
 }
 

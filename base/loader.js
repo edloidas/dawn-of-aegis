@@ -7,6 +7,8 @@
 ===============================================================================
 */
 
+var DOA = new Object();
+
 // Essential game files
 var files = [
     "base/Utils.js",

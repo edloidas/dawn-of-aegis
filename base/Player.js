@@ -19,8 +19,11 @@ var Player = new function () {
     this.moveLeft     = false;
     this.moveRight    = false;
 
-    this.camera = new THREE.PerspectiveCamera( Settings.fov, Settings.aspect(), Settings.minView, Settings.maxView );
-    this.target = new DOA.Target( this.camera );
+    this.camera = new THREE.PerspectiveCamera( DOA.Settings.fov,
+                                               DOA.Settings.aspect(),
+                                               DOA.Settings.minView,
+                                               DOA.Settings.maxView );
+    this.target = new Doa.Target( this.camera );
 
     /*
     ---------------------------------------------------------------------------

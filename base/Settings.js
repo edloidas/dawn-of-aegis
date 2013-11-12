@@ -1,72 +1,152 @@
 /*
 ===============================================================================
 
-    Class defines out-of-game settings, that will be used to configure window,
-    load resources, check browser compatibility.
+    Element defines out-of-game settings, that will be used to configure
+    render engine ang game itself.
 
 ===============================================================================
 */
-var Settings = new function () {
-    var instance;
 
-    // constructor
-    function Settings() {
+/*
+================
+Settings
+    Constructor
+================
+*/
+function Settings() {
+    if ( !(this instanceof Settings) ) return new Settings();
 
-        if ( !instance ) {
-            instance = this;
-        } else {
-            return instance;
-        }
-    }
+    this.version = {
+        major: 0,
+        minor: 1
+    };
 
-    this.name = "Dawn of Aegis";
-
-    var majorVersion = 0;
-    var minorVersion = 1;
-
-    // Window settings
+    /*
+    ---------------------------------------------------------------------------
+    Common settings
+    ---------------------------------------------------------------------------
+    */
     this.width  = 800;
-    this.height = 600;
+    this.height = 450;
+
     this.fps = 60;
 
-    // Camera settings
+    this.background = 0xFFFFFF; // renderer background
+
+    /*
+    ---------------------------------------------------------------------------
+    Graphics
+    ---------------------------------------------------------------------------
+    */
     this.maxView = 2000;
     this.minView = 0.1;
-    this.fov = 90;
+    this.fov     = 90;
 
-    // Controls settings
-    this.minLook = 5;   // deg. Top is 0
-    this.maxLook = 175; // deg. Bottom is 180
-    this.mouseSensitivity = 0.2; // 0.05 - slow, 0.5 - fast
+    /*
+    ---------------------------------------------------------------------------
+    Player
+    ---------------------------------------------------------------------------
+    */
+    this.minLook = 5,   // deg. Top is 0
+    this.maxLook = 175, // deg. Bottom is 180
 
-    this.background = 0xFFFFFF;
+    this.mouseSensitivity = 0.2 // 0.05 - slow, 0.5 - fast
 
-    this.gameVersion = function () {
-        return majorVersion + '/' + minorVersion;
+    /*
+    ---------------------------------------------------------------------------
+    Controls
+    ---------------------------------------------------------------------------
+    */
+    this.controls = {
+        // movement
+        forward     : 87, // w
+        backward    : 87, // s
+        strafeleft  : 87, // a
+        straferight : 87, // d
+
+        // actions
+        use         : 69, // e
+        skill       : 81, // q
+        skillalt    : 90, // f
+        reload      : 82, // r
+        crouch      : 67, // c
+        inventory   : 73, // c
+        objective   : 79, // o
+        map         : 77, // c
+
+        menu        : 72, // h
+        // debug
+        devmode     : 90, // z
+        debug       : 192 // ~
     }
 
-    this.aspect = function () {
-        return this.width / this.height;
-    }
-
-    this.scaleWindow = function () {
-        this.width =  ( window.innerWidth < 800 )  ? 800 : window.innerWidth;
-        this.height = ( window.innerHeight < 600 ) ? 600 : window.innerHeight;
-    }
-
-    this.quickSave = function () {
-        localStorage.doa_quicksave = '{"version":' + majorVersion + '.' + minorVersion + ',' +
-                                     ' "width":' + this.width + ',' +
-                                     ' "height":' + this.height +'}';
-    }
-
-    this.quickLoad = function () {
-        if ( localStorage.doa_quicksave === undefined ) {
-            return;
-        }
-
-        var quicksave = JSON.parse( localStorage.doa_quicksave );
-        Settings.width = quicksave.width;
-        Settings.height = quicksave.height;
-    }
 }
+
+/*
+================
+gameVersion
+    Returns full game version
+================
+*/
+Settings.prototype.gameVersion = function () {
+    return this.version.major + '.' + this.version.minor;
+}
+
+/*
+================
+aspect
+    Returns aspect ration (like 1.(7) for 16:9)
+================
+*/
+Settings.prototype.aspect = function () {
+    return this.width / this.height;
+}
+
+/*
+================
+scaleWindow
+    Sets valid width and height of the window
+================
+*/
+Settings.prototype.scaleWindow = function () {
+    this.width =  ( window.innerWidth  < 800 ) ? 800 : window.innerWidth;
+    this.height = ( window.innerHeight < 450 ) ? 450 : window.innerHeight;
+}
+
+/*
+================
+quickSave
+    Saves data to local storage
+================
+*/
+Settings.prototype.quickSave = function () {
+    localStorage.doa_quicksave = '{"version":' + this.version.major + '.'
+                                               + this.version.minor + ',' +
+                                 ' "width":'   + this.width + ',' +
+                                 ' "height":'  + this.height +'}';
+}
+
+/*
+================
+quickLoad
+    Loads data from local storage
+================
+*/
+Settings.prototype.quickLoad = function () {
+    if ( localStorage.doa_quicksave === undefined ) {
+        return;
+    }
+
+    var quicksave = JSON.parse( localStorage.doa_quicksave );
+    Settings.width = quicksave.width;
+    Settings.height = quicksave.height;
+}
+
+/*
+---------------------------------------------------------------------------
+DOA properties
+---------------------------------------------------------------------------
+*/
+DOA.Settings = new Settings();
+// Shortcut for the controls for less code.
+DOA.Controls = DOA.Settings.controls;

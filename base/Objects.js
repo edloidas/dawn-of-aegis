@@ -5,9 +5,9 @@
 
 ===============================================================================
 */
-var DOA = new function () {
+var Doa = new function () {
     var instance;
-    function DOA() { if ( !instance ) { instance = this; } else { return instance; } }
+    function Doa() { if ( !instance ) { instance = this; } else { return instance; } }
 
     /*
     ---------------------------------------------------------------------------
@@ -52,7 +52,7 @@ var DOA = new function () {
     function Axis() {
         this.enabled = false;
 
-        this.mesh = new THREE.AxisHelper( Settings.maxView );
+        this.mesh = new THREE.AxisHelper( DOA.Settings.maxView );
 
         this.create = function () {
             this.mesh.position.set( this.x, this.y, this.z );
@@ -72,7 +72,7 @@ var DOA = new function () {
         step = step || 50;
         this.enabled = false;
 
-        this.mesh = new THREE.GridHelper( Settings.maxView, step );
+        this.mesh = new THREE.GridHelper( DOA.Settings.maxView, step );
 
         this.create = function () {
             this.mesh.position.set( this.x, this.y, this.z );
@@ -95,7 +95,7 @@ var DOA = new function () {
         this.enabled = false;
         this.delta = 1; // time delta
 
-        this.omega = Settings.mouseSensitivity;  // radial speed
+        this.omega = DOA.Settings.mouseSensitivity;  // radial speed
         this.velocity = 300; // movement speed
         this.radius = 200;
         this.theta = -90;
@@ -121,7 +121,7 @@ var DOA = new function () {
             this.theta += wx * this.omega;
             this.theta %= 360;
             this.phi += wy * this.omega;
-            this.phi = Math.max( Settings.minLook, Math.min( Settings.maxLook, this.phi ) );
+            this.phi = Math.max( DOA.Settings.minLook, Math.min( DOA.Settings.maxLook, this.phi ) );
 
             this.x = camera.position.x + this.radius * Math.cos( THREE.Math.degToRad( this.theta ) )
                                                      * Math.sin( THREE.Math.degToRad( this.phi ) );

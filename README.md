@@ -60,7 +60,7 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 | q      |  81 | e      |  69 |
 | r      |  82 | f      |  70 |
 | c      |  67 | i      |  73 |
-| n      |  78 | p      |  80 |
+| h      |  72 | p      |  80 |
 | Enter  |  13 | LShift |  16 |
 | LCtrl  |  17 | LAlt   |  18 |
 
