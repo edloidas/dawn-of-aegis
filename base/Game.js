@@ -100,7 +100,7 @@ var Game = new function () {
         geometry = new THREE.CubeGeometry( 200, 200, 200 );
         material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
         mesh = new THREE.Mesh( geometry, material );
-        World.scene.add( mesh );
+        DOA.World.scene.add( mesh );
         //## REMOVE
 
         Engine.renderer.setSize( DOA.Settings.width, DOA.Settings.height );
@@ -173,7 +173,7 @@ var Game = new function () {
         // Clean previous buffer
         Engine.renderer.clear();
         // Render world (Layer 1)
-        Engine.renderer.render( World.scene, DOA.Player.camera );
+        Engine.renderer.render( DOA.World.scene, DOA.Player.camera );
         // Render User Interface (Layer 2)
         Engine.renderer.render( DOA.UI.scene, DOA.UI.camera );
     }

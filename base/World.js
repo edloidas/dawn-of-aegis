@@ -1,13 +1,20 @@
 /*
 ===============================================================================
 
-    Class defines world.
+    Class defines world scene.
 
 ===============================================================================
 */
-var World = new function (object) {
-    var instance;
-    function World() { if ( !instance ) { instance = this; } else { return instance; } }
+function World() {
+    if ( !(this instanceof World) ) return new World();
 
     this.scene = new THREE.Scene();
 }
+
+/*
+---------------------------------------------------------------------------
+DOA
+---------------------------------------------------------------------------
+*/
+DOA.World = new World();
+

@@ -24,26 +24,26 @@ var Engine = new function () {
     this.toogleDevMode = function () {
         if ( this.axis.enabled ) {
             this.axis.enabled = false;
-            World.scene.remove( this.axis.clear() );
+            DOA.World.scene.remove( this.axis.clear() );
         } else {
             this.axis.enabled = true;
-            World.scene.add( this.axis.create() );
+            DOA.World.scene.add( this.axis.create() );
         }
 
         if ( this.grid.enabled ) {
             this.grid.enabled = false;
-            World.scene.remove( this.grid.clear() );
+            DOA.World.scene.remove( this.grid.clear() );
         } else {
             this.grid.enabled = true;
-            World.scene.add( this.grid.create() );
+            DOA.World.scene.add( this.grid.create() );
         }
 
         // if ( Player.target.enabled ) {
         //     Player.target.enabled = false;
-        //     World.scene.remove( Player.target.clear() );
+        //     DOA.World.scene.remove( Player.target.clear() );
         // } else {
         //     Player.target.enabled = true;
-        //     World.scene.add( Player.target.create() );
+        //     DOA.World.scene.add( Player.target.create() );
         // }
     }
 }
