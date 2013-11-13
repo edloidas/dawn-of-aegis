@@ -59,7 +59,7 @@ document.onreadystatechange = function () {
                         document.onkeydown = null;
                         preload.onclick = null;
                         preload.remove();
-                        Engine.renderer.domElement.style.display = 'block';
+                        DOA.Engine.renderer.domElement.style.display = 'block';
 
                         Game.bind();
                         Game.animate();
@@ -67,7 +67,7 @@ document.onreadystatechange = function () {
                         Game.isRunnig = true;
                         Game.status = 0;
 
-                        Game.canvas = Engine.renderer.domElement;
+                        Game.canvas = DOA.Engine.renderer.domElement;
                         Game.canvas.requestPointerLock = Game.canvas.requestPointerLock    ||
                                                          Game.canvas.mozRequestPointerLock ||
                                                          Game.canvas.webkitRequestPointerLock;

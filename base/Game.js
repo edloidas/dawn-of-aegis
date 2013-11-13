@@ -103,14 +103,14 @@ var Game = new function () {
         DOA.World.scene.add( mesh );
         //## REMOVE
 
-        Engine.renderer.setSize( DOA.Settings.width, DOA.Settings.height );
-        Engine.renderer.setClearColor( DOA.Settings.background );
-        Engine.renderer.domElement.id = 'scene';
-        Engine.renderer.domElement.style.display = 'none';
+        DOA.Engine.renderer.setSize( DOA.Settings.width, DOA.Settings.height );
+        DOA.Engine.renderer.setClearColor( DOA.Settings.background );
+        DOA.Engine.renderer.domElement.id = 'scene';
+        DOA.Engine.renderer.domElement.style.display = 'none';
         // Manual clean for the multiple camera rendering.
-        Engine.renderer.autoClear = false;
+        DOA.Engine.renderer.autoClear = false;
 
-        document.body.appendChild( Engine.renderer.domElement );
+        document.body.appendChild( DOA.Engine.renderer.domElement );
 
         window.addEventListener( 'resize', onWindowResize, false );
     }
@@ -171,11 +171,11 @@ var Game = new function () {
         //## REMOVE
 
         // Clean previous buffer
-        Engine.renderer.clear();
+        DOA.Engine.renderer.clear();
         // Render world (Layer 1)
-        Engine.renderer.render( DOA.World.scene, DOA.Player.camera );
+        DOA.Engine.renderer.render( DOA.World.scene, DOA.Player.camera );
         // Render User Interface (Layer 2)
-        Engine.renderer.render( DOA.UI.scene, DOA.UI.camera );
+        DOA.Engine.renderer.render( DOA.UI.scene, DOA.UI.camera );
     }
 
     /*
@@ -260,7 +260,7 @@ function onWindowResize() {
         DOA.Player.camera.aspect = DOA.Settings.aspect();
         DOA.Player.camera.updateProjectionMatrix();
         DOA.UI.updateSize();
-        Engine.renderer.setSize( DOA.Settings.width, DOA.Settings.height );
+        DOA.Engine.renderer.setSize( DOA.Settings.width, DOA.Settings.height );
     }
 }
 
@@ -282,7 +282,7 @@ function onKeyDown( event ) {
             Game.toogleFullscreen();
             break;
         case 90: // z
-            Engine.toogleDevMode();
+            DOA.Engine.toogleDevMode();
             break;
         case 192: // ~
             Game.toogleStats();
