@@ -120,11 +120,12 @@ Game.prototype.animate = function () {
 }
 
 /*
----------------------------------------------------------------------------
-Other methods
----------------------------------------------------------------------------
+================
+toggleStats
+    Shows / hides stats DOM element.
+================
 */
-Game.prototype.toogleStats = function () {
+Game.prototype.toggleStats = function () {
     if ( this.stats === null ) {
         this.stats = new Stats();
         this.stats.setMode( 0 ); // 0: fps, 1: ms
@@ -149,7 +150,13 @@ Game.prototype.toogleStats = function () {
     }
 }
 
-Game.prototype.toogleMenu = function () {
+/*
+================
+toggleMenu
+    Shows / hide game menu and toggles pointer lock.
+================
+*/
+Game.prototype.toggleMenu = function () {
     if ( this.status === 1 ) {
         this.canvas.requestPointerLock();
         this.status = 0;
@@ -159,7 +166,13 @@ Game.prototype.toogleMenu = function () {
     }
 }
 
-Game.prototype.toogleFullscreen = function () {
+/*
+================
+toggleFullscreen
+    Toggle fullscreen mode and manages pointer lock.
+================
+*/
+Game.prototype.toggleFullscreen = function () {
     if ( document.mozFullscreenElement === this.canvas ||
          document.mozFullScreenElement === this.canvas ||
          document.webkitFullscreenElement === this.canvas ) {
@@ -179,11 +192,9 @@ Game.prototype.toogleFullscreen = function () {
 
 
 /*
-===============================================================================
-
+-------------------------------------------------------------------------------
     Game events
-
-===============================================================================
+-------------------------------------------------------------------------------
 */
 
 /*
@@ -216,16 +227,16 @@ function onKeyDown( event ) {
         case 0: // alredy handled
             break;
         case 77: // m
-            DOA.Game.toogleMenu();
+            DOA.Game.toggleMenu();
             break;
         case 88: // x
-            DOA.Game.toogleFullscreen();
+            DOA.Game.toggleFullscreen();
             break;
         case 90: // z
-            DOA.Engine.toogleDevMode();
+            DOA.Engine.toggleDevMode();
             break;
         case 192: // ~
-            DOA.Game.toogleStats();
+            DOA.Game.toggleStats();
             break;
     }
 }
