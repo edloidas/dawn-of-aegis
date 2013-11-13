@@ -52,11 +52,16 @@ function Settings() {
     ---------------------------------------------------------------------------
     */
     this.controls = {
+        // mouse
+        lmb : 0, // left mouse button
+        mmb : 1, // middle mouse button
+        rmb : 2, // right mouse button
+
         // movement
         forward     : 87, // w
-        backward    : 87, // s
-        strafeleft  : 87, // a
-        straferight : 87, // d
+        backward    : 83, // s
+        strafeleft  : 65, // a
+        straferight : 68, // d
 
         // actions
         use         : 69, // e

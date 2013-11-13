@@ -88,15 +88,15 @@ var Game = new function () {
     this.init = function () {
         this.verify();
         DOA.Settings.scaleWindow();
-        Player.camera.aspect = DOA.Settings.aspect();
-        Player.camera.updateProjectionMatrix();
+        DOA.Player.camera.aspect = DOA.Settings.aspect();
+        DOA.Player.camera.updateProjectionMatrix();
         UI.updateSize();
 
         //@# REMOVE
-        Player.camera.position.z = DOA.Settings.maxView / 4;
-        Player.camera.position.y = DOA.Settings.maxView / 4;
-        Player.camera.position.x = DOA.Settings.maxView / 4;
-        Player.camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
+        DOA.Player.camera.position.z = DOA.Settings.maxView / 4;
+        DOA.Player.camera.position.y = DOA.Settings.maxView / 4;
+        DOA.Player.camera.position.x = DOA.Settings.maxView / 4;
+        DOA.Player.camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
         geometry = new THREE.CubeGeometry( 200, 200, 200 );
         material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
         mesh = new THREE.Mesh( geometry, material );
@@ -163,7 +163,7 @@ var Game = new function () {
         requestAnimationFrame( animate );
         this.delta = clock.getDelta();
 
-        Player.animate( this.delta );
+        DOA.Player.animate( this.delta );
 
         //@# REMOVE
         mesh.rotation.x += 0.01;
@@ -173,7 +173,7 @@ var Game = new function () {
         // Clean previous buffer
         Engine.renderer.clear();
         // Render world (Layer 1)
-        Engine.renderer.render( World.scene, Player.camera );
+        Engine.renderer.render( World.scene, DOA.Player.camera );
         // Render User Interface (Layer 2)
         Engine.renderer.render( UI.scene, UI.camera );
     }
@@ -257,8 +257,8 @@ function onWindowResize() {
     // Condition will prevent double call
     if ( window.innerWidth !== DOA.Settings.width || window.innerHeight !== DOA.Settings.height ) {
         DOA.Settings.scaleWindow();
-        Player.camera.aspect = DOA.Settings.aspect();
-        Player.camera.updateProjectionMatrix();
+        DOA.Player.camera.aspect = DOA.Settings.aspect();
+        DOA.Player.camera.updateProjectionMatrix();
         UI.updateSize();
         Engine.renderer.setSize( DOA.Settings.width, DOA.Settings.height );
     }
@@ -270,8 +270,8 @@ Keyboard Events
 -------------------------------------------------------------------------------
 */
 function onKeyDown( event ) {
-    // Handled by player. return: 0 - handled, keyCode - otherwise.
-    var code = Player.onKeyDown( event.keyCode );
+    // Handled by DOA.Player. return: 0 - handled, keyCode - otherwise.
+    var code = DOA.Player.onKeyDown( event.keyCode );
     switch ( code ) {
         case 0: // alredy handled
             break;
@@ -291,7 +291,7 @@ function onKeyDown( event ) {
 }
 
 function onKeyUp( event ) {
-    var code = Player.onKeyUp( event.keyCode );
+    var code = DOA.Player.onKeyUp( event.keyCode );
 
     switch ( code ) {
         case 0: // alredy handled
@@ -307,10 +307,10 @@ Mouse Events
 function onMouseDown( event ) {
     switch ( Game.status ) {
         case 0: // game active
-            if ( !Player.isActive ) { // player not active
+            if ( !DOA.Player.isActive ) { // DOA.Player not active
                 Game.canvas.requestPointerLock();
-            } else { // player active
-                Player.onMouseDown( event.button );
+            } else { // DOA.Player active
+                DOA.Player.onMouseDown( event.button );
             }
             break;
         case 1: // main menu
@@ -322,7 +322,7 @@ function onMouseDown( event ) {
 function onMouseUp( event ) {
     switch ( Game.status ) {
         case 0: // game active
-            Player.onMouseUp( event.button );
+            DOA.Player.onMouseUp( event.button );
             break;
         case 1: // main menu
             break;
@@ -331,7 +331,7 @@ function onMouseUp( event ) {
 }
 
 function onMouseMove( event ) {
-    Player.onMouseMove( event );
+    DOA.Player.onMouseMove( event );
 }
 
 function onWheel( event ) {
@@ -356,7 +356,7 @@ Ponter Lock Events
 -------------------------------------------------------------------------------
 */
 var onPointerLockChange = function ( event ) {
-    Player.isActive = ( document.pointerLockElement === Game.canvas ||
+    DOA.Player.isActive = ( document.pointerLockElement === Game.canvas ||
                         document.mozPointerLockElement === Game.canvas ||
                         document.webkitPointerLockElement === Game.canvas );
 }
