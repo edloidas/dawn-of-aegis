@@ -15,6 +15,7 @@ var Game = new function () {
         Checks compatibility and prevent further execution.
     ================
     */
+    // @# SHOULD BE MOVED TO `DOA`
     this.verify = function () {
         var isSupported = true;
 
@@ -59,6 +60,7 @@ var Game = new function () {
             throw new Error( "Verification failed. Browser not fully supported." );
         }
     }
+    // #@
 
     /*
     ---------------------------------------------------------------------------

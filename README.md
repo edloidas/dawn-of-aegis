@@ -38,7 +38,7 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 * `Game.js` - initialization, bindings and main game cycle.
 
 #### Code ####
-* Section, that matches `#@.*@#` regex serves as an example and will be removed in future.
+* Section, that matches `@#.*#@` regex serves as an example and will be removed in future.
 
 #### Controls ####
 

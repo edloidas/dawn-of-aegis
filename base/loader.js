@@ -85,9 +85,9 @@ document.onreadystatechange = function () {
                     progress.textContent = "Press any key to continue";
 
                     Game.init();
-                    //#@
-                    hidePreload();
                     //@#
+                    hidePreload();
+                    //#@
 
                     // preload non-essential data
                     // Modernizr.load(data);
