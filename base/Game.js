@@ -5,237 +5,175 @@
 
 ===============================================================================
 */
-var Game = new function () {
-    var instance;
-    function Game() { if ( !instance ) { instance = this; } else { return instance; } }
+function Game() {
+    if ( !(this instanceof Game) ) return new Game();
 
-    /*
-    ================
-    Verification
-        Checks compatibility and prevent further execution.
-    ================
-    */
-    // @# SHOULD BE MOVED TO `DOA`
-    this.verify = function () {
-        var isSupported = true;
+    this.isRunnig = false;          // scene animation on / off
 
-        console.group( "Verification" );
+    this.stats  = null;             // stats DOM element
+    this.canvas = null;             // element, that locks pointer
 
-        if ( typeof Storage === 'undefined' ) {
-            console.info( "Storage support :     NO" );
-            isSupported = false;
-        } else {
-            console.info( "Storage support :     YES" );
-        }
+    this.status = 0;                // active game element index
 
-        if ( Detector.webgl ) {
-            console.info( "WebGL support :       YES" );
-        } else {
-            console.info( "WebGL support :       NO" );
-            isSupported = false;
-        }
+    this.clock = new THREE.Clock(); // timer to sync coordinates changes
 
-        if ( 'pointerLockElement' in document ||
-             'mozPointerLockElement' in document ||
-             'webkitPointerLockElement' in document ) {
-            console.info( "PointerLock support : YES" );
-        } else {
-            console.info( "PointerLock support : NO" );
-            isSupported = false;
-        }
+    //@#
+    var geometry, material, mesh;
+    //#@
+}
 
-        if ( 'mozFullScreenElement' in document ||
-             'mozFullscreenElement' in document ||
-             'webkitFullscreenElement' in document ) {
-            console.info( "Fullscreen support :  YES" );
-        } else {
-            console.info( "Fullscreen support :  NO" );
-            isSupported = false;
-        }
+/*
+================
+Initialization
+    Initializes Game
+================
+*/
+Game.prototype.init = function () {
+    DOA.Settings.scaleWindow();
+    DOA.Player.camera.aspect = DOA.Settings.aspect();
+    DOA.Player.camera.updateProjectionMatrix();
+    DOA.UI.updateSize();
 
-        console.groupEnd(); // close Browser
-
-        if ( !isSupported ) {
-            console.warn( "Execution will be aborted due to previous errors." );
-            throw new Error( "Verification failed. Browser not fully supported." );
-        }
-    }
+    // @#
+    DOA.Player.camera.position.z = DOA.Settings.maxView / 4;
+    DOA.Player.camera.position.y = DOA.Settings.maxView / 4;
+    DOA.Player.camera.position.x = DOA.Settings.maxView / 4;
+    DOA.Player.camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
+    geometry = new THREE.CubeGeometry( 200, 200, 200 );
+    material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+    mesh = new THREE.Mesh( geometry, material );
+    DOA.World.scene.add( mesh );
     // #@
 
-    /*
-    ---------------------------------------------------------------------------
-    Game globals
-    ---------------------------------------------------------------------------
-    */
-    this.isRunnig = false; // scene animation on / off
+    DOA.Engine.renderer.setSize( DOA.Settings.width, DOA.Settings.height );
+    DOA.Engine.renderer.setClearColor( DOA.Settings.background );
+    DOA.Engine.renderer.domElement.id = 'scene';
+    DOA.Engine.renderer.domElement.style.display = 'none';
+    // Manual clean for the multiple camera rendering.
+    DOA.Engine.renderer.autoClear = false;
 
-    this.stats  = null; // stats DOM element
-    this.canvas = null; // element, that locks pointer
+    document.body.appendChild( DOA.Engine.renderer.domElement );
 
-    this.status = 0; // active game element index
+    window.addEventListener( 'resize', onWindowResize, false );
+}
 
-    var clock = new THREE.Clock();
-    this.delta = 0;
+/*
+================
+Binding
+    Binds main game events for keyboard, mouse and window.
+================
+*/
+Game.prototype.bind = function () {
+    // KEYBOARD
+    window.addEventListener( 'keydown', onKeyDown, false );
+    window.addEventListener( 'keyup',   onKeyUp,   false );
 
-    //@# REMOVE
-    var geometry, material, mesh;
-    //## REMOVE
+    // MOUSE
+    window.oncontextmenu = function () { return false; }; // disable RMB menu
+    window.addEventListener( 'mousedown', onMouseDown, false );
+    window.addEventListener( 'mouseup',   onMouseUp,   false );
 
-    /*
-    ================
-    Initialization
-        Initializes Game
-    ================
-    */
-    this.init = function () {
-        this.verify();
-        DOA.Settings.scaleWindow();
-        DOA.Player.camera.aspect = DOA.Settings.aspect();
-        DOA.Player.camera.updateProjectionMatrix();
-        DOA.UI.updateSize();
+    window.addEventListener( 'mousemove', onMouseMove, false );
 
-        //@# REMOVE
-        DOA.Player.camera.position.z = DOA.Settings.maxView / 4;
-        DOA.Player.camera.position.y = DOA.Settings.maxView / 4;
-        DOA.Player.camera.position.x = DOA.Settings.maxView / 4;
-        DOA.Player.camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
-        geometry = new THREE.CubeGeometry( 200, 200, 200 );
-        material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-        mesh = new THREE.Mesh( geometry, material );
-        DOA.World.scene.add( mesh );
-        //## REMOVE
+    // MOUSE WHEEL
+    window.addEventListener( 'wheel',      onWheel,      false ); // fx
+    window.addEventListener( 'mousewheel', onMouseWheel, false ); // chrome
 
-        DOA.Engine.renderer.setSize( DOA.Settings.width, DOA.Settings.height );
-        DOA.Engine.renderer.setClearColor( DOA.Settings.background );
-        DOA.Engine.renderer.domElement.id = 'scene';
-        DOA.Engine.renderer.domElement.style.display = 'none';
-        // Manual clean for the multiple camera rendering.
-        DOA.Engine.renderer.autoClear = false;
+    // POINTER LOCK
+    document.addEventListener( 'pointerlockchange',       onPointerLockChange, false );
+    document.addEventListener( 'mozpointerlockchange',    onPointerLockChange, false );
+    document.addEventListener( 'webkitpointerlockchange', onPointerLockChange, false );
 
-        document.body.appendChild( DOA.Engine.renderer.domElement );
+    document.addEventListener( 'pointerlockerror',        onPointerLockError,  false );
+    document.addEventListener( 'mozpointerlockerror',     onPointerLockError,  false );
+    document.addEventListener( 'webkitpointerlockerror',  onPointerLockError,  false );
 
-        window.addEventListener( 'resize', onWindowResize, false );
+    // FULLSCREEN
+    document.addEventListener( 'fullscreenchange',       fullscreenChange, false );
+    document.addEventListener( 'mozfullscreenchange',    fullscreenChange, false );
+    document.addEventListener( 'webkitfullscreenchange', fullscreenChange, false );
+}
+
+/*
+================
+Animate
+    The main rendering process.
+================
+*/
+Game.prototype.animate = function () {
+    // render
+    requestAnimationFrame( Game.prototype.animate );
+
+    DOA.Player.animate( DOA.Game.clock.getDelta() );
+
+    // @#
+    mesh.rotation.x += 0.01;
+    mesh.rotation.y += 0.02;
+    // #@
+
+    // Clean previous buffer
+    DOA.Engine.renderer.clear();
+    // Render world (Layer 1)
+    DOA.Engine.renderer.render( DOA.World.scene, DOA.Player.camera );
+    // Render User Interface (Layer 2)
+    DOA.Engine.renderer.render( DOA.UI.scene, DOA.UI.camera );
+}
+
+/*
+---------------------------------------------------------------------------
+Other methods
+---------------------------------------------------------------------------
+*/
+Game.prototype.toogleStats = function () {
+    if ( this.stats === null ) {
+        this.stats = new Stats();
+        this.stats.setMode( 0 ); // 0: fps, 1: ms
+
+        this.stats.domElement.id = 'stats';
+        this.stats.domElement.style.position = 'absolute';
+        this.stats.domElement.style.left = '0px';
+        this.stats.domElement.style.top = '0px';
+        this.stats.domElement.style.zIndex = 99;
+        document.body.appendChild( this.stats.domElement );
+
+        var st = this.stats;
+        setInterval( function () {
+            st.begin();
+            // do eval
+            st.end();
+        }, 1000 / DOA.Settings.fps ); // 1000 == 1s
+    } else if ( document.getElementById( 'stats' ) === null ) {
+        document.body.appendChild( this.stats.domElement );
+    } else {
+        document.getElementById( 'stats' ).remove();
     }
+}
 
-    /*
-    ================
-    Binding
-        Bind main game events for button and mouse.
-    ================
-    */
-    this.bind = function () {
-        // KEYBOARD
-        window.addEventListener( 'keydown', onKeyDown, false );
-        window.addEventListener( 'keyup',   onKeyUp,   false );
-
-        // MOUSE
-        window.oncontextmenu = function () { return false; }; // disable RMB menu
-        window.addEventListener( 'mousedown', onMouseDown, false );
-        window.addEventListener( 'mouseup',   onMouseUp,   false );
-
-        window.addEventListener( 'mousemove', onMouseMove, false );
-
-        // MOUSE WHEEL
-        window.addEventListener( 'wheel',      onWheel,      false ); // fx
-        window.addEventListener( 'mousewheel', onMouseWheel, false ); // chrome
-
-        // POINTER LOCK
-        document.addEventListener( 'pointerlockchange',       onPointerLockChange, false );
-        document.addEventListener( 'mozpointerlockchange',    onPointerLockChange, false );
-        document.addEventListener( 'webkitpointerlockchange', onPointerLockChange, false );
-
-        document.addEventListener( 'pointerlockerror',        onPointerLockError,  false );
-        document.addEventListener( 'mozpointerlockerror',     onPointerLockError,  false );
-        document.addEventListener( 'webkitpointerlockerror',  onPointerLockError,  false );
-
-        // FULLSCREEN
-        document.addEventListener('fullscreenchange',       fullscreenChange, false);
-        document.addEventListener('mozfullscreenchange',    fullscreenChange, false);
-        document.addEventListener('webkitfullscreenchange', fullscreenChange, false);
+Game.prototype.toogleMenu = function () {
+    if ( this.status === 1 ) {
+        this.canvas.requestPointerLock();
+        this.status = 0;
+    } else {
+        document.exitPointerLock();
+        this.status = 1;
     }
+}
 
-    /*
-    ================
-    Animate
-        The main rendering process.
-    ================
-    */
-    this.animate = function animate() {
-        // render
-        requestAnimationFrame( animate );
-        this.delta = clock.getDelta();
+Game.prototype.toogleFullscreen = function () {
+    if ( document.mozFullscreenElement === this.canvas ||
+         document.mozFullScreenElement === this.canvas ||
+         document.webkitFullscreenElement === this.canvas ) {
 
-        DOA.Player.animate( this.delta );
-
-        //@# REMOVE
-        mesh.rotation.x += 0.01;
-        mesh.rotation.y += 0.02;
-        //## REMOVE
-
-        // Clean previous buffer
-        DOA.Engine.renderer.clear();
-        // Render world (Layer 1)
-        DOA.Engine.renderer.render( DOA.World.scene, DOA.Player.camera );
-        // Render User Interface (Layer 2)
-        DOA.Engine.renderer.render( DOA.UI.scene, DOA.UI.camera );
-    }
-
-    /*
-    ---------------------------------------------------------------------------
-    Other methods
-    ---------------------------------------------------------------------------
-    */
-    this.toogleStats = function () {
-        if ( this.stats === null ) {
-            this.stats = new Stats();
-            this.stats.setMode( 0 ); // 0: fps, 1: ms
-
-            this.stats.domElement.id = 'stats';
-            this.stats.domElement.style.position = 'absolute';
-            this.stats.domElement.style.left = '0px';
-            this.stats.domElement.style.top = '0px';
-            this.stats.domElement.style.zIndex = 99;
-            document.body.appendChild( this.stats.domElement );
-
-            var st = this.stats;
-            setInterval( function () {
-                st.begin();
-                // do eval
-                st.end();
-            }, 1000 / DOA.Settings.fps ); // 1000 == 1s
-        } else if ( document.getElementById( 'stats' ) === null ) {
-            document.body.appendChild( this.stats.domElement );
-        } else {
-            document.getElementById( 'stats' ).remove();
+        if ( document.cancelFullScreen ) {
+            document.cancelFullScreen();
+        } else if ( document.mozCancelFullScreen ) {
+            document.mozCancelFullScreen();
+        } else if ( document.webkitCancelFullScreen ) {
+            document.webkitCancelFullScreen();
         }
-    }
 
-    this.toogleMenu = function () {
-        if ( this.status === 1 ) {
-            this.canvas.requestPointerLock();
-            this.status = 0;
-        } else {
-            document.exitPointerLock();
-            this.status = 1;
-        }
-    }
-
-    this.toogleFullscreen = function () {
-        if ( document.mozFullscreenElement === this.canvas ||
-             document.mozFullScreenElement === this.canvas ||
-             document.webkitFullscreenElement === this.canvas ) {
-
-            if ( document.cancelFullScreen ) {
-                document.cancelFullScreen();
-            } else if ( document.mozCancelFullScreen ) {
-                document.mozCancelFullScreen();
-            } else if ( document.webkitCancelFullScreen ) {
-                document.webkitCancelFullScreen();
-            }
-
-        } else {
-            this.canvas.requestFullscreen();
-        }
+    } else {
+        this.canvas.requestFullscreen();
     }
 }
 
@@ -278,16 +216,16 @@ function onKeyDown( event ) {
         case 0: // alredy handled
             break;
         case 77: // m
-            Game.toogleMenu();
+            DOA.Game.toogleMenu();
             break;
         case 88: // x
-            Game.toogleFullscreen();
+            DOA.Game.toogleFullscreen();
             break;
         case 90: // z
             DOA.Engine.toogleDevMode();
             break;
         case 192: // ~
-            Game.toogleStats();
+            DOA.Game.toogleStats();
             break;
     }
 }
@@ -307,10 +245,10 @@ Mouse Events
 -------------------------------------------------------------------------------
 */
 function onMouseDown( event ) {
-    switch ( Game.status ) {
+    switch ( DOA.Game.status ) {
         case 0: // game active
             if ( !DOA.Player.isActive ) { // DOA.Player not active
-                Game.canvas.requestPointerLock();
+                DOA.Game.canvas.requestPointerLock();
             } else { // DOA.Player active
                 DOA.Player.onMouseDown( event.button );
             }
@@ -322,7 +260,7 @@ function onMouseDown( event ) {
 }
 
 function onMouseUp( event ) {
-    switch ( Game.status ) {
+    switch ( DOA.Game.status ) {
         case 0: // game active
             DOA.Player.onMouseUp( event.button );
             break;
@@ -358,9 +296,9 @@ Ponter Lock Events
 -------------------------------------------------------------------------------
 */
 var onPointerLockChange = function ( event ) {
-    DOA.Player.isActive = ( document.pointerLockElement === Game.canvas ||
-                        document.mozPointerLockElement === Game.canvas ||
-                        document.webkitPointerLockElement === Game.canvas );
+    DOA.Player.isActive = ( document.pointerLockElement === DOA.Game.canvas ||
+                        document.mozPointerLockElement === DOA.Game.canvas ||
+                        document.webkitPointerLockElement === DOA.Game.canvas );
 }
 
 var onPointerLockError = function ( event ) {
@@ -374,9 +312,16 @@ Fullscreen Events
 */
 function fullscreenChange() {
     // lock pointer only for manual fullscreen via 'x'
-    if ( document.mozFullscreenElement === Game.canvas ||
-         document.mozFullScreenElement === Game.canvas ||
-         document.webkitFullscreenElement === Game.canvas ) {
-        Game.canvas.requestPointerLock();
+    if ( document.mozFullscreenElement === DOA.Game.canvas ||
+         document.mozFullScreenElement === DOA.Game.canvas ||
+         document.webkitFullscreenElement === DOA.Game.canvas ) {
+        DOA.Game.canvas.requestPointerLock();
     }
 }
+
+/*
+---------------------------------------------------------------------------
+DOA
+---------------------------------------------------------------------------
+*/
+DOA.Game = new Game();
