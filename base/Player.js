@@ -23,7 +23,7 @@ var Player = new function () {
                                                DOA.Settings.aspect(),
                                                DOA.Settings.minView,
                                                DOA.Settings.maxView );
-    this.target = new Doa.Target( this.camera );
+    this.target = new DOA.Objects.Target( this.camera );
 
     /*
     ---------------------------------------------------------------------------

@@ -11,8 +11,8 @@ var Engine = new function () {
 
     this.renderer = new THREE.WebGLRenderer( { antialias: true, alpha: false } );
 
-    this.axis = new Doa.Axis();
-    this.grid = new Doa.Grid();
+    this.axis = new DOA.Objects.Axis();
+    this.grid = new DOA.Objects.Grid();
 
     /*
     ---------------------------------------------------------------------------

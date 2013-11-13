@@ -67,7 +67,7 @@ var Game = new function () {
     */
     this.isRunnig = false; // scene animation on / off
 
-    this.stats         = null; // stats DOM element
+    this.stats  = null; // stats DOM element
     this.canvas = null; // element, that locks pointer
 
     this.status = 0; // active game element index

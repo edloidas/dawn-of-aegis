@@ -1,216 +1,245 @@
 /*
 ===============================================================================
 
-    Class compilation defines in-game objects.
+    Class compilation defines in-game 3D objects.
 
 ===============================================================================
 */
-var Doa = new function () {
-    var instance;
-    function Doa() { if ( !instance ) { instance = this; } else { return instance; } }
-
-    /*
-    ---------------------------------------------------------------------------
-    Actor
-        Entity, that represents object in space, with x, y, z coordinates.
-    ---------------------------------------------------------------------------
-    */
-    function Actor() {
-        this.x = 0; this.y = 0; this.z = 0;
-        this.material = null;
-        this.geometry = null;
-        this.mesh     = null;
-        // Can be overriden. Should do all initial work, before adding to the scene.
-        this.create = function () { return this.mesh; }
-        // Can be overriden. Should do all initial work, before removing from scene.
-        this.clear = function () { return this.mesh; }
-    }
-
-    /*
-    ---------------------------------------------------------------------------
-    World
-        Entity, that represents space, with a specific properties, like
-        gravity, world type (map, level, blank space, etc.), global lightining
-        and other.
-    ---------------------------------------------------------------------------
-    */
-    function World() {}
-
-
-    /*
-    ===========================================================================
-    PROTOTYPES
-    ===========================================================================
-    */
-
-    /*
-    ---------------------------------------------------------------------------
-    Axis
-        Represents axis, as three vectors.
-    ---------------------------------------------------------------------------
-    */
-    function Axis() {
-        this.enabled = false;
-
-        this.mesh = new THREE.AxisHelper( DOA.Settings.maxView );
-
-        this.create = function () {
-            this.mesh.position.set( this.x, this.y, this.z );
-            return this.mesh;
-        }
-    }
-    Axis.prototype = new Actor();
-    this.Axis = Axis;
-
-    /*
-    ---------------------------------------------------------------------------
-    Axis
-        Represents axis, as three vectors.
-    ---------------------------------------------------------------------------
-    */
-    function Grid( step ) {
-        step = step || 50;
-        this.enabled = false;
-
-        this.mesh = new THREE.GridHelper( DOA.Settings.maxView, step );
-
-        this.create = function () {
-            this.mesh.position.set( this.x, this.y, this.z );
-            return this.mesh;
-        }
-    }
-    Grid.prototype = new Actor();
-    this.Grid = Grid;
-
-    /*
-    ---------------------------------------------------------------------------
-    Target
-        Target element, followed by camera.
-    ---------------------------------------------------------------------------
-    */
-    function Target( camera ) {
-        this.camera = camera;
-        this.camera.position.delta = { x: 0, y: 0, z: 0 };
-
-        this.enabled = false;
-        this.delta = 1; // time delta
-
-        this.omega = DOA.Settings.mouseSensitivity;  // radial speed
-        this.velocity = 300; // movement speed
-        this.radius = 200;
-        this.theta = -90;
-        this.phi = 90;
-
-        this.x = camera.position.x;
-        this.y = camera.position.y;
-        this.z = camera.position.z;
-
-        this.material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-        this.geometry = new THREE.CircleGeometry( 1 );
-        this.mesh = new THREE.Mesh( this.geometry, this.material );
-
-        this.look = function ( wx, wy ) {
-            /* See http://mathworld.wolfram.com/SphericalCoordinates.html
-             *    z             y
-             *    |__ y  ==>    |__ x
-             * x /           z /
-             *   x = r * cos(theta) * sin(phi)
-             *   y = r * sin(theta) * sin(phi)
-             *   z = r * cos(phi)
-             */
-            this.theta += wx * this.omega;
-            this.theta %= 360;
-            this.phi += wy * this.omega;
-            this.phi = Math.max( DOA.Settings.minLook, Math.min( DOA.Settings.maxLook, this.phi ) );
-
-            this.x = camera.position.x + this.radius * Math.cos( THREE.Math.degToRad( this.theta ) )
-                                                     * Math.sin( THREE.Math.degToRad( this.phi ) );
-            this.y = camera.position.y + this.radius * Math.cos( THREE.Math.degToRad( this.phi ) );
-            this.z = camera.position.z + this.radius * Math.sin( THREE.Math.degToRad( this.theta ) )
-                                                     * Math.sin( THREE.Math.degToRad( this.phi ) );
-            this.updateMesh();
-
-            this.camera.lookAt( new THREE.Vector3( this.x, this.y, this.z ) );
-
-            if ( this.enabled ) {
-                this.mesh.rotation.x = this.camera.rotation.x;
-                this.mesh.rotation.y = this.camera.rotation.y;
-                this.mesh.rotation.z = this.camera.rotation.z;
-            }
-        }
-
-        this.moveForward = function () {
-            this.calcDelta();
-
-            camera.position.x += camera.position.delta.x;
-            camera.position.y += camera.position.delta.y;
-            camera.position.z += camera.position.delta.z;
-
-            this.x += camera.position.delta.x;
-            this.y += camera.position.delta.y;
-            this.z += camera.position.delta.z;
-
-            this.updateMesh();
-        }
-
-        this.moveBackward = function () {
-            this.calcDelta();
-
-            camera.position.x -= camera.position.delta.x;
-            camera.position.y -= camera.position.delta.y;
-            camera.position.z -= camera.position.delta.z;
-
-            this.x -= camera.position.delta.x;
-            this.y -= camera.position.delta.y;
-            this.z -= camera.position.delta.z;
-
-            this.updateMesh();
-        }
-
-        this.moveLeft = function () {
-            camera.position.delta.x = -this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
-            camera.position.delta.z = -this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
-
-            this.updatePlane();
-        }
-
-        this.moveRight = function () {
-            camera.position.delta.x = -this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) - Math.PI_2);
-            camera.position.delta.z = -this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) - Math.PI_2);
-
-            this.updatePlane();
-        }
-
-
-        this.calcDelta = function () {
-            camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) )
-                                                                 * Math.sin( THREE.Math.degToRad( this.phi ) );
-            camera.position.delta.y = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
-            camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
-                                                                 * Math.sin( THREE.Math.degToRad( this.phi ) );
-        }
-
-        this.updateMesh = function () {
-            if ( this.enabled ) {
-                this.mesh.position.x = this.x;
-                this.mesh.position.y = this.y;
-                this.mesh.position.z = this.z;
-            }
-        }
-
-        this.updatePlane = function () {
-            camera.position.x += camera.position.delta.x;
-            camera.position.z += camera.position.delta.z;
-
-            this.x += camera.position.delta.x;
-            this.z += camera.position.delta.z;
-
-            if ( this.enabled ) {
-                this.mesh.position.x = this.x;
-                this.mesh.position.z = this.z;
-            }
-        }
-    }
-    Target.prototype = new Actor();
-    this.Target = Target;
+function Objects() {
+    if ( !(this instanceof Objects) ) return new Objects();
 }
+
+/*
+=================
+Actor
+    Entity, that represents object in space.
+=================
+*/
+Objects.prototype.Actor = function () {
+    if ( !(this instanceof Objects.prototype.Actor) ) return new Objects.prototype.Actor();
+
+    this.x = 0;
+    this.y = 0;
+    this.z = 0;
+
+    this.material = null;
+    this.geometry = null;
+    this.mesh     = null;
+
+    // Can be overridden.
+    // Should do all initial work, before adding to the scene.
+    this.create = function () {
+        return this.mesh;
+    }
+    // Can be overridden.
+    // Should do all initial work, before removing from scene.
+    this.clear = function () {
+        return this.mesh;
+    }
+}
+
+/*
+=================
+World
+    Entity, that represents space, with a specific properties:
+    gravity, world type (map, level), global lightning, etc.
+=================
+*/
+Objects.prototype.World = function () {
+    if ( !(this instanceof Objects.prototype.World) ) return new this.World();
+}
+
+/*
+---------------------------------------------------------------------------
+Game Objects
+---------------------------------------------------------------------------
+*/
+
+/*
+=================
+Axis
+    Represents axis, as three vectors.
+=================
+*/
+Objects.prototype.Axis = function () {
+    if ( !(this instanceof Objects.prototype.Axis) ) {
+        return new Objects.prototype.Axis();
+    }
+    Objects.prototype.Axis.super.constructor.call(this);
+
+    this.enabled = false;
+
+    this.mesh = new THREE.AxisHelper( DOA.Settings.maxView );
+
+    this.create = function () {
+        this.mesh.position.set( this.x, this.y, this.z );
+        return this.mesh;
+    }
+}
+extend( Objects.prototype.Axis, Objects.prototype.Actor );
+
+/*
+=================
+Grid
+    Represents grid on xz coordinates.
+=================
+*/
+Objects.prototype.Grid = function ( step ) {
+    if ( !(this instanceof Objects.prototype.Grid) ) {
+        return new Objects.prototype.Grid( step );
+    }
+    Objects.prototype.Grid.super.constructor.call(this);
+
+    step = step || 50;
+    this.enabled = false;
+
+    this.mesh = new THREE.GridHelper( DOA.Settings.maxView, step );
+
+    this.create = function () {
+        this.mesh.position.set( this.x, this.y, this.z );
+        return this.mesh;
+    }
+}
+extend( Objects.prototype.Grid, Objects.prototype.Actor );
+
+/*
+=================
+Target
+    Entity, that represents target, followed by camera.
+=================
+*/
+Objects.prototype.Target = function ( camera ) {
+    if ( !(this instanceof Objects.prototype.Target) ) {
+        return new Objects.prototype.Target( camera );
+    }
+
+    this.camera = camera;
+    this.camera.position.delta = { x: 0, y: 0, z: 0 };
+
+    this.enabled = false;
+    this.delta = 1; // time delta
+
+    this.omega = DOA.Settings.mouseSensitivity;  // radial speed
+    this.velocity = 300; // movement speed
+    this.radius = 200;
+    this.theta = -90;
+    this.phi = 90;
+
+    this.x = camera.position.x;
+    this.y = camera.position.y;
+    this.z = camera.position.z;
+
+    this.material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+    this.geometry = new THREE.CircleGeometry( 1 );
+    this.mesh = new THREE.Mesh( this.geometry, this.material );
+
+    this.look = function ( wx, wy ) {
+        /* See http://mathworld.wolfram.com/SphericalCoordinates.html
+         *    z             y
+         *    |__ y  ==>    |__ x
+         * x /           z /
+         *   x = r * cos(theta) * sin(phi)
+         *   y = r * sin(theta) * sin(phi)
+         *   z = r * cos(phi)
+         */
+        this.theta += wx * this.omega;
+        this.theta %= 360;
+        this.phi += wy * this.omega;
+        this.phi = Math.max( DOA.Settings.minLook, Math.min( DOA.Settings.maxLook, this.phi ) );
+
+        this.x = camera.position.x + this.radius * Math.cos( THREE.Math.degToRad( this.theta ) )
+                                                 * Math.sin( THREE.Math.degToRad( this.phi ) );
+        this.y = camera.position.y + this.radius * Math.cos( THREE.Math.degToRad( this.phi ) );
+        this.z = camera.position.z + this.radius * Math.sin( THREE.Math.degToRad( this.theta ) )
+                                                 * Math.sin( THREE.Math.degToRad( this.phi ) );
+        this.updateMesh();
+
+        this.camera.lookAt( new THREE.Vector3( this.x, this.y, this.z ) );
+
+        if ( this.enabled ) {
+            this.mesh.rotation.x = this.camera.rotation.x;
+            this.mesh.rotation.y = this.camera.rotation.y;
+            this.mesh.rotation.z = this.camera.rotation.z;
+        }
+    }
+
+    this.moveForward = function () {
+        this.calcDelta();
+
+        camera.position.x += camera.position.delta.x;
+        camera.position.y += camera.position.delta.y;
+        camera.position.z += camera.position.delta.z;
+
+        this.x += camera.position.delta.x;
+        this.y += camera.position.delta.y;
+        this.z += camera.position.delta.z;
+
+        this.updateMesh();
+    }
+
+    this.moveBackward = function () {
+        this.calcDelta();
+
+        camera.position.x -= camera.position.delta.x;
+        camera.position.y -= camera.position.delta.y;
+        camera.position.z -= camera.position.delta.z;
+
+        this.x -= camera.position.delta.x;
+        this.y -= camera.position.delta.y;
+        this.z -= camera.position.delta.z;
+
+        this.updateMesh();
+    }
+
+    this.moveLeft = function () {
+        camera.position.delta.x = -this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
+        camera.position.delta.z = -this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
+
+        this.updatePlane();
+    }
+
+    this.moveRight = function () {
+        camera.position.delta.x = -this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) - Math.PI_2);
+        camera.position.delta.z = -this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) - Math.PI_2);
+
+        this.updatePlane();
+    }
+
+
+    this.calcDelta = function () {
+        camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) )
+                                                             * Math.sin( THREE.Math.degToRad( this.phi ) );
+        camera.position.delta.y = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
+        camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
+                                                             * Math.sin( THREE.Math.degToRad( this.phi ) );
+    }
+
+    this.updateMesh = function () {
+        if ( this.enabled ) {
+            this.mesh.position.x = this.x;
+            this.mesh.position.y = this.y;
+            this.mesh.position.z = this.z;
+        }
+    }
+
+    this.updatePlane = function () {
+        camera.position.x += camera.position.delta.x;
+        camera.position.z += camera.position.delta.z;
+
+        this.x += camera.position.delta.x;
+        this.z += camera.position.delta.z;
+
+        if ( this.enabled ) {
+            this.mesh.position.x = this.x;
+            this.mesh.position.z = this.z;
+        }
+    }
+}
+extend( Objects.prototype.Target, Objects.prototype.Actor );
+
+/*
+---------------------------------------------------------------------------
+DOA
+---------------------------------------------------------------------------
+*/
+DOA.Objects = new Objects();
