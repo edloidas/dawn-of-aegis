@@ -90,7 +90,7 @@ var Game = new function () {
         DOA.Settings.scaleWindow();
         DOA.Player.camera.aspect = DOA.Settings.aspect();
         DOA.Player.camera.updateProjectionMatrix();
-        UI.updateSize();
+        DOA.UI.updateSize();
 
         //@# REMOVE
         DOA.Player.camera.position.z = DOA.Settings.maxView / 4;
@@ -175,7 +175,7 @@ var Game = new function () {
         // Render world (Layer 1)
         Engine.renderer.render( World.scene, DOA.Player.camera );
         // Render User Interface (Layer 2)
-        Engine.renderer.render( UI.scene, UI.camera );
+        Engine.renderer.render( DOA.UI.scene, DOA.UI.camera );
     }
 
     /*
@@ -259,7 +259,7 @@ function onWindowResize() {
         DOA.Settings.scaleWindow();
         DOA.Player.camera.aspect = DOA.Settings.aspect();
         DOA.Player.camera.updateProjectionMatrix();
-        UI.updateSize();
+        DOA.UI.updateSize();
         Engine.renderer.setSize( DOA.Settings.width, DOA.Settings.height );
     }
 }
