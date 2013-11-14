@@ -27,6 +27,11 @@ function Settings() {
 
     this.background = 0xFFFFFF; // renderer background
 
+    this.colors = {
+        mesh  : 0xFF0000,
+        blank : 0x000000
+    }
+
     /*
     ---------------------------------------------------------------------------
     Graphics
@@ -150,3 +155,4 @@ DOA
 DOA.Settings = new Settings();
 // Shortcut for the controls for less code.
 DOA.Controls = DOA.Settings.controls;
+DOA.Colors = DOA.Settings.colors;
