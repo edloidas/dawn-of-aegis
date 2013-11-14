@@ -49,7 +49,7 @@ Game.prototype.init = function () {
     DOA.Engine.renderer.setClearColor( DOA.Settings.background );
     DOA.Engine.renderer.domElement.id = 'scene';
     DOA.Engine.renderer.domElement.style.display = 'none';
-    // Manual clean for the multiple camera rendering.
+    // !@ Manual clean for the multiple camera rendering.
     DOA.Engine.renderer.autoClear = false;
 
     document.body.appendChild( DOA.Engine.renderer.domElement );
@@ -216,9 +216,10 @@ function onWindowResize() {
 }
 
 /*
--------------------------------------------------------------------------------
-Keyboard Events
--------------------------------------------------------------------------------
+================
+onKeyDown
+    Controls key down event global handling.
+================
 */
 function onKeyDown( event ) {
     // Handled by DOA.Player. return: 0 - handled, keyCode - otherwise.
@@ -241,6 +242,12 @@ function onKeyDown( event ) {
     }
 }
 
+/*
+================
+onKeyUp
+    Controls key up event global handling.
+================
+*/
 function onKeyUp( event ) {
     var code = DOA.Player.onKeyUp( event.keyCode );
 
@@ -251,9 +258,10 @@ function onKeyUp( event ) {
 }
 
 /*
--------------------------------------------------------------------------------
-Mouse Events
--------------------------------------------------------------------------------
+================
+onMouseDown
+    Controls mouse down event global handling.
+================
 */
 function onMouseDown( event ) {
     switch ( DOA.Game.status ) {
@@ -270,6 +278,12 @@ function onMouseDown( event ) {
     }
 }
 
+/*
+================
+onMouseUp
+    Controls mouse up event global handling.
+================
+*/
 function onMouseUp( event ) {
     switch ( DOA.Game.status ) {
         case 0: // game active
@@ -281,10 +295,22 @@ function onMouseUp( event ) {
     }
 }
 
+/*
+================
+onMouseUp
+    Controls mouse move event global handling.
+================
+*/
 function onMouseMove( event ) {
     DOA.Player.onMouseMove( event );
 }
 
+/*
+================
+onWheel
+    Controls wheel event global handling in firefox.
+================
+*/
 function onWheel( event ) {
     if ( event.deltaY < 0 ) {
         // up
@@ -293,6 +319,12 @@ function onWheel( event ) {
     }
 }
 
+/*
+================
+onMouseWheel
+    Controls wheel event global handling in chrome.
+================
+*/
 function onMouseWheel( event ) {
     if ( event.wheelDelta > 0 ) {
         // up
@@ -301,10 +333,18 @@ function onMouseWheel( event ) {
     }
 }
 
+
 /*
 -------------------------------------------------------------------------------
-Ponter Lock Events
+Window manipulations
 -------------------------------------------------------------------------------
+*/
+
+/*
+================
+onPointerLockChange
+    Controls pointer lock event handling.
+================
 */
 var onPointerLockChange = function ( event ) {
     DOA.Player.isActive = ( document.pointerLockElement === DOA.Game.canvas ||
@@ -312,14 +352,21 @@ var onPointerLockChange = function ( event ) {
                         document.webkitPointerLockElement === DOA.Game.canvas );
 }
 
+/*
+================
+onPointerLockError
+    Controls pointer lock event error.
+================
+*/
 var onPointerLockError = function ( event ) {
     console.warn( 'Pointer lock error.' );
 }
 
 /*
--------------------------------------------------------------------------------
-Fullscreen Events
--------------------------------------------------------------------------------
+================
+fullscreenChange
+    Controls fullscreen change event.
+================
 */
 function fullscreenChange() {
     // lock pointer only for manual fullscreen via 'x'
