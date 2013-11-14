@@ -21,7 +21,7 @@ toogleDevMode
     coordinates and grid are visible.
 ================
 */
-this.toogleDevMode = function () {
+Engine.prototype.toggleDevMode = function () {
     if ( this.axis.enabled ) {
         this.axis.enabled = false;
         DOA.World.scene.remove( this.axis.clear() );
