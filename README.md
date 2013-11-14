@@ -11,7 +11,7 @@ Basically, this web application should run on a server. Game won't work properly
 Clone this repository or just download the [master archive](https://github.com/edloidas/dawn-of-aegis/archive/master.zip) and unpack it in the desired folder.
 
 #### Step 2 : Textures ####
-Textures is a binary data, so they are not included into the repository and you must download them manually. Get this [data archive](https://dl.dropboxusercontent.com/u/40688668/doa/data.zip), unpack and place the textures into `base/data` directory under your game folder.
+Textures is a binary data, so they are not included into the repository and you must download them manually. Get this [base archive](https://dl.dropboxusercontent.com/u/40688668/base.zip) with data, unpack and place it under your game root folder.
 
 #### Step 3 : Server ####
 As been said, you must run game on the server (best practice), or make changes to the browser security settings.
