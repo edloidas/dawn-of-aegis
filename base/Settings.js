@@ -69,12 +69,13 @@ function Settings() {
         skillalt    : 90, // f
         reload      : 82, // r
         crouch      : 67, // c
-        inventory   : 73, // c
+        inventory   : 73, // i
         objective   : 79, // o
-        map         : 77, // c
+        map         : 77, // m
 
         menu        : 72, // h
         // debug
+        fullscreen  : 88, // x
         devmode     : 90, // z
         debug       : 192 // ~
     }

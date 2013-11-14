@@ -47,7 +47,7 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 | ---- | --- | --------------------------------- |
 |  ~   | 192 | show/hide degug statistics        |
 |  z   | 90  | turn developer mode on/off        |
-|  m   | 77  | toogle menu, disable pointer lock |
+|  h   | 72  | toogle menu, disable pointer lock |
 |  x   | 88  | toogle fullscreen for canvas      |
 |  w   | 87  | move forward                      |
 |  s   | 83  | move backward                     |
@@ -60,7 +60,7 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 | q      |  81 | e      |  69 |
 | r      |  82 | f      |  70 |
 | c      |  67 | i      |  73 |
-| h      |  72 | p      |  80 |
+| m      |  77 | p      |  80 |
 | Enter  |  13 | LShift |  16 |
 | LCtrl  |  17 | LAlt   |  18 |
 

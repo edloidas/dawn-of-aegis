@@ -227,16 +227,16 @@ function onKeyDown( event ) {
     switch ( code ) {
         case 0: // alredy handled
             break;
-        case 77: // m
+        case DOA.Controls.menu:
             DOA.Game.toggleMenu();
             break;
-        case 88: // x
+        case DOA.Controls.fullscreen:
             DOA.Game.toggleFullscreen();
             break;
-        case 90: // z
+        case DOA.Controls.devmode:
             DOA.Engine.toggleDevMode();
             break;
-        case 192: // ~
+        case DOA.Controls.debug:
             DOA.Game.toggleStats();
             break;
     }
@@ -266,15 +266,14 @@ onMouseDown
 function onMouseDown( event ) {
     switch ( DOA.Game.status ) {
         case 0: // game active
-            if ( !DOA.Player.isActive ) { // DOA.Player not active
+            if ( !DOA.Player.isActive ) { // Player look is active
                 DOA.Game.canvas.requestPointerLock();
-            } else { // DOA.Player active
+            } else {
                 DOA.Player.onMouseDown( event.button );
             }
             break;
-        case 1: // main menu
+        case 1:
             break;
-        // other menus
     }
 }
 
@@ -289,9 +288,8 @@ function onMouseUp( event ) {
         case 0: // game active
             DOA.Player.onMouseUp( event.button );
             break;
-        case 1: // main menu
+        case 1:
             break;
-        // other menus
     }
 }
 
