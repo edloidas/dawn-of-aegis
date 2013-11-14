@@ -15,12 +15,12 @@ Actor
     Entity, that represents object in space.
 =================
 */
-Objects.prototype.Actor = function () {
+Objects.prototype.Actor = function ( x, y, z ) {
     if ( !(this instanceof Objects.prototype.Actor) ) return new Objects.prototype.Actor();
 
-    this.x = 0;
-    this.y = 0;
-    this.z = 0;
+    this.x = x || 0;
+    this.y = y || 0;
+    this.z = z || 0;
 
     this.material = null;
     this.geometry = null;
