@@ -20,6 +20,8 @@ function UI() {
     this.camera.rotateY( Math.PI );
 
     this.scene = new THREE.Scene();
+
+    this.menu = null;
 }
 
 /*

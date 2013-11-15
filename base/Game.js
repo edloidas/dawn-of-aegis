@@ -17,8 +17,6 @@ function Game() {
 
     this.clock = new THREE.Clock(); // timer to sync coordinates changes
 
-    this.gui = null;                // dat.gui interface for Settings.
-
     //@#
     var geometry, material, mesh;
     //#@
@@ -58,8 +56,9 @@ Game.prototype.init = function () {
 
     window.addEventListener( 'resize', onWindowResize, false );
 
-    this.gui = new dat.GUI();
-    this.gui.domElement.style.display = 'none';
+    // append after renderer DOM
+    DOA.UI.menu = new dat.GUI();
+    DOA.UI.menu.domElement.style.display = 'none';
 }
 
 /*
@@ -163,11 +162,11 @@ toggleMenu
 */
 Game.prototype.toggleMenu = function () {
     if ( this.status === 1 ) {
-        this.gui.domElement.style.display = 'none';
+        DOA.UI.menu.domElement.style.display = 'none';
         this.canvas.requestPointerLock();
         this.status = 0;
     } else {
-        this.gui.domElement.style.display = 'block';
+        DOA.UI.menu.domElement.style.display = 'block';
         document.exitPointerLock();
         this.status = 1;
     }
