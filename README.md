@@ -39,6 +39,7 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 
 #### Code ####
 * Section, that matches `@#.*#@` regex serves as an example and will be removed in future.
+* Event for the `h` (code: 72) keydown was removed from the dat.gui.js. It should be also removed for all future updates of this library.
 
 #### Controls ####
 

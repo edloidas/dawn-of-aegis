@@ -17,6 +17,8 @@ function Game() {
 
     this.clock = new THREE.Clock(); // timer to sync coordinates changes
 
+    this.gui = null;                // dat.gui interface for Settings.
+
     //@#
     var geometry, material, mesh;
     //#@
@@ -55,6 +57,9 @@ Game.prototype.init = function () {
     document.body.appendChild( DOA.Engine.renderer.domElement );
 
     window.addEventListener( 'resize', onWindowResize, false );
+
+    this.gui = new dat.GUI();
+    this.gui.domElement.style.display = 'none';
 }
 
 /*
@@ -80,13 +85,13 @@ Game.prototype.bind = function () {
     window.addEventListener( 'mousewheel', onMouseWheel, false ); // chrome
 
     // POINTER LOCK
-    document.addEventListener( 'pointerlockchange',       onPointerLockChange, false );
-    document.addEventListener( 'mozpointerlockchange',    onPointerLockChange, false );
-    document.addEventListener( 'webkitpointerlockchange', onPointerLockChange, false );
+    document.addEventListener( 'pointerlockchange',       DOA.Game.onPointerLockChange, false );
+    document.addEventListener( 'mozpointerlockchange',    DOA.Game.onPointerLockChange, false );
+    document.addEventListener( 'webkitpointerlockchange', DOA.Game.onPointerLockChange, false );
 
-    document.addEventListener( 'pointerlockerror',        onPointerLockError,  false );
-    document.addEventListener( 'mozpointerlockerror',     onPointerLockError,  false );
-    document.addEventListener( 'webkitpointerlockerror',  onPointerLockError,  false );
+    document.addEventListener( 'pointerlockerror',        DOA.Game.onPointerLockError,  false );
+    document.addEventListener( 'mozpointerlockerror',     DOA.Game.onPointerLockError,  false );
+    document.addEventListener( 'webkitpointerlockerror',  DOA.Game.onPointerLockError,  false );
 
     // FULLSCREEN
     document.addEventListener( 'fullscreenchange',       fullscreenChange, false );
@@ -158,9 +163,11 @@ toggleMenu
 */
 Game.prototype.toggleMenu = function () {
     if ( this.status === 1 ) {
+        this.gui.domElement.style.display = 'none';
         this.canvas.requestPointerLock();
         this.status = 0;
     } else {
+        this.gui.domElement.style.display = 'block';
         document.exitPointerLock();
         this.status = 1;
     }
@@ -344,7 +351,7 @@ onPointerLockChange
     Controls pointer lock event handling.
 ================
 */
-var onPointerLockChange = function ( event ) {
+Game.prototype.onPointerLockChange = function ( event ) {
     DOA.Player.isActive = ( document.pointerLockElement === DOA.Game.canvas ||
                         document.mozPointerLockElement === DOA.Game.canvas ||
                         document.webkitPointerLockElement === DOA.Game.canvas );
@@ -356,7 +363,7 @@ onPointerLockError
     Controls pointer lock event error.
 ================
 */
-var onPointerLockError = function ( event ) {
+Game.prototype.onPointerLockError = function ( event ) {
     console.warn( 'Pointer lock error.' );
 }
 
