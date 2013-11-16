@@ -64,6 +64,20 @@ UI.prototype.clearMenu = function ( menu ) {
 
 /*
 ================
+resetMenu
+    Resets menu values to the remembered ones.
+================
+*/
+UI.prototype.resetMenu = function () {
+    try {
+        this.menu.revert();
+    } catch ( ex ) {
+        // Cannot read property 'selectedIndex' of undefined
+    }
+}
+
+/*
+================
 buildSettingsMenu
     Creates new set of controllers, based on DOA.Settings.
 ================
@@ -84,6 +98,10 @@ UI.prototype.buildSettingsMenu = function () {
     folder = this.menu.addFolder( 'Player' );
     folder.add( DOA.Settings, 'mouseSensitivity', 0.05, 0.5 ).step( 0.05 ).listen();
     folder.open();
+
+    this.menu.add( DOA.UI, 'resetMenu' );
+    this.menu.add( DOA.Settings, 'quickSave' );
+    this.menu.add( DOA.Settings, 'quickLoad' );
 }
 
 /*

@@ -149,10 +149,15 @@ quickSave
 ================
 */
 Settings.prototype.quickSave = function () {
-    localStorage.doa_quicksave = '{"version":' + this.version.major + '.'
-                                               + this.version.minor + ',' +
-                                 ' "width":'   + this.width + ',' +
-                                 ' "height":'  + this.height +'}';
+    localStorage.doa_quicksave = '{"version":'   + this.gameVersion() + ',' +
+                                 ' "width":'     + this.width + ',' +
+                                 ' "height":'    + this.height + ',' +
+                                 ' "fps":'       + this.fps + ',' +
+                                 ' "mesh":'      + this.colors.mesh + ',' +
+                                 ' "maxView":'   + this.maxView + ',' +
+                                 ' "minView":'   + this.minView + ',' +
+                                 ' "fov":'       + this.fov + ',' +
+                                 ' "mouseSens":' + this.mouseSensitivity + '}';
 }
 
 /*
@@ -162,13 +167,19 @@ quickLoad
 ================
 */
 Settings.prototype.quickLoad = function () {
-    if ( localStorage.doa_quicksave === undefined ) {
-        return;
-    }
+    if ( localStorage.doa_quicksave === undefined ) return;
 
-    var quicksave = JSON.parse( localStorage.doa_quicksave );
-    Settings.width = quicksave.width;
-    Settings.height = quicksave.height;
+    var slot = JSON.parse( localStorage.doa_quicksave );
+    if ( this.gameVersion() == slot.version ) {
+        this.width   = slot.width;
+        this.height  = slot.height;
+        this.fps     = slot.fps;
+        this.mesh    = slot.mesh;
+        this.maxView = slot.maxView;
+        this.minView = slot.minView;
+        this.fov     = slot.fov;
+        this.mouseSensitivity = slot.mouseSens;
+    }
 }
 
 /*
