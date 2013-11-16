@@ -29,11 +29,16 @@ Objects.prototype.Actor = function ( x, y, z ) {
     // Can be overridden.
     // Should do all initial work, before adding to the scene.
     this.create = function () {
+        DOA.Engine.__objects.push( this );
+        if ( this.mesh instanceof THREE.Mesh ) {
+            this.mesh.position.set( this.x, this.y, this.z );
+        }
         return this.mesh;
     }
     // Can be overridden.
     // Should do all initial work, before removing from scene.
     this.clear = function () {
+        DOA.Engine.__objects.pop( this );
         return this.mesh;
     }
 
@@ -86,17 +91,41 @@ Objects.prototype.Square = function ( size ) {
     });
 
     this.mesh = new THREE.Mesh(this.geometry, this.material);
+}
+extend( Objects.prototype.Square, Objects.prototype.Actor );
+
+/*
+---------------------------------------------------------------------------
+DEV Objects
+---------------------------------------------------------------------------
+*/
+/*
+=================
+Axis
+    Represents axis, as three vectors.
+=================
+*/
+Objects.prototype.DevActor = function () {
+    if ( !(this instanceof Objects.prototype.DevActor) ) {
+        return new Objects.prototype.DevActor();
+    }
+    Objects.prototype.DevActor.super.constructor.call( this );
+
+    this.enabled = false;
 
     this.create = function () {
-        DOA.Engine.__objects.push( this );
-        this.mesh.position.set( this.x, this.y, this.z );
+        DOA.Engine.__devobjects.push( this );
+        if ( this.mesh instanceof THREE.Mesh ) {
+            this.mesh.position.set( this.x, this.y, this.z );
+        }
         return this.mesh;
     }
     this.clear = function () {
-        DOA.Engine.__objects.pop( this );
+        DOA.Engine.__devobjects.pop( this );
+        return this.mesh;
     }
 }
-extend( Objects.prototype.Square, Objects.prototype.Actor );
+extend( Objects.prototype.DevActor, Objects.prototype.Actor );
 
 /*
 =================
@@ -110,21 +139,9 @@ Objects.prototype.Axis = function () {
     }
     Objects.prototype.Axis.super.constructor.call( this );
 
-    this.enabled = false;
-
     this.mesh = new THREE.AxisHelper( DOA.Settings.maxView );
-
-    this.create = function () {
-        DOA.Engine.__devobjects.push( this );
-        this.mesh.position.set( this.x, this.y, this.z );
-        return this.mesh;
-    }
-    this.clear = function () {
-        DOA.Engine.__devobjects.pop( this );
-        return this.mesh;
-    }
 }
-extend( Objects.prototype.Axis, Objects.prototype.Actor );
+extend( Objects.prototype.Axis, Objects.prototype.DevActor );
 
 /*
 =================
@@ -139,21 +156,10 @@ Objects.prototype.Grid = function ( step ) {
     Objects.prototype.Grid.super.constructor.call( this );
 
     step = step || 50;
-    this.enabled = false;
 
     this.mesh = new THREE.GridHelper( DOA.Settings.maxView, step );
-
-    this.create = function () {
-        DOA.Engine.__devobjects.push( this );
-        this.mesh.position.set( this.x, this.y, this.z );
-        return this.mesh;
-    }
-    this.clear = function () {
-        DOA.Engine.__devobjects.pop( this );
-        return this.mesh;
-    }
 }
-extend( Objects.prototype.Grid, Objects.prototype.Actor );
+extend( Objects.prototype.Grid, Objects.prototype.DevActor );
 
 /*
 =================
@@ -289,7 +295,7 @@ Objects.prototype.Target = function ( camera ) {
         }
     }
 }
-extend( Objects.prototype.Target, Objects.prototype.Actor );
+extend( Objects.prototype.Target, Objects.prototype.DevActor );
 
 /*
 ---------------------------------------------------------------------------
