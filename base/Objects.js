@@ -88,8 +88,12 @@ Objects.prototype.Square = function ( size ) {
     this.mesh = new THREE.Mesh(this.geometry, this.material);
 
     this.create = function () {
+        DOA.Engine.__objects.push( this );
         this.mesh.position.set( this.x, this.y, this.z );
         return this.mesh;
+    }
+    this.clear = function () {
+        DOA.Engine.__objects.pop( this );
     }
 }
 extend( Objects.prototype.Square, Objects.prototype.Actor );
@@ -111,7 +115,12 @@ Objects.prototype.Axis = function () {
     this.mesh = new THREE.AxisHelper( DOA.Settings.maxView );
 
     this.create = function () {
+        DOA.Engine.__devobjects.push( this );
         this.mesh.position.set( this.x, this.y, this.z );
+        return this.mesh;
+    }
+    this.clear = function () {
+        DOA.Engine.__devobjects.pop( this );
         return this.mesh;
     }
 }
@@ -135,7 +144,12 @@ Objects.prototype.Grid = function ( step ) {
     this.mesh = new THREE.GridHelper( DOA.Settings.maxView, step );
 
     this.create = function () {
+        DOA.Engine.__devobjects.push( this );
         this.mesh.position.set( this.x, this.y, this.z );
+        return this.mesh;
+    }
+    this.clear = function () {
+        DOA.Engine.__devobjects.pop( this );
         return this.mesh;
     }
 }

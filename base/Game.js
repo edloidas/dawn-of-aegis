@@ -8,8 +8,6 @@
 function Game() {
     if ( !(this instanceof Game) ) return new Game();
 
-    this.isRunnig = false;          // scene animation on / off
-
     this.stats  = null;             // stats DOM element
     this.canvas = null;             // element, that locks pointer
 
@@ -51,6 +49,12 @@ Game.prototype.init = function () {
     DOA.Engine.renderer.domElement.style.display = 'none';
     // !@ Manual clean for the multiple camera rendering.
     DOA.Engine.renderer.autoClear = false;
+
+    // !@ Render World for first time
+    // World.scene will be displayed on first-time pause.
+    DOA.Engine.renderer.clear();
+    DOA.Engine.renderer.render( DOA.World.scene, DOA.Player.camera );
+    DOA.Engine.renderer.render( DOA.UI.scene, DOA.UI.camera );
 
     document.body.appendChild( DOA.Engine.renderer.domElement );
 
@@ -109,19 +113,20 @@ Game.prototype.animate = function () {
     // render
     requestAnimationFrame( Game.prototype.animate );
 
-    DOA.Player.animate( DOA.Game.clock.getDelta() );
+    if ( DOA.Game.status === 0 ) {
+        DOA.Player.animate( DOA.Game.clock.getDelta() );
+        // @#
+        mesh.rotation.x += 0.01;
+        mesh.rotation.y += 0.02;
+        // #@
+        // Clean previous buffer
+        DOA.Engine.renderer.clear();
+        // Render world (Layer 1)
+        DOA.Engine.renderer.render( DOA.World.scene, DOA.Player.camera );
+        // Render User Interface (Layer 2)
+        DOA.Engine.renderer.render( DOA.UI.scene, DOA.UI.camera );
+    }
 
-    // @#
-    mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.02;
-    // #@
-
-    // Clean previous buffer
-    DOA.Engine.renderer.clear();
-    // Render world (Layer 1)
-    DOA.Engine.renderer.render( DOA.World.scene, DOA.Player.camera );
-    // Render User Interface (Layer 2)
-    DOA.Engine.renderer.render( DOA.UI.scene, DOA.UI.camera );
 }
 
 /*
@@ -163,10 +168,10 @@ toggleMenu
 */
 Game.prototype.toggleMenu = function () {
     if ( this.status === 1 ) {
+        DOA.Settings.apply();
         DOA.UI.menu.domElement.style.display = 'none';
         this.canvas.requestPointerLock();
         this.status = 0;
-        DOA.Settings.apply();
     } else {
         DOA.UI.menu.domElement.style.display = 'block';
         document.exitPointerLock();
