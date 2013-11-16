@@ -120,6 +120,30 @@ Settings.prototype.scaleWindow = function () {
 
 /*
 ================
+apply
+    Applies settings to the Game objects.
+================
+*/
+Settings.prototype.apply = function () {
+
+    // Mesh Color
+    var meshColor = new THREE.Color( this.colors.mesh );
+    for ( var i in DOA.World.scene.__webglObjects ) {
+        DOA.World.scene.__webglObjects[i].opaque.color = meshColor;
+    }
+
+    // Graphics
+    DOA.Player.camera.fov  = this.fov;
+    DOA.Player.camera.near = this.minView;
+    DOA.Player.camera.far  = this.maxView;
+    DOA.Player.camera.updateProjectionMatrix();
+
+    // Player
+    DOA.Player.target.omega = this.mouseSensitivity;
+}
+
+/*
+================
 quickSave
     Saves data to local storage
 ================

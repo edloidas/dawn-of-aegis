@@ -59,6 +59,7 @@ Game.prototype.init = function () {
     // append after renderer DOM
     DOA.UI.menu = new dat.GUI();
     DOA.UI.menu.domElement.style.display = 'none';
+    DOA.UI.buildSettingsMenu();
 }
 
 /*
@@ -165,6 +166,7 @@ Game.prototype.toggleMenu = function () {
         DOA.UI.menu.domElement.style.display = 'none';
         this.canvas.requestPointerLock();
         this.status = 0;
+        DOA.Settings.apply();
     } else {
         DOA.UI.menu.domElement.style.display = 'block';
         document.exitPointerLock();

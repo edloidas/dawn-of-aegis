@@ -38,6 +38,54 @@ UI.prototype.updateSize = function () {
     this.camera.updateProjectionMatrix();
 }
 
+
+/*
+================
+clearMenu
+    Removes all elements from the menu recursively.
+================
+*/
+UI.prototype.clearMenu = function ( menu ) {
+    menu = menu || this.menu;
+    for ( var i in menu.__controllers ) {
+        menu.remove( menu.__controllers[i] );
+        delete menu.__controllers[i];
+        delete menu.__listening[i];
+    }
+    menu.__controllers = [];
+    menu.__listening = [];
+
+    for ( var k in menu.__folders ) {
+        UI.prototype.clearMenu( menu.__folders[k] );
+        menu.__folders[k].domElement.parentNode.remove();
+        delete menu.__folders[k];
+    }
+}
+
+/*
+================
+buildSettingsMenu
+    Creates new set of controllers, based on DOA.Settings.
+================
+*/
+UI.prototype.buildSettingsMenu = function () {
+    this.clearMenu();
+    var folder = this.menu.addFolder( 'Common' );
+    folder.add( DOA.Settings, 'fps', [ 30, 60 ] ).listen();
+    folder.addColor( DOA.Settings.colors, 'mesh' );
+    folder.open();
+
+    folder = this.menu.addFolder( 'Graphics' );
+    folder.add( DOA.Settings, 'minView', 0.1, 1.0 ).step( 0.1 ).listen();
+    folder.add( DOA.Settings, 'maxView', 100, 9000 ).step( 100 ).listen();
+    folder.add( DOA.Settings, 'fov', 30, 120 ).step( 15 ).listen();
+    folder.open();
+
+    folder = this.menu.addFolder( 'Player' );
+    folder.add( DOA.Settings, 'mouseSensitivity', 0.05, 0.5 ).step( 0.05 ).listen();
+    folder.open();
+}
+
 /*
 ---------------------------------------------------------------------------
 DOA
