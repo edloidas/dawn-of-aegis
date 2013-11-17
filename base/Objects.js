@@ -26,10 +26,13 @@ Objects.prototype.Actor = function ( x, y, z ) {
     this.geometry = null;
     this.mesh     = null;
 
+    this.objects = null;
+
     // Can be overridden.
     // Should do all initial work, before adding to the scene.
-    this.create = function () {
-        DOA.Engine.__objects.push( this );
+    this.create = function ( objects ) {
+        this.objects = objects || DOA.Engine.__objects;
+        this.objects.push( this );
         if ( this.mesh instanceof THREE.Mesh ) {
             this.mesh.position.set( this.x, this.y, this.z );
         }
@@ -38,13 +41,18 @@ Objects.prototype.Actor = function ( x, y, z ) {
     // Can be overridden.
     // Should do all initial work, before removing from scene.
     this.clear = function () {
-        DOA.Engine.__objects.pop( this );
+        this.objects.pop( this );
         return this.mesh;
     }
 
     this.setX = function ( x ) { this.x = x; this.mesh.position.x = x; }
     this.setY = function ( y ) { this.y = y; this.mesh.position.y = y; }
     this.setZ = function ( z ) { this.z = z; this.mesh.position.z = z; }
+    this.setPosition = function ( x, y, z ) {
+        if ( typeof x === 'number' ) this.setX( x );
+        if ( typeof y === 'number' ) this.setY( y );
+        if ( typeof z === 'number' ) this.setZ( z );
+    }
 }
 
 /*
@@ -60,39 +68,76 @@ Objects.prototype.World = function () {
 
 /*
 ---------------------------------------------------------------------------
+HUD Objects
+---------------------------------------------------------------------------
+*/
+
+/*
+=================
+HudSprite
+    Draw sprite image.
+=================
+*/
+Objects.prototype.HudSprite = function ( size, texture, opacity ) {
+    if ( !(this instanceof Objects.prototype.HudSprite) ) {
+        return new Objects.prototype.HudSprite( size, opacity );
+    }
+    Objects.prototype.HudSprite.super.constructor.call( this );
+
+    size = size || 32;
+    opacity = opacity || 1.0;
+    texture = texture || THREE.ImageUtils.loadTexture( 'base/data/textures/default.png' );
+
+    this.material = new THREE.SpriteMaterial({
+        map: texture,
+        useScreenCoordinates: true,
+        alignment: THREE.SpriteAlignment.center,
+        opacity: opacity,
+        color: DOA.Settings.colors.blank
+    });
+
+    this.mesh = new THREE.Sprite( this.material );
+    // For the `useScreenCoordinates: false` scale x and y must be <= 1.0
+    // this.mesh.scale.set( 1, 1, 1 );
+    // For the `useScreenCoordinates: true` scale is an actual size in px
+    this.mesh.scale.set( size, size, 1.0 );
+}
+extend( Objects.prototype.HudSprite, Objects.prototype.Actor );
+
+
+/*
+---------------------------------------------------------------------------
 Game Objects
 ---------------------------------------------------------------------------
 */
 
 /*
 =================
-Square
-    Draw square of two polygons (triangles).
+TexturedPlane
+    Draw square without background.
 =================
 */
-Objects.prototype.Square = function ( size ) {
-    if ( !(this instanceof Objects.prototype.Square) ) {
-        return new Objects.prototype.Square();
+Objects.prototype.TexturedPlane = function ( size, color, opacity ) {
+    if ( !(this instanceof Objects.prototype.TexturedPlane) ) {
+        return new Objects.prototype.TexturedPlane( size, opacity );
     }
-    Objects.prototype.Square.super.constructor.call( this );
+    Objects.prototype.TexturedPlane.super.constructor.call( this );
 
-    this.geometry = new THREE.Geometry();
-    this.geometry.vertices.push( new THREE.Vector3( this.x,         this.y,        this.z ) );
-    this.geometry.vertices.push( new THREE.Vector3( this.x,         this.y + size, this.z ) );
-    this.geometry.vertices.push( new THREE.Vector3( this.x + size,  this.y + size, this.z ) );
-    this.geometry.vertices.push( new THREE.Vector3( this.x + size,  this.y,        this.z ) );
+    size = size || 32;
+    color = color || DOA.Settings.colors.blank;
+    opacity = opacity || 1.0;
 
-    this.geometry.faces.push( new THREE.Face3( 0, 1, 2 ) );
-    this.geometry.faces.push( new THREE.Face3( 2, 3, 0 ) );
-
+    this.geometry = new THREE.PlaneGeometry( size, size );
     this.material = new THREE.MeshBasicMaterial({
-        color: DOA.Colors.blank,
-        side:  THREE.DoubleSide
+        side: THREE.DoubleSide,
+        transparent: true,
+        opacity: opacity,
+        color: color
     });
 
     this.mesh = new THREE.Mesh(this.geometry, this.material);
 }
-extend( Objects.prototype.Square, Objects.prototype.Actor );
+extend( Objects.prototype.TexturedPlane, Objects.prototype.Actor );
 
 /*
 ---------------------------------------------------------------------------

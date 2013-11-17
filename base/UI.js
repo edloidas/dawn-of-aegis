@@ -1,7 +1,7 @@
 /*
 ===============================================================================
 
-    Class defines UI.
+    Class defines UI: HUD (head-up display) with player stats and menu GUI.
 
 ===============================================================================
 */
@@ -22,6 +22,30 @@ function UI() {
     this.scene = new THREE.Scene();
 
     this.menu = null;
+
+    this.crosshair = null;
+}
+
+/*
+================
+init
+    Creates objects of user interface.
+================
+*/
+UI.prototype.init = function () {
+    // Interface
+    //
+    // Move Textures to the preload section in DOA.Textures
+    var texture = THREE.ImageUtils.loadTexture( 'base/data/textures/crosshairs/cross-dot.png' );
+    texture.anisotropy = DOA.Engine.renderer.getMaxAnisotropy();
+    // Add crosshair size and hud size to settings. normal - 32, medium - 48, big - 64
+    this.crosshair = new DOA.Objects.HudSprite( 32, texture );
+    this.scene.add( this.crosshair.create() );
+
+    // Menu
+    this.menu = new dat.GUI();
+    this.menu.domElement.style.display = 'none';
+    this.buildSettingsMenu();
 }
 
 /*
@@ -36,6 +60,9 @@ UI.prototype.updateSize = function () {
     this.camera.top    = DOA.Settings.height /   2;
     this.camera.bottom = DOA.Settings.height / - 2;
     this.camera.updateProjectionMatrix();
+
+    // Updating HUD
+    this.crosshair.setPosition( this.camera.right, this.camera.top );
 }
 
 

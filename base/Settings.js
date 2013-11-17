@@ -29,7 +29,7 @@ function Settings() {
 
     this.colors = {
         mesh  : 0xFF0000,
-        blank : 0x000000
+        blank : 0xFFFFFF
     }
 
     /*

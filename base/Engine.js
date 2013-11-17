@@ -8,7 +8,7 @@
 function Engine() {
     if ( !(this instanceof Engine) ) return new Engine();
 
-    this.renderer = new THREE.WebGLRenderer( { antialias: true, alpha: false } );
+    this.renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
 
     this.axis = new DOA.Objects.Axis();
     this.grid = new DOA.Objects.Grid();

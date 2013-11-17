@@ -30,7 +30,6 @@ Game.prototype.init = function () {
     DOA.Settings.scaleWindow();
     DOA.Player.camera.aspect = DOA.Settings.aspect();
     DOA.Player.camera.updateProjectionMatrix();
-    DOA.UI.updateSize();
 
     // @#
     DOA.Player.camera.position.z = DOA.Settings.maxView / 4;
@@ -61,9 +60,8 @@ Game.prototype.init = function () {
     window.addEventListener( 'resize', onWindowResize, false );
 
     // append after renderer DOM
-    DOA.UI.menu = new dat.GUI();
-    DOA.UI.menu.domElement.style.display = 'none';
-    DOA.UI.buildSettingsMenu();
+    DOA.UI.init();
+    DOA.UI.updateSize();
 }
 
 /*
