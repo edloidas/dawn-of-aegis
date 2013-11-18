@@ -36,7 +36,7 @@ UI.prototype.init = function () {
     // Interface
     //
     // Move Textures to the preload section in DOA.Textures
-    var texture = THREE.ImageUtils.loadTexture( 'base/data/textures/crosshairs/cross-dot.png' );
+    var texture = DOA.Textures.crosshairs.crossdot;
     texture.anisotropy = DOA.Engine.renderer.getMaxAnisotropy();
     // Add crosshair size and hud size to settings. normal - 32, medium - 48, big - 64
     this.crosshair = new DOA.Objects.HudSprite( 32, texture );

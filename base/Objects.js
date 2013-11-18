@@ -86,7 +86,7 @@ Objects.prototype.HudSprite = function ( size, texture, opacity ) {
 
     size = size || 32;
     opacity = opacity || 1.0;
-    texture = texture || THREE.ImageUtils.loadTexture( 'base/data/textures/default.png' );
+    texture = texture || DOA.Textures.default;
 
     this.material = new THREE.SpriteMaterial({
         map: texture,
