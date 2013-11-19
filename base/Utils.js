@@ -104,6 +104,20 @@ Cache.prototype.remove = function ( key ) {
     delete _values[ key ];
 }
 
+// For group adding use mixin() method
+
+/*
+=================
+removeGroup
+    Removes set of variables.
+=================
+*/
+Cache.prototype.removeGroup = function ( keys ) {
+    for ( i in keys ) {
+        delete _values[ keys[ i ] ];
+    }
+}
+
 /*
 =================
 contains
