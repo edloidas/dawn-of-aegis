@@ -112,23 +112,23 @@ buildSettingsMenu
 UI.prototype.buildSettingsMenu = function () {
     this.clearMenu();
     var folder = this.menu.addFolder( 'Common' );
-    folder.add( DOA.Settings, 'fps', [ 30, 60 ] ).listen();
-    folder.addColor( DOA.Settings.colors, 'mesh' );
+    folder.add( DOA.Settings, 'fps', [ 30, 60 ] ).name( 'fps counter' ).listen();
+    folder.addColor( DOA.Settings.colors, 'mesh' ).name( 'blank color' ).listen();
     folder.open();
 
     folder = this.menu.addFolder( 'Graphics' );
-    folder.add( DOA.Settings, 'minView', 0.1, 1.0 ).step( 0.1 ).listen();
-    folder.add( DOA.Settings, 'maxView', 100, 9000 ).step( 100 ).listen();
-    folder.add( DOA.Settings, 'fov', 30, 120 ).step( 15 ).listen();
+    folder.add( DOA.Settings, 'minView', 0.1, 1.0 ).step( 0.1 ).name( 'min view' ).listen();
+    folder.add( DOA.Settings, 'maxView', 100, 9000 ).step( 100 ).name( 'max view' ).listen();
+    folder.add( DOA.Settings, 'fov', 30, 120 ).step( 15 ).name( 'filed of view' ).listen();
     folder.open();
 
     folder = this.menu.addFolder( 'Player' );
-    folder.add( DOA.Settings, 'mouseSensitivity', 0.05, 0.5 ).step( 0.05 ).listen();
+    folder.add( DOA.Settings, 'mouseSensitivity', 0.05, 0.5 ).step( 0.05 ).name( 'mouse speed' ).listen();
     folder.open();
 
-    this.menu.add( DOA.UI, 'resetMenu' );
-    this.menu.add( DOA.Settings, 'quickSave' );
-    this.menu.add( DOA.Settings, 'quickLoad' );
+    this.menu.add( DOA.UI, 'resetMenu' ).name( 'Reset' );
+    this.menu.add( DOA.Settings, 'quickSave' ).name( 'Save' );
+    this.menu.add( DOA.Settings, 'quickLoad' ).name( 'Load' );
 }
 
 /*
