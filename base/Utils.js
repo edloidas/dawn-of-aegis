@@ -68,6 +68,7 @@ set
 */
 Cache.prototype.set = function ( key, value ) {
     _values[ key ] = value;
+    return _values[ key ];
 }
 
 /*
@@ -80,6 +81,7 @@ Cache.prototype.add = function ( key, value ) {
     if (_values[ key ] === undefined ) {
         _values[ key ] = value;
     }
+    return _values[ key ];
 }
 
 /*
@@ -92,6 +94,7 @@ Cache.prototype.getSet = function ( key, value ) {
     if (_values[ key ] === undefined ) {
         _values[ key ] = value;
     }
+    return _values[ key ];
 }
 
 /*
