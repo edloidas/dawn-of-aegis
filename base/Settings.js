@@ -128,8 +128,8 @@ Settings.prototype.apply = function () {
 
     // Mesh Color
     var meshColor = new THREE.Color( this.colors.mesh );
-    for ( var i in DOA.Engine.__objects ) {
-        DOA.World.scene.__webglObjects[i].opaque.color = meshColor;
+    for ( var i in DOA.Engine._objects ) {
+        DOA.World.scene._webglObjects[i].opaque.color = meshColor;
     }
 
     // Graphics

@@ -31,7 +31,7 @@ Objects.prototype.Actor = function ( x, y, z ) {
     // Can be overridden.
     // Should do all initial work, before adding to the scene.
     this.create = function ( objects ) {
-        this.objects = objects || DOA.Engine.__objects;
+        this.objects = objects || DOA.Engine._objects;
         this.objects.push( this );
         if ( this.mesh instanceof THREE.Mesh ) {
             this.mesh.position.set( this.x, this.y, this.z );
@@ -159,14 +159,14 @@ Objects.prototype.DevActor = function () {
     this.enabled = false;
 
     this.create = function () {
-        DOA.Engine.__devobjects.push( this );
+        DOA.Engine._devobjects.push( this );
         if ( this.mesh instanceof THREE.Mesh ) {
             this.mesh.position.set( this.x, this.y, this.z );
         }
         return this.mesh;
     }
     this.clear = function () {
-        DOA.Engine.__devobjects.pop( this );
+        DOA.Engine._devobjects.pop( this );
         return this.mesh;
     }
 }

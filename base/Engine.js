@@ -13,8 +13,8 @@ function Engine() {
     this.axis = new DOA.Objects.Axis();
     this.grid = new DOA.Objects.Grid();
 
-    this.__objects = [];    // game objects
-    this.__devobjects = []; // developer objects
+    this._objects = [];    // game objects
+    this._devobjects = []; // developer objects
 }
 
 /*
