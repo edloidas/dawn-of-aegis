@@ -21,7 +21,7 @@ function Doa() {
     this.files = [
         "base/Utils.js",
         "base/Settings.js",
-        "base/Textures.js",
+        "base/Caches.js",
         "base/Objects.js",
         "base/Player.js",
         "base/UI.js",
