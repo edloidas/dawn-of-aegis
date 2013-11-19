@@ -57,7 +57,7 @@ get
 =================
 */
 Cache.prototype.get = function ( key ) {
-    return _values[ key ];
+    return this._values[ key ];
 }
 
 /*
@@ -67,8 +67,8 @@ set
 =================
 */
 Cache.prototype.set = function ( key, value ) {
-    _values[ key ] = value;
-    return _values[ key ];
+    this._values[ key ] = value;
+    return this._values[ key ];
 }
 
 /*
@@ -78,10 +78,10 @@ add
 =================
 */
 Cache.prototype.add = function ( key, value ) {
-    if (_values[ key ] === undefined ) {
-        _values[ key ] = value;
+    if ( this._values[ key ] === undefined ) {
+        this._values[ key ] = value;
     }
-    return _values[ key ];
+    return this._values[ key ];
 }
 
 /*
@@ -91,10 +91,10 @@ getSet
 =================
 */
 Cache.prototype.getSet = function ( key, value ) {
-    if (_values[ key ] === undefined ) {
-        _values[ key ] = value;
+    if ( this._values[ key ] === undefined ) {
+        this._values[ key ] = value;
     }
-    return _values[ key ];
+    return this._values[ key ];
 }
 
 /*
@@ -104,7 +104,7 @@ remove
 =================
 */
 Cache.prototype.remove = function ( key ) {
-    delete _values[ key ];
+    delete this._values[ key ];
 }
 
 // For group adding use mixin() method
@@ -117,7 +117,7 @@ removeGroup
 */
 Cache.prototype.removeGroup = function ( keys ) {
     for ( i in keys ) {
-        delete _values[ keys[ i ] ];
+        delete this._values[ keys[ i ] ];
     }
 }
 
@@ -128,7 +128,7 @@ contains
 =================
 */
 Cache.prototype.contains = function ( key ) {
-    return key in _values;
+    return key in this._values;
 }
 
 
