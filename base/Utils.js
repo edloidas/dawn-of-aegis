@@ -39,6 +39,81 @@ function mixin( dst, src ) {
     }
 }
 
+/*
+-------------------------------------------------------------------------------
+    CACHE
+-------------------------------------------------------------------------------
+*/
+function Cache() {
+    if ( !(this instanceof Cache) ) return new Cache();
+
+    this._values = {};
+}
+
+/*
+=================
+get
+    Gets Element by key.
+=================
+*/
+Cache.prototype.get = function ( key ) {
+    return _values[ key ];
+}
+
+/*
+=================
+set
+    Sets element value or adds new element.
+=================
+*/
+Cache.prototype.set = function ( key, value ) {
+    _values[ key ] = value;
+}
+
+/*
+=================
+add
+    Adds only new element.
+=================
+*/
+Cache.prototype.add = function ( key, value ) {
+    if (_values[ key ] === undefined ) {
+        _values[ key ] = value;
+    }
+}
+
+/*
+=================
+getSet
+    Add() method, that returns result.
+=================
+*/
+Cache.prototype.getSet = function ( key, value ) {
+    if (_values[ key ] === undefined ) {
+        _values[ key ] = value;
+    }
+}
+
+/*
+=================
+remove
+    Removes element.
+=================
+*/
+Cache.prototype.remove = function ( key ) {
+    delete _values[ key ];
+}
+
+/*
+=================
+contains
+    Returns true if key is present in _values, otherwise - false.
+=================
+*/
+Cache.prototype.contains = function ( key ) {
+    return key in _values;
+}
+
 
 /*
 -------------------------------------------------------------------------------
