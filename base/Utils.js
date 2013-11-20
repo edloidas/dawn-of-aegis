@@ -66,8 +66,9 @@ set
     Sets element value or adds new element.
 =================
 */
-Cache.prototype.set = function ( key, value ) {
+Cache.prototype.set = function ( key, value, group ) {
     this._values[ key ] = value;
+    this._values[ key ]._group = group;
     return this._values[ key ];
 }
 
@@ -77,22 +78,10 @@ add
     Adds only new element.
 =================
 */
-Cache.prototype.add = function ( key, value ) {
+Cache.prototype.add = function ( key, value, group ) {
     if ( this._values[ key ] === undefined ) {
         this._values[ key ] = value;
-    }
-    return this._values[ key ];
-}
-
-/*
-=================
-getSet
-    Add() method, that returns result.
-=================
-*/
-Cache.prototype.getSet = function ( key, value ) {
-    if ( this._values[ key ] === undefined ) {
-        this._values[ key ] = value;
+        this._values[ key ]._group = group;
     }
     return this._values[ key ];
 }
@@ -111,13 +100,27 @@ Cache.prototype.remove = function ( key ) {
 
 /*
 =================
+removeKeys
+    Removes set of variables.
+=================
+*/
+Cache.prototype.removeKeys = function ( keys ) {
+    for ( i in keys ) {
+        delete this._values[ keys[ i ] ];
+    }
+}
+
+/*
+=================
 removeGroup
     Removes set of variables.
 =================
 */
-Cache.prototype.removeGroup = function ( keys ) {
-    for ( i in keys ) {
-        delete this._values[ keys[ i ] ];
+Cache.prototype.removeGroup = function ( group ) {
+    for ( k in this._values ) {
+        if ( this._values[ k ]._group === group ) {
+            delete this._values[ keys[ i ] ];
+        }
     }
 }
 
