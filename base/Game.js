@@ -54,6 +54,7 @@ Game.prototype.init = function () {
     DOA.Engine.renderer.clear();
     DOA.Engine.renderer.render( DOA.World.scene, DOA.Player.camera );
     DOA.Engine.renderer.render( DOA.UI.scene, DOA.UI.camera );
+    DOA.Settings.updateAnisotropy();
 
     document.body.appendChild( DOA.Engine.renderer.domElement );
 

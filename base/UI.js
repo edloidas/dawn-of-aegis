@@ -120,6 +120,7 @@ UI.prototype.buildSettingsMenu = function () {
     folder.add( DOA.Settings, 'minView', 0.1, 1.0 ).step( 0.1 ).name( 'min view' ).listen();
     folder.add( DOA.Settings, 'maxView', 100, 9000 ).step( 100 ).name( 'max view' ).listen();
     folder.add( DOA.Settings, 'fov', 30, 120 ).step( 15 ).name( 'filed of view' ).listen();
+    folder.add( DOA.Settings, 'anisotropy', 1, 16 ).step( 1 ).name( 'anisotropy' ).listen();
     folder.open();
 
     folder = this.menu.addFolder( 'Player' );

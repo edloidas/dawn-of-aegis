@@ -37,9 +37,10 @@ function Settings() {
     Graphics
     ---------------------------------------------------------------------------
     */
-    this.maxView = 2000;
-    this.minView = 0.1;
-    this.fov     = 90;
+    this.maxView    = 2000;
+    this.minView    = 0.1;
+    this.fov        = 90;
+    this.anisotropy = 1; // min - 1, max - depend on renderer.
 
     /*
     ---------------------------------------------------------------------------
@@ -120,8 +121,27 @@ Settings.prototype.scaleWindow = function () {
 
 /*
 ================
+updateAnisotropy
+    Updates anisotropy value for all loaded textures.
+================
+*/
+Settings.prototype.updateAnisotropy = function () {
+    // Set anisotropy as one of the `pow` from 2
+    this.anisotropy = Math.max( 1, Math.min( DOA.Engine.renderer.getMaxAnisotropy(), this.anisotropy ) );
+    this.anisotropy = Math.pow( 2, Math.round( Math.logab( 2, this.anisotropy ) ) );
+
+    for ( k in DOA.Textures._values ) {
+        if ( DOA.Textures._values[ k ]._texture instanceof THREE.Texture ) {
+            DOA.Textures._values[ k ]._texture.anisotropy = this.anisotropy;
+        }
+    }
+}
+
+/*
+================
 apply
     Applies settings to the Game objects.
+    Should be called after the game is initialized.
 ================
 */
 Settings.prototype.apply = function () {
@@ -130,6 +150,7 @@ Settings.prototype.apply = function () {
     DOA.Player.camera.near = this.minView;
     DOA.Player.camera.far  = this.maxView;
     DOA.Player.camera.updateProjectionMatrix();
+    this.updateAnisotropy();
 
     // Player
     DOA.Player.target.omega = this.mouseSensitivity;
