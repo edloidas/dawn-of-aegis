@@ -142,3 +142,19 @@ Cache.prototype.contains = function ( key ) {
 */
 Math.PI_2 = Math.PI / 2;
 Math.PI2  = Math.PI * 2;
+
+/*
+=================
+logab
+    Evaluates LOGa(b) as LN(b)/LN(a)
+=================
+*/
+Math.logab = function ( a, b ) {
+    if ( a === 2 ) {
+        return Math.log( b ) / Math.LN2;
+    } else if ( a === 10 ) {
+        return Math.log( b ) / Math.LN10;
+    } else {
+        return Math.log( b ) / Math.log( a );
+    }
+}
