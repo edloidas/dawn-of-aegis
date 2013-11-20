@@ -32,10 +32,10 @@ Texture.prototype.unload = function () {
 DOA
 ---------------------------------------------------------------------------
 */
-DOA.Textures = new Cache();  // Texture files, loaded into RAM
+DOA.Textures  = new Cache(); // Texture files, loaded into RAM
 DOA.Materials = new Cache(); // Materials, based on texture and loaded into GPU memory
-DOA.Models = new Cache();    // Models, imported from Blender
-DOA.Sounds = new Cache();    // Game sounds
+DOA.Models    = new Cache(); // Models, imported from Blender
+DOA.Sounds    = new Cache(); // Game sounds
 
 /*
 ---------------------------------------------------------------------------
@@ -52,13 +52,15 @@ Textures
 */
 
 // PRELOADED
-
 DOA.Textures.add( 'default',      new Texture( 'base/data/textures/default.png' ) ).load();
 
-DOA.Textures.add( 'hud_crossdot', new Texture( 'base/data/textures/crosshairs/crossdot.png' ) ).load();
+// Crosshairs
+DOA.Textures.add( 'hud_crossdot', new Texture( 'base/data/textures/crosshairs/crossdot.png' ), 'crosshair' ).load();
+DOA.Textures.add( 'hud_dot',      new Texture( 'base/data/textures/crosshairs/dot.png' ),      'crosshair' );
+DOA.Textures.add( 'hud_circle',   new Texture( 'base/data/textures/crosshairs/circle.png' ),   'crosshair' );
+DOA.Textures.add( 'hud_cross',    new Texture( 'base/data/textures/crosshairs/cross.png' ),    'crosshair' );
+DOA.Textures.add( 'hud_bigcross', new Texture( 'base/data/textures/crosshairs/bigcross.png' ), 'crosshair' );
 
-// REGISTERED
-DOA.Textures.add( 'hud_dot',      new Texture( 'base/data/textures/crosshairs/dot.png' ) );
-DOA.Textures.add( 'hud_circle',   new Texture( 'base/data/textures/crosshairs/circle.png' ) );
-DOA.Textures.add( 'hud_cross',    new Texture( 'base/data/textures/crosshairs/cross.png' ) );
-DOA.Textures.add( 'hud_bigcross', new Texture( 'base/data/textures/crosshairs/bigcross.png' ) );
+// HUD
+DOA.Textures.add( 'hud_health',   new Texture( 'base/data/textures/interface/health.png' ), 'hud' ).load();
+DOA.Textures.add( 'hud_armor',    new Texture( 'base/data/textures/interface/armor.png' ),  'hud' ).load();
