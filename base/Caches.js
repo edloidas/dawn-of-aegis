@@ -64,3 +64,30 @@ DOA.Textures.add( 'hud_bigcross', new Texture( 'base/data/textures/crosshairs/bi
 // HUD
 DOA.Textures.add( 'hud_health',   new Texture( 'base/data/textures/interface/health.png' ), 'hud' ).load();
 DOA.Textures.add( 'hud_armor',    new Texture( 'base/data/textures/interface/armor.png' ),  'hud' ).load();
+
+/*
+---------------------------------------------------------------------------
+Materials
+---------------------------------------------------------------------------
+*/
+DOA.Materials.add( 'crosshair', new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_crossdot' ),
+                                                            useScreenCoordinates: true,
+                                                            opacity: opacity,
+                                                            color: DOA.Settings.colors.blank,
+                                                            alignment: THREE.SpriteAlignment.center}) ), 'crosshair' ).load();
+DOA.Materials.add( 'hud_health', new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_health' ),
+                                                            useScreenCoordinates: true,
+                                                            opacity: opacity,
+                                                            color: DOA.Settings.colors.blank,
+                                                            alignment: THREE.SpriteAlignment.center}) ), 'hud' ).load();
+DOA.Materials.add( 'hud_armor',  new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_armor' ),
+                                                            useScreenCoordinates: true,
+                                                            opacity: opacity,
+                                                            color: DOA.Settings.colors.blank,
+                                                            alignment: THREE.SpriteAlignment.center}) ), 'hud' ).load();
+
+/*
+---------------------------------------------------------------------------
+Objects
+---------------------------------------------------------------------------
+*/
