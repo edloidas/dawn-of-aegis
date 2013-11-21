@@ -55,26 +55,25 @@ Textures
 DOA.Textures.add( 'default',      new Texture( 'base/data/textures/default.png' ) ).load();
 
 // Crosshairs
-DOA.Textures.add( 'hud_crossdot', new Texture( 'base/data/textures/crosshairs/crossdot.png' ), 'crosshair' ).load();
-DOA.Textures.add( 'hud_dot',      new Texture( 'base/data/textures/crosshairs/dot.png' ),      'crosshair' );
-DOA.Textures.add( 'hud_circle',   new Texture( 'base/data/textures/crosshairs/circle.png' ),   'crosshair' );
-DOA.Textures.add( 'hud_cross',    new Texture( 'base/data/textures/crosshairs/cross.png' ),    'crosshair' );
-DOA.Textures.add( 'hud_bigcross', new Texture( 'base/data/textures/crosshairs/bigcross.png' ), 'crosshair' );
-
+DOA.Textures.add( 'hud_crossdot', new Texture( 'base/data/textures/crosshairs/crossdot.png' ), 'hud' ).load();
+DOA.Textures.add( 'hud_dot',      new Texture( 'base/data/textures/crosshairs/dot.png' ),      'hud' );
+DOA.Textures.add( 'hud_circle',   new Texture( 'base/data/textures/crosshairs/circle.png' ),   'hud' );
+DOA.Textures.add( 'hud_cross',    new Texture( 'base/data/textures/crosshairs/cross.png' ),    'hud' );
+DOA.Textures.add( 'hud_bigcross', new Texture( 'base/data/textures/crosshairs/bigcross.png' ), 'hud' );
 // HUD
-DOA.Textures.add( 'hud_health',   new Texture( 'base/data/textures/interface/health.png' ), 'hud' ).load();
-DOA.Textures.add( 'hud_armor',    new Texture( 'base/data/textures/interface/armor.png' ),  'hud' ).load();
+DOA.Textures.add( 'hud_health',   new Texture( 'base/data/textures/interface/health.png' ),    'hud' ).load();
+DOA.Textures.add( 'hud_armor',    new Texture( 'base/data/textures/interface/armor.png' ),     'hud' ).load();
 
 /*
 ---------------------------------------------------------------------------
 Materials
 ---------------------------------------------------------------------------
 */
-DOA.Materials.add( 'crosshair', new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_crossdot' ),
+DOA.Materials.add( 'crosshair', new THREE.SpriteMaterial({  map: DOA.Textures.get( 'hud_crossdot' ),
                                                             useScreenCoordinates: true,
                                                             opacity: opacity,
                                                             color: DOA.Settings.colors.blank,
-                                                            alignment: THREE.SpriteAlignment.center}) ), 'crosshair' ).load();
+                                                            alignment: THREE.SpriteAlignment.center}) ), 'hud' ).load();
 DOA.Materials.add( 'hud_health', new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_health' ),
                                                             useScreenCoordinates: true,
                                                             opacity: opacity,
