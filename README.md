@@ -2,6 +2,8 @@ Dawn of Aegis
 =============
 JavaScript 3D game. Uses WebGL.
 
+** Want to get involved? [Read how](CONTRIBUTING.md). **
+
 
 ## HOWTO: Run ##
 
@@ -30,6 +32,7 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 * `loader.js` - resource load and game initialization.
 * `Utils.js` - additions to the standard math library.
 * `Settings.js` - changeable game settings: window size, fov, mouse sensitivity.
+* `Caches.js` - cached (regular and preloaded) objects.
 * `Objects.js` - simple world objects.
 * `Player.js` - camera and user controls.
 * `UI.js` - user interface.
