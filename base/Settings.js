@@ -52,6 +52,9 @@ function Settings() {
 
     this.mouseSensitivity = 0.2 // 0.05 - slow, 0.5 - fast
 
+    this.hudSize    = 32; // [ 32, 64, 128 ]
+    this.hudOpacity = 1.0;
+
     /*
     ---------------------------------------------------------------------------
     Controls
@@ -154,6 +157,9 @@ Settings.prototype.apply = function () {
 
     // Player
     DOA.Player.target.omega = this.mouseSensitivity;
+
+    // Interface
+    DOA.UI.updateHud();
 }
 
 /*

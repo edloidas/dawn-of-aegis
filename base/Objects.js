@@ -68,48 +68,34 @@ Objects.prototype.World = function () {
 
 /*
 ---------------------------------------------------------------------------
-HUD Objects
+Game Objects
 ---------------------------------------------------------------------------
 */
 
 /*
 =================
-HudSprite
-    Draw sprite image.
+Sprite
+    Draws sprite image.
 =================
 */
-Objects.prototype.HudSprite = function ( size, texture, opacity ) {
-    if ( !(this instanceof Objects.prototype.HudSprite) ) {
-        return new Objects.prototype.HudSprite( size, opacity );
+Objects.prototype.Sprite = function ( size, material ) {
+    if ( !(this instanceof Objects.prototype.Sprite) ) {
+        return new Objects.prototype.Sprite( size, material, opacity );
     }
-    Objects.prototype.HudSprite.super.constructor.call( this );
+    Objects.prototype.Sprite.super.constructor.call( this );
 
     size = size || 32;
-    opacity = opacity || 1.0;
-    texture = texture || DOA.Textures.default;
+    material = material || ( THREE.SpriteMaterial({ color: DOA.Settings.colors.blank }) );
 
-    this.material = new THREE.SpriteMaterial({
-        map: texture,
-        useScreenCoordinates: true,
-        alignment: THREE.SpriteAlignment.center,
-        opacity: opacity,
-        color: DOA.Settings.colors.blank
-    });
-
+    this.material = material;
     this.mesh = new THREE.Sprite( this.material );
+    // Orthogonal camera:
     // For the `useScreenCoordinates: false` scale x and y must be <= 1.0
     // this.mesh.scale.set( 1, 1, 1 );
     // For the `useScreenCoordinates: true` scale is an actual size in px
     this.mesh.scale.set( size, size, 1.0 );
 }
-extend( Objects.prototype.HudSprite, Objects.prototype.Actor );
-
-
-/*
----------------------------------------------------------------------------
-Game Objects
----------------------------------------------------------------------------
-*/
+extend( Objects.prototype.Sprite, Objects.prototype.Actor );
 
 /*
 =================

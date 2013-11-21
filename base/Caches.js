@@ -69,24 +69,18 @@ DOA.Textures.add( 'hud_armor',    new Texture( 'base/data/textures/interface/arm
 Materials
 ---------------------------------------------------------------------------
 */
-DOA.Materials.add( 'crosshair', new THREE.SpriteMaterial({  map: DOA.Textures.get( 'hud_crossdot' ),
+DOA.Materials.add( 'crosshair', new THREE.SpriteMaterial({  map: DOA.Textures.get( 'hud_crossdot' ).load(),
                                                             useScreenCoordinates: true,
-                                                            opacity: opacity,
+                                                            opacity: DOA.Settings.hudOpacity,
                                                             color: DOA.Settings.colors.blank,
-                                                            alignment: THREE.SpriteAlignment.center}) ), 'hud' ).load();
-DOA.Materials.add( 'hud_health', new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_health' ),
+                                                            alignment: THREE.SpriteAlignment.center }), 'hud' );
+DOA.Materials.add( 'hud_health', new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_health' ).load(),
                                                             useScreenCoordinates: true,
-                                                            opacity: opacity,
+                                                            opacity: DOA.Settings.hudOpacity,
                                                             color: DOA.Settings.colors.blank,
-                                                            alignment: THREE.SpriteAlignment.center}) ), 'hud' ).load();
-DOA.Materials.add( 'hud_armor',  new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_armor' ),
+                                                            alignment: THREE.SpriteAlignment.center }), 'hud' );
+DOA.Materials.add( 'hud_armor',  new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_armor' ).load(),
                                                             useScreenCoordinates: true,
-                                                            opacity: opacity,
+                                                            opacity: DOA.Settings.hudOpacity,
                                                             color: DOA.Settings.colors.blank,
-                                                            alignment: THREE.SpriteAlignment.center}) ), 'hud' ).load();
-
-/*
----------------------------------------------------------------------------
-Objects
----------------------------------------------------------------------------
-*/
+                                                            alignment: THREE.SpriteAlignment.center }), 'hud' );

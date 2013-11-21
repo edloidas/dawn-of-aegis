@@ -35,11 +35,9 @@ init
 UI.prototype.init = function () {
     // Interface
     //
-    // Move Textures to the preload section in DOA.Textures
-    var texture = DOA.Textures._values.hud_crossdot.load();
-    texture.anisotropy = DOA.Engine.renderer.getMaxAnisotropy();
     // Add crosshair size and hud size to settings. normal - 32, medium - 48, big - 64
-    this.crosshair = new DOA.Objects.HudSprite( 32, texture );
+    this.crosshair = new DOA.Objects.Sprite( 32, DOA.Materials.get( 'crosshair') );
+    this.crosshair.setZ( 1.0 );
     this.scene.add( this.crosshair.create() );
 
     // Menu
@@ -63,6 +61,21 @@ UI.prototype.updateSize = function () {
 
     // Updating HUD
     this.crosshair.setPosition( this.camera.right, this.camera.top );
+}
+
+/*
+================
+updateHudSize
+    Updates HUD elements texture size.
+================
+*/
+UI.prototype.updateHud = function () {
+    // scale
+    this.crosshair.mesh.scale.x = DOA.Settings.hudSize;
+    this.crosshair.mesh.scale.y = DOA.Settings.hudSize;
+
+    // opacity
+    DOA.UI.crosshair.material.opacity = DOA.Settings.hudOpacity;
 }
 
 
@@ -125,6 +138,8 @@ UI.prototype.buildSettingsMenu = function () {
 
     folder = this.menu.addFolder( 'Player' );
     folder.add( DOA.Settings, 'mouseSensitivity', 0.05, 0.5 ).step( 0.05 ).name( 'mouse speed' ).listen();
+    folder.add( DOA.Settings, 'hudSize', { normal : 32, big : 64, large : 128 } ).name( 'HUD size' ).listen();
+    folder.add( DOA.Settings, 'hudOpacity', 0.0, 1.0 ).step( 0.01 ).name( 'HUD opacity' ).listen();
     folder.open();
 
     this.menu.add( DOA.UI, 'resetMenu' ).name( 'Reset' );
