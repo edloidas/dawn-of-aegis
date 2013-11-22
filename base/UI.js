@@ -8,8 +8,8 @@
 function UI() {
     if ( !(this instanceof UI) ) return new UI();
 
-    this.camera = new THREE.OrthographicCamera( DOA.Settings.width / - 2, DOA.Settings.width / 2,
-                                                DOA.Settings.height / 2, DOA.Settings.height / - 2,
+    this.camera = new THREE.OrthographicCamera( DOA.Settings.width  / - 2, DOA.Settings.width  /   2,
+                                                DOA.Settings.height /   2, DOA.Settings.height / - 2,
                                                 DOA.Settings.minView, DOA.Settings.maxView );
     /*
      * If camera rotation on Y is 0, not PI radian, all objects visible by
@@ -36,7 +36,7 @@ UI.prototype.init = function () {
     // Interface
     //
     // Add crosshair size and hud size to settings. normal - 32, medium - 48, big - 64
-    this.crosshair = new DOA.Objects.Sprite( 32, DOA.Materials.get( 'crosshair') );
+    this.crosshair = new DOA.Objects.Sprite( 32, DOA.Materials.get( 'crosshair' ) );
     this.crosshair.setZ( 1.0 );
     this.scene.add( this.crosshair.create() );
 

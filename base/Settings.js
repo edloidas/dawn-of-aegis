@@ -27,8 +27,11 @@ function Settings() {
 
     this.background = 0xFFFFFF; // renderer background
 
+    this.fontface = "Arial";
+
     this.colors = {
         mesh  : 0xFF0000,
+        text  : 0x000000,
         blank : 0xFFFFFF
     }
 
