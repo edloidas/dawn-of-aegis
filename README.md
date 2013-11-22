@@ -2,7 +2,7 @@ Dawn of Aegis
 =============
 JavaScript 3D game. Uses WebGL.
 
-** Want to get involved? [Read how](CONTRIBUTING.md). **
+**Want to get involved? [Read how](CONTRIBUTING.md).**
 
 
 ## HOWTO: Run ##
