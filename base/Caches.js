@@ -64,23 +64,37 @@ DOA.Textures.add( 'hud_bigcross', new Texture( 'base/data/textures/crosshairs/bi
 DOA.Textures.add( 'hud_health',   new Texture( 'base/data/textures/interface/health.png' ),    'hud' ).load();
 DOA.Textures.add( 'hud_armor',    new Texture( 'base/data/textures/interface/armor.png' ),     'hud' ).load();
 
+DOA.Textures.add( 'hud_armor_text',
+                  new DOA.Objects.TextTexture( '100', { fontface: 'Arial', fontweight: 'bold',
+                                                        fontsize: 30, bgOpacity: 0.3 } ), 'hud' );
+
 /*
 ---------------------------------------------------------------------------
 Materials
 ---------------------------------------------------------------------------
 */
-DOA.Materials.add( 'crosshair', new THREE.SpriteMaterial({  map: DOA.Textures.get( 'hud_crossdot' ).load(),
-                                                            useScreenCoordinates: true,
-                                                            opacity: DOA.Settings.hudOpacity,
-                                                            color: DOA.Settings.colors.blank,
-                                                            alignment: THREE.SpriteAlignment.center }), 'hud' );
-DOA.Materials.add( 'hud_health', new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_health' ).load(),
-                                                            useScreenCoordinates: true,
-                                                            opacity: DOA.Settings.hudOpacity,
-                                                            color: DOA.Settings.colors.blank,
-                                                            alignment: THREE.SpriteAlignment.center }), 'hud' );
-DOA.Materials.add( 'hud_armor',  new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_armor' ).load(),
-                                                            useScreenCoordinates: true,
-                                                            opacity: DOA.Settings.hudOpacity,
-                                                            color: DOA.Settings.colors.blank,
-                                                            alignment: THREE.SpriteAlignment.center }), 'hud' );
+DOA.Materials.add( 'crosshair',
+                   new THREE.SpriteMaterial({  map: DOA.Textures.get( 'hud_crossdot' ).load(),
+                                              useScreenCoordinates: true,
+                                              opacity: DOA.Settings.hudOpacity,
+                                              color: DOA.Settings.colors.blank,
+                                              alignment: THREE.SpriteAlignment.center }), 'hud' );
+DOA.Materials.add( 'hud_health',
+                   new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_health' ).load(),
+                                              useScreenCoordinates: true,
+                                              opacity: DOA.Settings.hudOpacity,
+                                              color: DOA.Settings.colors.blank,
+                                              alignment: THREE.SpriteAlignment.center }), 'hud' );
+DOA.Materials.add( 'hud_armor',
+                   new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_armor' ).load(),
+                                              useScreenCoordinates: true,
+                                              opacity: DOA.Settings.hudOpacity,
+                                              color: DOA.Settings.colors.blank,
+                                              alignment: THREE.SpriteAlignment.center }), 'hud' );
+
+DOA.Materials.add( 'hud_armor_text',
+                   new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_armor_text' ),
+                                              useScreenCoordinates: true,
+                                              opacity: DOA.Settings.hudOpacity,
+                                              color: DOA.Settings.colors.blank,
+                                              alignment: THREE.SpriteAlignment.bottomCenter }), 'hud' );
