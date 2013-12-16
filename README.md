@@ -2,9 +2,6 @@ Dawn of Aegis
 =============
 JavaScript 3D game. Uses WebGL.
 
-**Want to get involved? [Read how](CONTRIBUTING.md).**
-
-
 ## HOWTO: Run ##
 
 Basically, this web application should run on a server. Game won't work properly due to cross-origin requests restrictions in browser's security policy.
