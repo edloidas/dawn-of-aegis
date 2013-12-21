@@ -25,12 +25,19 @@ module.exports = function(grunt) {
                 ],
                 dest: 'base/Objects.js',
             },
+        },
+        jshint: {
+            options: {
+                laxbreak: true
+            },
+            all: ['base/*.js', 'base/objects/*.js']
         }
     });
 
     // Load the plugin that provides the "uglify" task.
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
 
     // Default task(s).
-    grunt.registerTask('default', ['concat']);
+    grunt.registerTask('default', ['concat', 'jshint']);
 };
