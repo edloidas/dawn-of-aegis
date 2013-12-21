@@ -6,6 +6,3 @@ base/data/
 *.sh
 *.bat
 *.cmd
-
-# Project files #
-base/Objects.js
