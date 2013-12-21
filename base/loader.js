@@ -104,7 +104,7 @@ Doa.prototype.verify = function () {
         console.warn( "Execution will be aborted due to previous errors." );
         throw new Error( "Verification failed. Browser not fully supported." );
     }
-}
+};
 
 // DOA object
 var DOA = new Doa();
@@ -188,4 +188,4 @@ document.onreadystatechange = function () {
             }
         ]);
     }
-}
+};

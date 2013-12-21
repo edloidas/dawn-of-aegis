@@ -13,5 +13,5 @@ Objects.prototype.Grid = function ( step ) {
     step = step || 50;
 
     this.mesh = new THREE.GridHelper( DOA.Settings.maxView, step );
-}
+};
 extend( Objects.prototype.Grid, Objects.prototype.DevActor );

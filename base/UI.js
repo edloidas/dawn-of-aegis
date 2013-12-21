@@ -52,7 +52,7 @@ UI.prototype.init = function () {
     this.menu = new dat.GUI();
     this.menu.domElement.style.display = 'none';
     this.buildSettingsMenu();
-}
+};
 
 /*
 ================
@@ -69,7 +69,7 @@ UI.prototype.updateSize = function () {
 
     // Updating HUD
     this.crosshair.setPosition( this.camera.right, this.camera.top );
-}
+};
 
 /*
 ================
@@ -84,8 +84,7 @@ UI.prototype.updateHud = function () {
 
     // opacity
     DOA.UI.crosshair.material.opacity = DOA.Settings.hudOpacity;
-}
-
+};
 
 /*
 ================
@@ -108,7 +107,7 @@ UI.prototype.clearMenu = function ( menu ) {
         menu.__folders[k].domElement.parentNode.remove();
         delete menu.__folders[k];
     }
-}
+};
 
 /*
 ================
@@ -122,7 +121,7 @@ UI.prototype.resetMenu = function () {
     } catch ( ex ) {
         // Cannot read property 'selectedIndex' of undefined
     }
-}
+};
 
 /*
 ================
@@ -153,7 +152,7 @@ UI.prototype.buildSettingsMenu = function () {
     this.menu.add( DOA.UI, 'resetMenu' ).name( 'Reset' );
     this.menu.add( DOA.Settings, 'quickSave' ).name( 'Save' );
     this.menu.add( DOA.Settings, 'quickLoad' ).name( 'Load' );
-}
+};
 
 /*
 ---------------------------------------------------------------------------

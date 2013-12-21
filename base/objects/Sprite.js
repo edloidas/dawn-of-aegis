@@ -24,5 +24,5 @@ Objects.prototype.Sprite = function ( material, width, height, depth ) {
     // this.mesh.scale.set( 1, 1, 1 );
     // For the `useScreenCoordinates: true` scale is an actual size in px
     this.mesh.scale.set( width, height, depth );
-}
+};
 extend( Objects.prototype.Sprite, Objects.prototype.Actor );

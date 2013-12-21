@@ -18,14 +18,14 @@ Texture.prototype.load = function () {
         this._texture = THREE.ImageUtils.loadTexture( this.url );
     }
     return this._texture ;
-}
+};
 
 Texture.prototype.unload = function () {
     if ( this._texture !== null ) {
         delete this._texture;
     }
     this._texture = null;
-}
+};
 
 /*
 ---------------------------------------------------------------------------

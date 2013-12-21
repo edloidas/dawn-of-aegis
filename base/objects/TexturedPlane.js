@@ -23,5 +23,5 @@ Objects.prototype.TexturedPlane = function ( size, color, opacity ) {
     });
 
     this.mesh = new THREE.Mesh(this.geometry, this.material);
-}
+};
 extend( Objects.prototype.TexturedPlane, Objects.prototype.Actor );

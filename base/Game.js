@@ -63,7 +63,7 @@ Game.prototype.init = function () {
     // append after renderer DOM
     DOA.UI.init();
     DOA.UI.updateSize();
-}
+};
 
 /*
 ================
@@ -100,7 +100,7 @@ Game.prototype.bind = function () {
     document.addEventListener( 'fullscreenchange',       fullscreenChange, false );
     document.addEventListener( 'mozfullscreenchange',    fullscreenChange, false );
     document.addEventListener( 'webkitfullscreenchange', fullscreenChange, false );
-}
+};
 
 /*
 ================
@@ -125,8 +125,7 @@ Game.prototype.animate = function () {
         // Render User Interface (Layer 2)
         DOA.Engine.renderer.render( DOA.UI.scene, DOA.UI.camera );
     }
-
-}
+};
 
 /*
 ================
@@ -157,7 +156,7 @@ Game.prototype.toggleStats = function () {
     } else {
         document.getElementById( 'stats' ).remove();
     }
-}
+};
 
 /*
 ================
@@ -176,7 +175,7 @@ Game.prototype.toggleMenu = function () {
         document.exitPointerLock();
         this.status = 1;
     }
-}
+};
 
 /*
 ================
@@ -196,11 +195,10 @@ Game.prototype.toggleFullscreen = function () {
         } else if ( document.webkitCancelFullScreen ) {
             document.webkitCancelFullScreen();
         }
-
     } else {
         this.canvas.requestFullscreen();
     }
-}
+};
 
 
 /*
@@ -360,7 +358,7 @@ Game.prototype.onPointerLockChange = function ( event ) {
     DOA.Player.isActive = ( document.pointerLockElement === DOA.Game.canvas ||
                         document.mozPointerLockElement === DOA.Game.canvas ||
                         document.webkitPointerLockElement === DOA.Game.canvas );
-}
+};
 
 /*
 ================
@@ -370,7 +368,7 @@ onPointerLockError
 */
 Game.prototype.onPointerLockError = function ( event ) {
     console.warn( 'Pointer lock error.' );
-}
+};
 
 /*
 ================

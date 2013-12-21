@@ -1,4 +1,4 @@
-/*! doa - v0.0.1 - 2013-12-21 */
+/*! doa - v0.0.1 - 2013-12-22 */
 /*
 ===============================================================================
 
@@ -38,23 +38,23 @@ Objects.prototype.Actor = function ( x, y, z ) {
             this.mesh.position.set( this.x, this.y, this.z );
         }
         return this.mesh;
-    }
+    };
     // Can be overridden.
     // Should do all initial work, before removing from scene.
     this.clear = function () {
         this.objects.pop( this );
         return this.mesh;
-    }
+    };
 
-    this.setX = function ( x ) { this.x = x; this.mesh.position.x = x; }
-    this.setY = function ( y ) { this.y = y; this.mesh.position.y = y; }
-    this.setZ = function ( z ) { this.z = z; this.mesh.position.z = z; }
+    this.setX = function ( x ) { this.x = x; this.mesh.position.x = x; };
+    this.setY = function ( y ) { this.y = y; this.mesh.position.y = y; };
+    this.setZ = function ( z ) { this.z = z; this.mesh.position.z = z; };
     this.setPosition = function ( x, y, z ) {
         if ( typeof x === 'number' ) this.setX( x );
         if ( typeof y === 'number' ) this.setY( y );
         if ( typeof z === 'number' ) this.setZ( z );
-    }
-}
+    };
+};
 
 /*
 =================
@@ -65,7 +65,7 @@ World
 */
 Objects.prototype.World = function () {
     if ( !(this instanceof Objects.prototype.World) ) return new this.World();
-}
+};
 
 /*
 =================
@@ -93,7 +93,7 @@ Objects.prototype.Sprite = function ( material, width, height, depth ) {
     // this.mesh.scale.set( 1, 1, 1 );
     // For the `useScreenCoordinates: true` scale is an actual size in px
     this.mesh.scale.set( width, height, depth );
-}
+};
 extend( Objects.prototype.Sprite, Objects.prototype.Actor );
 
 /*
@@ -121,7 +121,7 @@ Objects.prototype.TexturedPlane = function ( size, color, opacity ) {
     });
 
     this.mesh = new THREE.Mesh(this.geometry, this.material);
-}
+};
 extend( Objects.prototype.TexturedPlane, Objects.prototype.Actor );
 
 /*
@@ -145,12 +145,12 @@ Objects.prototype.DevActor = function () {
             this.mesh.position.set( this.x, this.y, this.z );
         }
         return this.mesh;
-    }
+    };
     this.clear = function () {
         DOA.Engine._devobjects.pop( this );
         return this.mesh;
-    }
-}
+    };
+};
 extend( Objects.prototype.DevActor, Objects.prototype.Actor );
 
 /*
@@ -166,7 +166,7 @@ Objects.prototype.Axis = function () {
     Objects.prototype.Axis.super.constructor.call( this );
 
     this.mesh = new THREE.AxisHelper( DOA.Settings.maxView );
-}
+};
 extend( Objects.prototype.Axis, Objects.prototype.DevActor );
 
 /*
@@ -184,7 +184,7 @@ Objects.prototype.Grid = function ( step ) {
     step = step || 50;
 
     this.mesh = new THREE.GridHelper( DOA.Settings.maxView, step );
-}
+};
 extend( Objects.prototype.Grid, Objects.prototype.DevActor );
 
 /*
@@ -247,7 +247,7 @@ Objects.prototype.Target = function ( camera ) {
             this.mesh.rotation.y = this.camera.rotation.y;
             this.mesh.rotation.z = this.camera.rotation.z;
         }
-    }
+    };
 
     this.moveForward = function () {
         this.calcDelta();
@@ -261,7 +261,7 @@ Objects.prototype.Target = function ( camera ) {
         this.z += camera.position.delta.z;
 
         this.updateMesh();
-    }
+    };
 
     this.moveBackward = function () {
         this.calcDelta();
@@ -275,22 +275,21 @@ Objects.prototype.Target = function ( camera ) {
         this.z -= camera.position.delta.z;
 
         this.updateMesh();
-    }
+    };
 
     this.moveLeft = function () {
         camera.position.delta.x = -this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
         camera.position.delta.z = -this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
 
         this.updatePlane();
-    }
+    };
 
     this.moveRight = function () {
         camera.position.delta.x = -this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) - Math.PI_2);
         camera.position.delta.z = -this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) - Math.PI_2);
 
         this.updatePlane();
-    }
-
+    };
 
     this.calcDelta = function () {
         camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) )
@@ -298,7 +297,7 @@ Objects.prototype.Target = function ( camera ) {
         camera.position.delta.y = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
         camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
                                                              * Math.sin( THREE.Math.degToRad( this.phi ) );
-    }
+    };
 
     this.updateMesh = function () {
         if ( this.enabled ) {
@@ -306,7 +305,7 @@ Objects.prototype.Target = function ( camera ) {
             this.mesh.position.y = this.y;
             this.mesh.position.z = this.z;
         }
-    }
+    };
 
     this.updatePlane = function () {
         camera.position.x += camera.position.delta.x;
@@ -319,8 +318,8 @@ Objects.prototype.Target = function ( camera ) {
             this.mesh.position.x = this.x;
             this.mesh.position.z = this.z;
         }
-    }
-}
+    };
+};
 extend( Objects.prototype.Target, Objects.prototype.DevActor );
 
 /*
@@ -417,16 +416,16 @@ Objects.prototype.TextTexture = function ( text, param ) {
         this.context.restore();
         this.context.fillText( text, this.borderWidth, this.fontsize + this.borderWidth );
         this.needsUpdate = true;
-    }
+    };
 
     this.getWidth = function () {
         return this.canvas.width;
-    }
+    };
 
     this.getHeight = function () {
         return this.canvas.height;
-    }
-}
+    };
+};
 extend( Objects.prototype.TextTexture, THREE.Texture );
 
 /*

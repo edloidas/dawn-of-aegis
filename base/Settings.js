@@ -33,7 +33,7 @@ function Settings() {
         mesh  : 0xFF0000,
         text  : 0x000000,
         blank : 0xFFFFFF
-    }
+    };
 
     /*
     ---------------------------------------------------------------------------
@@ -50,10 +50,10 @@ function Settings() {
     Player
     ---------------------------------------------------------------------------
     */
-    this.minLook = 5,   // deg. Top is 0
-    this.maxLook = 175, // deg. Bottom is 180
+    this.minLook = 5;   // deg. Top is 0
+    this.maxLook = 175; // deg. Bottom is 180
 
-    this.mouseSensitivity = 0.2 // 0.05 - slow, 0.5 - fast
+    this.mouseSensitivity = 0.2; // 0.05 - slow, 0.5 - fast
 
     this.hudSize    = 32; // [ 32, 64, 128 ]
     this.hudOpacity = 1.0;
@@ -90,8 +90,7 @@ function Settings() {
         fullscreen  : 88, // x
         devmode     : 90, // z
         debug       : 192 // ~
-    }
-
+    };
 }
 
 /*
@@ -102,7 +101,7 @@ gameVersion
 */
 Settings.prototype.gameVersion = function () {
     return this.version.major + '.' + this.version.minor;
-}
+};
 
 /*
 ================
@@ -112,7 +111,7 @@ aspect
 */
 Settings.prototype.aspect = function () {
     return this.width / this.height;
-}
+};
 
 /*
 ================
@@ -123,7 +122,7 @@ scaleWindow
 Settings.prototype.scaleWindow = function () {
     this.width =  ( window.innerWidth  < 800 ) ? 800 : window.innerWidth;
     this.height = ( window.innerHeight < 450 ) ? 450 : window.innerHeight;
-}
+};
 
 /*
 ================
@@ -136,12 +135,12 @@ Settings.prototype.updateAnisotropy = function () {
     this.anisotropy = Math.max( 1, Math.min( DOA.Engine.renderer.getMaxAnisotropy(), this.anisotropy ) );
     this.anisotropy = Math.pow( 2, Math.round( Math.logab( 2, this.anisotropy ) ) );
 
-    for ( k in DOA.Textures._values ) {
+    for ( var k in DOA.Textures._values ) {
         if ( DOA.Textures._values[ k ]._texture instanceof THREE.Texture ) {
             DOA.Textures._values[ k ]._texture.anisotropy = this.anisotropy;
         }
     }
-}
+};
 
 /*
 ================
@@ -163,7 +162,7 @@ Settings.prototype.apply = function () {
 
     // Interface
     DOA.UI.updateHud();
-}
+};
 
 /*
 ================
@@ -181,7 +180,7 @@ Settings.prototype.quickSave = function () {
                                  ' "minView":'   + this.minView + ',' +
                                  ' "fov":'       + this.fov + ',' +
                                  ' "mouseSens":' + this.mouseSensitivity + '}';
-}
+};
 
 /*
 ================
@@ -203,7 +202,7 @@ Settings.prototype.quickLoad = function () {
         this.fov     = slot.fov;
         this.mouseSensitivity = slot.mouseSens;
     }
-}
+};
 
 /*
 ---------------------------------------------------------------------------

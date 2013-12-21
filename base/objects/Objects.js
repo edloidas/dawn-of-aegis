@@ -37,23 +37,23 @@ Objects.prototype.Actor = function ( x, y, z ) {
             this.mesh.position.set( this.x, this.y, this.z );
         }
         return this.mesh;
-    }
+    };
     // Can be overridden.
     // Should do all initial work, before removing from scene.
     this.clear = function () {
         this.objects.pop( this );
         return this.mesh;
-    }
+    };
 
-    this.setX = function ( x ) { this.x = x; this.mesh.position.x = x; }
-    this.setY = function ( y ) { this.y = y; this.mesh.position.y = y; }
-    this.setZ = function ( z ) { this.z = z; this.mesh.position.z = z; }
+    this.setX = function ( x ) { this.x = x; this.mesh.position.x = x; };
+    this.setY = function ( y ) { this.y = y; this.mesh.position.y = y; };
+    this.setZ = function ( z ) { this.z = z; this.mesh.position.z = z; };
     this.setPosition = function ( x, y, z ) {
         if ( typeof x === 'number' ) this.setX( x );
         if ( typeof y === 'number' ) this.setY( y );
         if ( typeof z === 'number' ) this.setZ( z );
-    }
-}
+    };
+};
 
 /*
 =================
@@ -64,4 +64,4 @@ World
 */
 Objects.prototype.World = function () {
     if ( !(this instanceof Objects.prototype.World) ) return new this.World();
-}
+};

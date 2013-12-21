@@ -11,5 +11,5 @@ Objects.prototype.Axis = function () {
     Objects.prototype.Axis.super.constructor.call( this );
 
     this.mesh = new THREE.AxisHelper( DOA.Settings.maxView );
-}
+};
 extend( Objects.prototype.Axis, Objects.prototype.DevActor );

@@ -19,10 +19,10 @@ Objects.prototype.DevActor = function () {
             this.mesh.position.set( this.x, this.y, this.z );
         }
         return this.mesh;
-    }
+    };
     this.clear = function () {
         DOA.Engine._devobjects.pop( this );
         return this.mesh;
-    }
-}
+    };
+};
 extend( Objects.prototype.DevActor, Objects.prototype.Actor );

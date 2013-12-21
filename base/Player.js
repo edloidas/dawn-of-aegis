@@ -51,7 +51,7 @@ Player.prototype.onKeyDown = function ( code ) {
             return code;
     }
     return 0;
-}
+};
 
 /*
 ================
@@ -79,7 +79,7 @@ Player.prototype.onKeyUp = function ( code ) {
             return code;
     }
     return 0;
-}
+};
 
 /*
 ================
@@ -101,7 +101,7 @@ Player.prototype.onMouseDown = function ( code ) {
             return code;
     }
     return 0;
-}
+};
 
 /*
 ================
@@ -123,7 +123,7 @@ Player.prototype.onMouseUp = function ( code ) {
             return code;
     }
     return 0;
-}
+};
 
 /*
 ================
@@ -133,7 +133,7 @@ onMouseMove
 */
 Player.prototype.onMouseMove = function ( event ) {
     if ( this.isActive ) { // get delta
-        this.mouseX = event.movementX || event.mozMovementX || event.webkitMovementX || 0,
+        this.mouseX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
         this.mouseY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
         this.target.look( this.mouseX, this.mouseY );
@@ -145,7 +145,7 @@ Player.prototype.onMouseMove = function ( event ) {
         this.mouseX = event.layerX;
         this.mouseY = event.layerY;
     }
-}
+};
 
 /*
 ================
@@ -168,7 +168,7 @@ Player.prototype.animate = function ( delta ) {
     if ( this.moveRight ) {
         this.target.moveRight();
     }
-}
+};
 
 /*
 ---------------------------------------------------------------------------

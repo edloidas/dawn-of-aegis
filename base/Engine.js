@@ -48,7 +48,7 @@ Engine.prototype.toggleDevMode = function () {
     //     Player.target.enabled = true;
     //     DOA.World.scene.add( Player.target.create() );
     // }
-}
+};
 
 /*
 ---------------------------------------------------------------------------

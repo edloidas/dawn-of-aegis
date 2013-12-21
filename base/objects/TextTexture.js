@@ -92,14 +92,14 @@ Objects.prototype.TextTexture = function ( text, param ) {
         this.context.restore();
         this.context.fillText( text, this.borderWidth, this.fontsize + this.borderWidth );
         this.needsUpdate = true;
-    }
+    };
 
     this.getWidth = function () {
         return this.canvas.width;
-    }
+    };
 
     this.getHeight = function () {
         return this.canvas.height;
-    }
-}
+    };
+};
 extend( Objects.prototype.TextTexture, THREE.Texture );
