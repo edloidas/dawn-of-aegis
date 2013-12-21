@@ -46,7 +46,7 @@ UI.prototype.init = function () {
     this.armorText.setPosition( 250, 250, 1.0 );
     //DOA.UI.healt_text.material.map.updateText('34')
     //DOA.UI.healt_text.material.map.canvas.width
-    this.scene.add( this.healt_text.create() );
+    this.scene.add( this.armorText.create() );
 
     // Menu
     this.menu = new dat.GUI();
