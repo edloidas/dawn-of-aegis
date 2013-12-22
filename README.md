@@ -2,6 +2,11 @@ Dawn of Aegis
 =============
 JavaScript 3D game. Uses WebGL.
 
+## HOWTO: Build ##
+
+Repository already contains build files for the quick start. You can also run all project tasks by yourself. This project uses Grunt, and to do this, you must first install the Grunt CLI. Read the [article](http://gruntjs.com/getting-started), how to do this.
+Running `grunt` command under the project root folder will install all required dependencies and perform the default tasks. To find more detailed information, see [Grunt file](Gruntfile.js) and [package file](package.js).
+
 ## HOWTO: Run ##
 
 Basically, this web application should run on a server. Game won't work properly due to cross-origin requests restrictions in browser's security policy.
@@ -17,7 +22,7 @@ As been said, you must run game on the server (best practice), or make changes t
 
 ##### Step 3 A: Node.js server #####
 1. Install [Node.js](http://nodejs.org)
-2. Install [Connect](http://senchalabs.github.com/connect): `npm install connect`
+2. Install [Connect](http://senchalabs.github.com/connect): `npm install connect` (or run `grunt` instead to assemble and install all dependencies)
 3. Run `server.js` from the repository root.
 
 ##### Step 3 B: Other solutions #####
