@@ -21,7 +21,7 @@ module.exports = function(grunt) {
                     "base/objects/Grid.js",
                     "base/objects/Target.js",
                     "base/objects/TextTexture.js",
-                    "base/objects/ObjectsInit.js",
+                    "base/objects/_init.js",
                 ],
                 dest: 'base/Objects.js',
             },
