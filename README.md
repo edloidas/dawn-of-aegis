@@ -22,8 +22,8 @@ As been said, you must run game on the server (best practice), or make changes t
 
 ##### Step 3 A: Node.js server #####
 1. Install [Node.js](http://nodejs.org)
-2. Install [Connect](http://senchalabs.github.com/connect): `npm install connect` (or run `grunt` instead to assemble and install all dependencies)
-3. Run `server.js` from the repository root.
+2. Install [Connect](http://senchalabs.github.com/connect): `npm install connect` (if you skipped build phase)
+3. Run `node server.js` under the repository root
 
 ##### Step 3 B: Other solutions #####
 See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally).
