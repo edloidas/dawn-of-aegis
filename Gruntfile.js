@@ -6,8 +6,7 @@ module.exports = function(grunt) {
         concat: {
             options: {
                 stripBanners: false, // no comments are stripped
-                banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-                    '<%= grunt.template.today("yyyy-mm-dd") %> */\n',
+                banner: '/*! <%= pkg.name %> - v<%= pkg.version %> */\n',
                 separator: '\n'
             },
             dist: {
