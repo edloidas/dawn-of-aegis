@@ -3,6 +3,9 @@
 TextTexture
     Creates texture from canvas.
     text - message to be displayed in canvas.
+
+    Texture (canvas) wont be updated properly, after linking it to the sprite.
+    So the width and height should be set manually on the init stage.
 =================
 */
 Objects.prototype.TextTexture = function ( text, param ) {
@@ -11,12 +14,14 @@ Objects.prototype.TextTexture = function ( text, param ) {
     }
     Objects.prototype.TextTexture.super.constructor.call( this );
 
-    this.canvas = document.createElement( 'canvas' );
-    this.context = this.canvas.getContext( '2d' );
-
     // initialization
     this.text = text || "";
-    this.param = param;
+    this.param = param || {};
+
+    this.canvas = document.createElement( 'canvas' );
+    this.canvas.width = this.param.width || 256;
+    this.canvas.height = this.param.height || 256;
+    this.context = this.canvas.getContext( '2d' );
 
     this.initParam = function ( param ) {
         param = param || {};
