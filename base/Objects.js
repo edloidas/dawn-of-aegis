@@ -201,14 +201,7 @@ Objects.prototype.Target = function ( camera ) {
     this.camera = camera;
     this.camera.position.delta = { x: 0, y: 0, z: 0 };
 
-    this.enabled = false;
     this.delta = 1; // time delta
-
-    this.omega = DOA.Settings.mouseSensitivity;  // radial speed
-    this.velocity = 300; // movement speed
-    this.radius = 200;
-    this.theta = -90;
-    this.phi = 90;
 
     this.x = camera.position.x;
     this.y = camera.position.y;
@@ -217,6 +210,40 @@ Objects.prototype.Target = function ( camera ) {
     this.material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
     this.geometry = new THREE.CircleGeometry( 1 );
     this.mesh = new THREE.Mesh( this.geometry, this.material );
+};
+extend( Objects.prototype.Target, Objects.prototype.DevActor );
+
+/*
+=================
+PlaneTarget
+    Entity, that represents target, followed by camera.
+=================
+*/
+Objects.prototype.PlaneTarget = function ( camera ) {
+    if ( !(this instanceof Objects.prototype.PlaneTarget) ) {
+        return new Objects.prototype.PlaneTarget( camera );
+    }
+    Objects.prototype.PlaneTarget.super.constructor.call( this, camera );
+};
+extend( Objects.prototype.PlaneTarget, Objects.prototype.Target );
+
+/*
+=================
+VolumeTarget
+    Entity, that represents target, followed by camera.
+=================
+*/
+Objects.prototype.VolumeTarget = function ( camera ) {
+    if ( !(this instanceof Objects.prototype.VolumeTarget) ) {
+        return new Objects.prototype.VolumeTarget( camera );
+    }
+    Objects.prototype.VolumeTarget.super.constructor.call( this, camera );
+
+    this.omega = DOA.Settings.mouseSensitivity;  // radial speed
+    this.velocity = 300; // movement speed
+    this.radius = 200;
+    this.theta = -90;
+    this.phi = 90;
 
     this.look = function ( wx, wy ) {
         /* See http://mathworld.wolfram.com/SphericalCoordinates.html
@@ -319,7 +346,7 @@ Objects.prototype.Target = function ( camera ) {
         }
     };
 };
-extend( Objects.prototype.Target, Objects.prototype.DevActor );
+extend( Objects.prototype.VolumeTarget, Objects.prototype.Target );
 
 /*
 =================

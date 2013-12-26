@@ -18,6 +18,8 @@ module.exports = function(grunt) {
                     "base/objects/Axis.js",
                     "base/objects/Grid.js",
                     "base/objects/Target.js",
+                    "base/objects/PlaneTarget.js",
+                    "base/objects/VolumeTarget.js",
                     "base/objects/TextTexture.js",
                     "base/objects/_init.js",
                 ],

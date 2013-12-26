@@ -22,7 +22,7 @@ function Player() {
                                                DOA.Settings.aspect(),
                                                DOA.Settings.minView,
                                                DOA.Settings.maxView );
-    this.target = new DOA.Objects.Target( this.camera );
+    this.target = new DOA.Objects.VolumeTarget( this.camera );
 }
 
 /*
