@@ -8,10 +8,13 @@
 function Game() {
     if ( !(this instanceof Game) ) return new Game();
 
-    this.stats  = null;             // stats DOM element
-    this.canvas = null;             // element, that locks pointer
+    this.stats  = null; // stats DOM element
+    this.canvas = null; // element, that locks pointer
 
-    this.status = 0;                // active game element index
+    this.status = 0;    // active game element index
+                        // 0 - third person control (main)
+                        // 1 - first person control (eyes view)
+                        // 2 - mouse control (menu)
 
     this.clock = new THREE.Clock(); // timer to sync coordinates changes
 

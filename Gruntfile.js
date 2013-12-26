@@ -8,7 +8,7 @@ module.exports = function(grunt) {
                 stripBanners: false, // no comments are stripped
                 separator: '\n'
             },
-            dist: {
+            objects: {
                 // Assemble different game objects
                 src: [
                     "base/objects/Objects.js",
@@ -25,6 +25,16 @@ module.exports = function(grunt) {
                 ],
                 dest: 'base/Objects.js',
             },
+            player: {
+                // Assemble different game objects
+                src: [
+                    "base/player/Player.js",
+                    "base/player/DefaultPlayer.js",
+                    "base/player/AltPlayer.js",
+                    "base/player/_init.js",
+                ],
+                dest: 'base/Player.js',
+            }
         },
         jshint: {
             options: {
