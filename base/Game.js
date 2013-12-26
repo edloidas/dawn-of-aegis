@@ -356,8 +356,8 @@ onPointerLockChange
 */
 Game.prototype.onPointerLockChange = function ( event ) {
     DOA.Player.isActive = ( document.pointerLockElement === DOA.Game.canvas ||
-                        document.mozPointerLockElement === DOA.Game.canvas ||
-                        document.webkitPointerLockElement === DOA.Game.canvas );
+                            document.mozPointerLockElement === DOA.Game.canvas ||
+                            document.webkitPointerLockElement === DOA.Game.canvas );
 };
 
 /*
