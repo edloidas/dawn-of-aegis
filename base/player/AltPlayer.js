@@ -11,11 +11,6 @@ function AltPlayer() {
     }
     AltPlayer.super.constructor.call( this );
 
-    this.isActive = false;
-
-    this.mouseX = 0;
-    this.mouseY = 0;
-
     this.moveForward  = false;
     this.moveBackward = false;
     this.moveLeft     = false;
