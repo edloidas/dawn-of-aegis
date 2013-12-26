@@ -324,9 +324,9 @@ onWheel
 */
 function onWheel( event ) {
     if ( event.deltaY < 0 ) {
-        // up
+        DOA.Player.onWheel(  1 ); // up
     } else {
-        // down
+        DOA.Player.onWheel( -1 ); // down
     }
 }
 
@@ -338,9 +338,9 @@ onMouseWheel
 */
 function onMouseWheel( event ) {
     if ( event.wheelDelta > 0 ) {
-        // up
+        DOA.Player.onWheel(  1 ); // up
     } else {
-        // down
+        DOA.Player.onWheel( -1 ); // down
     }
 }
 

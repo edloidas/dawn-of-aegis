@@ -64,6 +64,15 @@ Player.prototype.onMouseMove = function ( event ) {
 
 /*
 ================
+onWheel
+    Handles mouse wheel scroll.
+================
+*/
+Player.prototype.onWheel = function ( event ) {
+};
+
+/*
+================
 animate
     Animates player actions, depending on time delta.
 ================
