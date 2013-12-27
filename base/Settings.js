@@ -86,6 +86,7 @@ function Settings() {
         // actions
         skip        : 32,  // whitespace
         apply       : 13,  // enter
+        find        : 220, // \
 
         // modifiers
         shift       : 16,  // shift
