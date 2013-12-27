@@ -64,29 +64,72 @@ function Settings() {
     ---------------------------------------------------------------------------
     */
     this.controls = {
+        // !@ Some keys can be duplicated
+
         // mouse
         lmb : 0, // left mouse button
         mmb : 1, // middle mouse button
         rmb : 2, // right mouse button
 
-        // movement
-        forward     : 87, // w
-        backward    : 83, // s
-        strafeleft  : 65, // a
-        straferight : 68, // d
+        // camera
+        arrowleft   : 37,  // ←
+        arrowup     : 38,  // ↑
+        arrowright  : 39,  // →
+        arrowdown   : 40,  // ↓
+        zoomin      : 187, // +
+        zoomout     : 189, // -
+        rotateleft  : 219, // [
+        rotateright : 221, // ]
+        tiltdown    : 186, // ;
+        tiltup      : 222, // '
 
         // actions
-        use         : 69, // e
-        skill       : 81, // q
-        skillalt    : 90, // f
-        reload      : 82, // r
-        crouch      : 67, // c
-        inventory   : 73, // i
-        objective   : 79, // o
-        map         : 77, // m
+        skip        : 32,  // whitespace
+        apply       : 13,  // enter
 
-        menu        : 72, // h
+        // modifiers
+        shift       : 16,  // shift
+        ctrl        : 17,  // crtl
+
+        // numeric action
+        action0     : 48,  // 0
+        action1     : 49,  // 1
+        action2     : 50,  // 2
+        action3     : 51,  // 3
+        action4     : 52,  // 4
+        action5     : 53,  // 5
+        action6     : 54,  // 6
+        action7     : 55,  // 7
+        action8     : 56,  // 8
+        action9     : 57,  // 9
+
+        // values
+        plus        : 187, // +
+        minus       : 189, // -
+
+        // common
+        ship        : 83,  // s
+        logs        : 76,  // l
+        map         : 77,  // m
+
+        // space
+        analyze     : 65,  // a
+
+        // planet
+        government  : 71,  // g
+        depot       : 68,  // d
+        blackmarket : 66,  // b
+        tech        : 84,  // t
+        hangar      : 72,  // h
+
+        // alternative
+        forward     : 87,  // w
+        backward    : 83,  // s
+        strafeleft  : 65,  // a
+        straferight : 68,  // d
+
         // debug
+        devmenu     : 67, // c
         fullscreen  : 88, // x
         devmode     : 90, // z
         debug       : 192 // ~

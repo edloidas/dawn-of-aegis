@@ -48,29 +48,15 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 
 #### Controls ####
 
-##### Active keys #####
+##### Debug keys #####
 | Code |  #  | Description                       |
 | ---- | --- | --------------------------------- |
 |  ~   | 192 | show/hide degug statistics        |
 |  z   | 90  | turn developer mode on/off        |
-|  h   | 72  | toogle menu, disable pointer lock |
 |  x   | 88  | toogle fullscreen for canvas      |
-|  w   | 87  | move forward                      |
-|  s   | 83  | move backward                     |
-|  a   | 65  | move left                         |
-|  d   | 68  | move right                        |
-
-##### Inactive keys #####
-| Code   |  #  | Code   |  #  |
-| ------ | --- | ------ | --- |
-| q      |  81 | e      |  69 |
-| r      |  82 | f      |  70 |
-| c      |  67 | i      |  73 |
-| m      |  77 | p      |  80 |
-| Enter  |  13 | LShift |  16 |
-| LCtrl  |  17 | LAlt   |  18 |
+|  c   | 67  | toogle menu, disable pointer lock |
 
 ##### Unacceptable keys #####
-| Code |  #  | Code |  #  |
-| ---- | --- | ---- | --- |
-| Tab  |   9 | Esc  |  27 |
+| Code |  #  | Code |  #  | Code |  #  |
+| ---- | --- | ---- | --- | ---- | --- |
+| Tab  |   9 | Esc  |  27 | Alt  |  18 |

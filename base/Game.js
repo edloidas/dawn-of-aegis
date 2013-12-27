@@ -240,7 +240,7 @@ function onKeyDown( event ) {
     switch ( code ) {
         case 0: // alredy handled
             break;
-        case DOA.Controls.menu:
+        case DOA.Controls.devmenu:
             DOA.Game.toggleMenu();
             break;
         case DOA.Controls.fullscreen:
