@@ -10,6 +10,28 @@ function DefaultPlayer() {
         return new DefaultPlayer();
     }
     DefaultPlayer.super.constructor.call( this );
+
+    // move on the x-z plane
+    this.moveTop     = false;
+    this.moveBottom  = false;
+    this.moveLeft    = false;
+    this.moveRight   = false;
+
+    // view
+    this.zoomIn      = false;
+    this.zoomOut     = false;
+    this.tiltDown    = false;
+    this.tiltUp      = false;
+    this.rotateLeft  = false;
+    this.rotateRight = false;
+
+    // !@ view can be also controlled by the wheel and rmb.
+
+    this.camera = new THREE.PerspectiveCamera( DOA.Settings.fov,
+                                               DOA.Settings.aspect(),
+                                               DOA.Settings.minView,
+                                               DOA.Settings.maxView );
+    this.target = new DOA.Objects.PlaneTarget( this.camera );
 }
 
 extend( DefaultPlayer, Player );
@@ -21,6 +43,43 @@ onKeyDown
 ================
 */
 DefaultPlayer.prototype.onKeyDown = function ( code ) {
+    if ( !this.isActive ) return code;
+
+    switch ( code ) {
+        case DOA.Controls.arrowup:     // ↑
+            this.moveTop = true;
+            break;
+        case DOA.Controls.arrowdown:   // ↓
+            this.moveBottom = true;
+            break;
+        case DOA.Controls.arrowleft:   // ←
+            this.moveLeft = true;
+            break;
+        case DOA.Controls.arrowright:  // →
+            this.moveRight = true;
+            break;
+        case DOA.Controls.zoomin:      // +
+            this.zoomIn = true;
+            break;
+        case DOA.Controls.zoomout:     // -
+            this.zoomOut = true;
+            break;
+        case DOA.Controls.tiltdown:    // ;
+            this.tiltDown = true;
+            break;
+        case DOA.Controls.tiltup:      // '
+            this.tiltUp = true;
+            break;
+        case DOA.Controls.rotateleft:  // [
+            this.rotateLeft = true;
+            break;
+        case DOA.Controls.rotateright: // ]
+            this.rotateRight = true;
+            break;
+        default:
+            return code;
+    }
+    return 0;
 };
 
 /*
@@ -30,6 +89,43 @@ onKeyUp
 ================
 */
 DefaultPlayer.prototype.onKeyUp = function ( code ) {
+    if ( !this.isActive ) return code;
+
+    switch ( code ) {
+        case DOA.Controls.arrowup:    // ↑
+            this.moveTop = false;
+            break;
+        case DOA.Controls.arrowdown:  // ↓
+            this.moveBottom = false;
+            break;
+        case DOA.Controls.arrowleft:  // ←
+            this.moveLeft = false;
+            break;
+        case DOA.Controls.arrowright: // →
+            this.moveRight = false;
+            break;
+        case DOA.Controls.zoomin:      // +
+            this.zoomIn = false;
+            break;
+        case DOA.Controls.zoomout:     // -
+            this.zoomOut = false;
+            break;
+        case DOA.Controls.tiltdown:    // ;
+            this.tiltDown = false;
+            break;
+        case DOA.Controls.tiltup:      // '
+            this.tiltUp = false;
+            break;
+        case DOA.Controls.rotateleft:  // [
+            this.rotateLeft = false;
+            break;
+        case DOA.Controls.rotateright: // ]
+            this.rotateRight = false;
+            break;
+        default:
+            return code;
+    }
+    return 0;
 };
 
 /*
@@ -57,6 +153,26 @@ onMouseMove
 ================
 */
 DefaultPlayer.prototype.onMouseMove = function ( event ) {
+    if ( this.isActive ) { // get delta
+        this.mouseX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+        this.mouseY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+
+        this.target.look( this.mouseX, this.mouseY );
+    } else { // get coordinates
+        this.mouseX = event.offsetX || event.layerX || 0;
+        this.mouseY = event.offsetY || event.layerY || 0;
+    }
+};
+
+/*
+================
+onWheel
+    Handles mouse wheel scroll.
+================
+*/
+Player.prototype.onWheel = function ( code ) {
+    // !@ fixed zoom, didn't use time delta
+    this.target.zoom( code );
 };
 
 /*
@@ -66,4 +182,18 @@ animate
 ================
 */
 DefaultPlayer.prototype.animate = function ( delta ) {
+    this.target.delta = delta;
+
+    if ( this.moveTop ) {
+        this.target.moveTop();
+    }
+    if ( this.moveBottom ) {
+        this.target.moveBottom();
+    }
+    if ( this.moveLeft ) {
+        this.target.moveLeft();
+    }
+    if ( this.moveRight ) {
+        this.target.moveRight();
+    }
 };

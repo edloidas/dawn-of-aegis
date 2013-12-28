@@ -3,4 +3,4 @@
 DOA
 ---------------------------------------------------------------------------
 */
-DOA.Player = new AltPlayer();
+DOA.Player = new DefaultPlayer();
