@@ -137,13 +137,9 @@ AltPlayer.prototype.onMouseMove = function ( event ) {
         this.mouseY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
         this.target.look( this.mouseX, this.mouseY );
-    } else if( event.offsetX ) { // get coordinates
-        this.mouseX = event.offsetX;
-        this.mouseY = event.offsetY;
-    }
-    else if( event.layerX ) {
-        this.mouseX = event.layerX;
-        this.mouseY = event.layerY;
+    } else { // get coordinates
+        this.mouseX = event.offsetX || event.layerX || 0;
+        this.mouseY = event.offsetY || event.layerY || 0;
     }
 };
 
