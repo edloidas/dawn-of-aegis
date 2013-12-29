@@ -51,6 +51,7 @@ function Settings() {
     ---------------------------------------------------------------------------
     */
     this.minLook = 5;   // deg. Top is 0
+    this.midLook = 85;  // deg.
     this.maxLook = 175; // deg. Bottom is 180
 
     this.mouseSensitivity = 0.2; // 0.05 - slow, 0.5 - fast

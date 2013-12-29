@@ -14,7 +14,7 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     this.velocity = 500; // movement speed
     this.radius = 500;
     this.theta = -90;
-    this.phi = 90;
+    this.phi = 45;
 
     this.x = 0;
     this.y = 0;
@@ -32,7 +32,7 @@ Objects.prototype.PlaneTarget = function ( camera ) {
         this.theta -= wx * this.omega;
         this.theta %= 360;
         this.phi += wy * this.omega;
-        this.phi = Math.max( DOA.Settings.minLook, Math.min( DOA.Settings.maxLook, this.phi ) );
+        this.phi = Math.max( DOA.Settings.minLook, Math.min( DOA.Settings.midLook, this.phi ) );
 
         camera.position.x = this.x + this.radius * Math.cos( THREE.Math.degToRad( this.theta ) )
                                                  * Math.sin( THREE.Math.degToRad( this.phi ) );
@@ -45,43 +45,27 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     };
 
     this.moveTop = function () {
-        this.calcDelta();
-
-        camera.position.x += camera.position.delta.x;
-        camera.position.y += camera.position.delta.y;
-        camera.position.z += camera.position.delta.z;
-
-        this.x += camera.position.delta.x;
-        this.y += camera.position.delta.y;
-        this.z += camera.position.delta.z;
-
-        this.updateMesh();
+        this.calcPlaneDelta();
+        camera.position.delta.x = -camera.position.delta.x;
+        camera.position.delta.z = -camera.position.delta.z;
+        this.updatePlane();
     };
 
     this.moveBottom = function () {
-        this.calcDelta();
-
-        camera.position.x -= camera.position.delta.x;
-        camera.position.y -= camera.position.delta.y;
-        camera.position.z -= camera.position.delta.z;
-
-        this.x -= camera.position.delta.x;
-        this.y -= camera.position.delta.y;
-        this.z -= camera.position.delta.z;
-
-        this.updateMesh();
+        this.calcPlaneDelta();
+        this.updatePlane();
     };
 
     this.moveLeft = function () {
-        camera.position.delta.x = -this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
-        camera.position.delta.z = -this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
+        camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
+        camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
 
         this.updatePlane();
     };
 
     this.moveRight = function () {
-        camera.position.delta.x = -this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) - Math.PI_2);
-        camera.position.delta.z = -this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) - Math.PI_2);
+        camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) - Math.PI_2);
+        camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) - Math.PI_2);
 
         this.updatePlane();
     };
@@ -92,6 +76,11 @@ Objects.prototype.PlaneTarget = function ( camera ) {
         camera.position.delta.y = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
         camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
                                                              * Math.sin( THREE.Math.degToRad( this.phi ) );
+    };
+
+    this.calcPlaneDelta = function () {
+        camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) );
+        camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) );
     };
 
     this.updateMesh = function () {
