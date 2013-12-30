@@ -45,14 +45,14 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     };
 
     this.moveTop = function () {
-        this.calcPlaneDelta();
+        this.calcDelta();
         camera.position.delta.x = -camera.position.delta.x;
         camera.position.delta.z = -camera.position.delta.z;
         this.updatePlane();
     };
 
     this.moveBottom = function () {
-        this.calcPlaneDelta();
+        this.calcDelta();
         this.updatePlane();
     };
 
@@ -71,14 +71,6 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     };
 
     this.calcDelta = function () {
-        camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) )
-                                                             * Math.sin( THREE.Math.degToRad( this.phi ) );
-        camera.position.delta.y = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
-        camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
-                                                             * Math.sin( THREE.Math.degToRad( this.phi ) );
-    };
-
-    this.calcPlaneDelta = function () {
         camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) );
         camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) );
     };
