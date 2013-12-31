@@ -11,6 +11,7 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     Objects.prototype.PlaneTarget.super.constructor.call( this, camera );
 
     this.omega = DOA.Settings.mouseSensitivity;  // radial speed
+    this.dv = 0; // delta * velocity
     this.velocity = 500; // movement speed
     this.radius = 500;
     this.theta = -90;
@@ -57,23 +58,27 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     };
 
     this.moveLeft = function () {
-        camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
-        camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) + Math.PI_2 );
-
+        var deg = THREE.Math.degToRad( this.theta ) + Math.PI_2;
+        camera.position.delta.x = this.dv * Math.cos( deg );
+        camera.position.delta.z = this.dv * Math.sin( deg );
         this.updatePlane();
     };
 
     this.moveRight = function () {
-        camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) - Math.PI_2);
-        camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) - Math.PI_2);
-
+        var deg = THREE.Math.degToRad( this.theta ) - Math.PI_2;
+        camera.position.delta.x = this.dv * Math.cos( deg );
+        camera.position.delta.z = this.dv * Math.sin( deg );
         this.updatePlane();
     };
 
     this.calcDelta = function () {
-        camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) );
-        camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) );
+        camera.position.delta.x = this.dv * Math.cos( THREE.Math.degToRad( this.theta ) );
+        camera.position.delta.z = this.dv * Math.sin( THREE.Math.degToRad( this.theta ) );
     };
+
+    this.updateDelta = function ( delta ) {
+        this.dv = this.delta * this.velocity;
+    }
 
     this.updateMesh = function () {
         if ( this.enabled ) {

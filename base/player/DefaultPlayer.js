@@ -182,7 +182,7 @@ animate
 ================
 */
 DefaultPlayer.prototype.animate = function ( delta ) {
-    this.target.delta = delta;
+    this.target.updateDelta( delta );
 
     if ( this.moveTop ) {
         this.target.moveTop();
