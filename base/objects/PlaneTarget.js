@@ -2,6 +2,11 @@
 =================
 PlaneTarget
     Entity, that represents target, followed by camera.
+    Proper work with the target includes three steps:
+    1. Set time delta for the animation frame;
+    2. Add actions;
+    3. Run animate() method. It will optimize calculations and reset all data.
+    Method look() is handled separately.
 =================
 */
 Objects.prototype.PlaneTarget = function ( camera ) {
@@ -10,8 +15,9 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     }
     Objects.prototype.PlaneTarget.super.constructor.call( this, camera );
 
+    var that = this; // variable for 'private' methods
+
     this.omega = DOA.Settings.mouseSensitivity;  // radial speed
-    this.dv = 0; // delta * velocity
     this.velocity = 500; // movement speed
     this.radius = 500;
     this.theta = -90;
@@ -20,6 +26,12 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     this.x = 0;
     this.y = 0;
     this.z = 0;
+
+    var dv = 0; // delta * velocity
+    var flags = 0; // binary data 1111 11 11
+                   // 1 - top, 2 - bottom, 4 - left, 8 - right
+                   // 16 - rotate left, 32 - rotate right
+                   // 64 - tilt top, 128 - tilt bottom
 
     this.look = function ( wx, wy ) {
         /* See http://mathworld.wolfram.com/SphericalCoordinates.html
@@ -59,25 +71,25 @@ Objects.prototype.PlaneTarget = function ( camera ) {
 
     this.moveLeft = function () {
         var deg = THREE.Math.degToRad( this.theta ) + Math.PI_2;
-        camera.position.delta.x = this.dv * Math.cos( deg );
-        camera.position.delta.z = this.dv * Math.sin( deg );
+        camera.position.delta.x = dv * Math.cos( deg );
+        camera.position.delta.z = dv * Math.sin( deg );
         this.updatePlane();
     };
 
     this.moveRight = function () {
         var deg = THREE.Math.degToRad( this.theta ) - Math.PI_2;
-        camera.position.delta.x = this.dv * Math.cos( deg );
-        camera.position.delta.z = this.dv * Math.sin( deg );
+        camera.position.delta.x = dv * Math.cos( deg );
+        camera.position.delta.z = dv * Math.sin( deg );
         this.updatePlane();
     };
 
     this.calcDelta = function () {
-        camera.position.delta.x = this.dv * Math.cos( THREE.Math.degToRad( this.theta ) );
-        camera.position.delta.z = this.dv * Math.sin( THREE.Math.degToRad( this.theta ) );
+        camera.position.delta.x = dv * Math.cos( THREE.Math.degToRad( this.theta ) );
+        camera.position.delta.z = dv * Math.sin( THREE.Math.degToRad( this.theta ) );
     };
 
     this.updateDelta = function ( delta ) {
-        this.dv = this.delta * this.velocity;
+        dv = this.delta * this.velocity;
     }
 
     this.updateMesh = function () {
