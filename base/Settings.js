@@ -54,6 +54,10 @@ function Settings() {
     this.midLook = 85;  // deg.
     this.maxLook = 175; // deg. Bottom is 180
 
+    this.nearZoom = 100;  // max zoom level
+    this.farZoom  = 1500; // min zoom level
+    this.zoomStep = 50;
+
     this.mouseSensitivity = 0.2; // 0.05 - slow, 0.5 - fast
 
     this.hudSize    = 32; // [ 32, 64, 128 ]

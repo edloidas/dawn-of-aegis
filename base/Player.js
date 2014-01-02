@@ -102,10 +102,10 @@ function DefaultPlayer() {
     // view
     this.zoomIn      = false;
     this.zoomOut     = false;
-    this.tiltDown    = false;
-    this.tiltUp      = false;
     this.rotateLeft  = false;
     this.rotateRight = false;
+    this.tiltDown    = false;
+    this.tiltUp      = false;
 
     // !@ view can be also controlled by the wheel and rmb.
 
@@ -114,6 +114,9 @@ function DefaultPlayer() {
                                                DOA.Settings.minView,
                                                DOA.Settings.maxView );
     this.target = new DOA.Objects.PlaneTarget( this.camera );
+
+    // Init position
+    this.target.look();
 }
 
 extend( DefaultPlayer, Player );
@@ -146,17 +149,17 @@ DefaultPlayer.prototype.onKeyDown = function ( code ) {
         case DOA.Controls.zoomout:     // -
             this.zoomOut = true;
             break;
-        case DOA.Controls.tiltdown:    // ;
-            this.tiltDown = true;
-            break;
-        case DOA.Controls.tiltup:      // '
-            this.tiltUp = true;
-            break;
         case DOA.Controls.rotateleft:  // [
             this.rotateLeft = true;
             break;
         case DOA.Controls.rotateright: // ]
             this.rotateRight = true;
+            break;
+        case DOA.Controls.tiltdown:    // ;
+            this.tiltDown = true;
+            break;
+        case DOA.Controls.tiltup:      // '
+            this.tiltUp = true;
             break;
         default:
             return code;
@@ -174,16 +177,16 @@ DefaultPlayer.prototype.onKeyUp = function ( code ) {
     if ( !this.isActive ) return code;
 
     switch ( code ) {
-        case DOA.Controls.arrowup:    // ↑
+        case DOA.Controls.arrowup:     // ↑
             this.moveTop = false;
             break;
-        case DOA.Controls.arrowdown:  // ↓
+        case DOA.Controls.arrowdown:   // ↓
             this.moveBottom = false;
             break;
-        case DOA.Controls.arrowleft:  // ←
+        case DOA.Controls.arrowleft:   // ←
             this.moveLeft = false;
             break;
-        case DOA.Controls.arrowright: // →
+        case DOA.Controls.arrowright:  // →
             this.moveRight = false;
             break;
         case DOA.Controls.zoomin:      // +
@@ -192,17 +195,17 @@ DefaultPlayer.prototype.onKeyUp = function ( code ) {
         case DOA.Controls.zoomout:     // -
             this.zoomOut = false;
             break;
-        case DOA.Controls.tiltdown:    // ;
-            this.tiltDown = false;
-            break;
-        case DOA.Controls.tiltup:      // '
-            this.tiltUp = false;
-            break;
         case DOA.Controls.rotateleft:  // [
             this.rotateLeft = false;
             break;
         case DOA.Controls.rotateright: // ]
             this.rotateRight = false;
+            break;
+        case DOA.Controls.tiltdown:    // ;
+            this.tiltDown = false;
+            break;
+        case DOA.Controls.tiltup:      // '
+            this.tiltUp = false;
             break;
         default:
             return code;
@@ -264,8 +267,6 @@ animate
 ================
 */
 DefaultPlayer.prototype.animate = function ( delta ) {
-    this.target.delta = delta;
-
     if ( this.moveTop ) {
         this.target.moveTop();
     }
@@ -278,6 +279,26 @@ DefaultPlayer.prototype.animate = function ( delta ) {
     if ( this.moveRight ) {
         this.target.moveRight();
     }
+    if ( this.zoomIn ) {
+        this.target.zoomIn();
+    }
+    if ( this.zoomOut ) {
+        this.target.zoomOut();
+    }
+    if ( this.rotateLeft ) {
+        this.target.rotateLeft();
+    }
+    if ( this.rotateRight ) {
+        this.target.rotateRight();
+    }
+    if ( this.tiltDown ) {
+        this.target.tiltDown();
+    }
+    if ( this.tiltUp ) {
+        this.target.tiltUp();
+    }
+
+    this.target.animate( delta );
 };
 
 /*

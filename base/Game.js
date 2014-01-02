@@ -35,10 +35,6 @@ Game.prototype.init = function () {
     DOA.Player.camera.updateProjectionMatrix();
 
     // @#
-    DOA.Player.camera.position.z = DOA.Settings.maxView / 4;
-    DOA.Player.camera.position.y = DOA.Settings.maxView / 4;
-    DOA.Player.camera.position.x = DOA.Settings.maxView / 4;
-    DOA.Player.camera.lookAt(new THREE.Vector3( 0, 0, 0 ));
     geometry = new THREE.CubeGeometry( 200, 200, 200 );
     material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
     mesh = new THREE.Mesh( geometry, material );
