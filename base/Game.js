@@ -12,9 +12,9 @@ function Game() {
     this.canvas = null; // element, that locks pointer
 
     this.status = 0;    // active game element index
-                        // 0 - third person control (main)
-                        // 1 - first person control (eyes view)
-                        // 2 - mouse control (menu)
+                        // 0 - menu
+                        // 1 - game
+                        // 2 - settings
 
     this.clock = new THREE.Clock(); // timer to sync coordinates changes
 
@@ -33,6 +33,7 @@ Game.prototype.init = function () {
     DOA.Settings.scaleWindow();
     DOA.Player.camera.aspect = DOA.Settings.aspect();
     DOA.Player.camera.updateProjectionMatrix();
+    DOA.Player.isActive = true;
 
     // @#
     geometry = new THREE.CubeGeometry( 200, 200, 200 );
@@ -111,7 +112,7 @@ Game.prototype.animate = function () {
     // render
     requestAnimationFrame( Game.prototype.animate );
 
-    if ( DOA.Game.status === 0 ) {
+    if ( DOA.Game.status > 0 ) {
         DOA.Player.animate( DOA.Game.clock.getDelta() );
         // @#
         mesh.rotation.x += 0.01;
@@ -164,15 +165,14 @@ toggleMenu
 ================
 */
 Game.prototype.toggleMenu = function () {
-    if ( this.status === 1 ) {
+    if ( this.status === 2 ) {
         DOA.Settings.apply();
         DOA.UI.menu.domElement.style.display = 'none';
-        this.canvas.requestPointerLock();
-        this.status = 0;
+        this.status = 1;
     } else {
         DOA.UI.menu.domElement.style.display = 'block';
-        document.exitPointerLock();
-        this.status = 1;
+        // document.exitPointerLock();
+        this.status = 2;
     }
 };
 
@@ -273,17 +273,20 @@ onMouseDown
 ================
 */
 function onMouseDown( event ) {
-    switch ( DOA.Game.status ) {
-        case 0: // game active
-            if ( !DOA.Player.isActive ) { // Player look is active
-                DOA.Game.canvas.requestPointerLock();
-            } else {
-                DOA.Player.onMouseDown( event.button );
-            }
+    var code = event.button;
+
+    switch ( code ) {
+        case 0:
             break;
         case 1:
+            if ( DOA.Player.isActive ) {
+                DOA.Game.canvas.requestPointerLock();
+            }
+            break;
+        case 2:
             break;
     }
+    DOA.Player.onMouseDown( event.button );
 }
 
 /*
@@ -293,13 +296,20 @@ onMouseUp
 ================
 */
 function onMouseUp( event ) {
-    switch ( DOA.Game.status ) {
-        case 0: // game active
-            DOA.Player.onMouseUp( event.button );
+    var code = event.button;
+
+    switch ( code ) {
+        case 0:
             break;
         case 1:
+            if ( DOA.Player.isActive ) {
+                document.exitPointerLock();
+            }
+            break;
+        case 2:
             break;
     }
+    DOA.Player.onMouseUp( event.button );
 }
 
 /*
@@ -354,9 +364,9 @@ onPointerLockChange
 ================
 */
 Game.prototype.onPointerLockChange = function ( event ) {
-    DOA.Player.isActive = ( document.pointerLockElement === DOA.Game.canvas ||
-                            document.mozPointerLockElement === DOA.Game.canvas ||
-                            document.webkitPointerLockElement === DOA.Game.canvas );
+    DOA.Player.mouseLook = ( document.pointerLockElement === DOA.Game.canvas ||
+                             document.mozPointerLockElement === DOA.Game.canvas ||
+                             document.webkitPointerLockElement === DOA.Game.canvas );
 };
 
 /*

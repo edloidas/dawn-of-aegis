@@ -92,7 +92,10 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     this.zoomIn      = function () { flags |= 256; };
     this.zoomOut     = function () { flags |= 512; };
 
-    this.animate = function ( delta ) {
+    this.animate = function ( delta, direction ) {
+        direction = direction || 0;
+        flags |= direction;
+
         dv = delta * this.velocity;
         dr = 0.05 / delta;
 

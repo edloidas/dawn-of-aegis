@@ -25,6 +25,9 @@ function DefaultPlayer() {
     this.tiltDown    = false;
     this.tiltUp      = false;
 
+    this.f_view   = 0; // as a flags variable in the PlaneTarget
+    this.f_scroll = 0; // first four bits of the flags
+
     // !@ view can be also controlled by the wheel and rmb.
 
     this.camera = new THREE.PerspectiveCamera( DOA.Settings.fov,
@@ -50,34 +53,34 @@ DefaultPlayer.prototype.onKeyDown = function ( code ) {
 
     switch ( code ) {
         case DOA.Controls.arrowup:     // ↑
-            this.moveTop = true;
+            this.f_view |= 1;
             break;
         case DOA.Controls.arrowdown:   // ↓
-            this.moveBottom = true;
+            this.f_view |= 2;
             break;
         case DOA.Controls.arrowleft:   // ←
-            this.moveLeft = true;
+            this.f_view |= 4;
             break;
         case DOA.Controls.arrowright:  // →
-            this.moveRight = true;
-            break;
-        case DOA.Controls.zoomin:      // +
-            this.zoomIn = true;
-            break;
-        case DOA.Controls.zoomout:     // -
-            this.zoomOut = true;
+            this.f_view |= 8;
             break;
         case DOA.Controls.rotateleft:  // [
-            this.rotateLeft = true;
+            this.f_view |= 16;
             break;
         case DOA.Controls.rotateright: // ]
-            this.rotateRight = true;
-            break;
-        case DOA.Controls.tiltdown:    // ;
-            this.tiltDown = true;
+            this.f_view |= 32;
             break;
         case DOA.Controls.tiltup:      // '
-            this.tiltUp = true;
+            this.f_view |= 64;
+            break;
+        case DOA.Controls.tiltdown:    // ;
+            this.f_view |= 128;
+            break;
+        case DOA.Controls.zoomin:      // +
+            this.f_view |= 256;
+            break;
+        case DOA.Controls.zoomout:     // -
+            this.f_view |= 512;
             break;
         default:
             return code;
@@ -96,34 +99,34 @@ DefaultPlayer.prototype.onKeyUp = function ( code ) {
 
     switch ( code ) {
         case DOA.Controls.arrowup:     // ↑
-            this.moveTop = false;
+            this.f_view = ( this.f_view | 1 ) ^ 1;
             break;
         case DOA.Controls.arrowdown:   // ↓
-            this.moveBottom = false;
+            this.f_view = ( this.f_view | 2 ) ^ 2;
             break;
         case DOA.Controls.arrowleft:   // ←
-            this.moveLeft = false;
+            this.f_view = ( this.f_view | 4 ) ^ 4;
             break;
         case DOA.Controls.arrowright:  // →
-            this.moveRight = false;
-            break;
-        case DOA.Controls.zoomin:      // +
-            this.zoomIn = false;
-            break;
-        case DOA.Controls.zoomout:     // -
-            this.zoomOut = false;
+            this.f_view = ( this.f_view | 8 ) ^ 8;
             break;
         case DOA.Controls.rotateleft:  // [
-            this.rotateLeft = false;
+            this.f_view = ( this.f_view | 16 ) ^ 16;
             break;
         case DOA.Controls.rotateright: // ]
-            this.rotateRight = false;
-            break;
-        case DOA.Controls.tiltdown:    // ;
-            this.tiltDown = false;
+            this.f_view = ( this.f_view | 32 ) ^ 32;
             break;
         case DOA.Controls.tiltup:      // '
-            this.tiltUp = false;
+            this.f_view = ( this.f_view | 64 ) ^ 64;
+            break;
+        case DOA.Controls.tiltdown:    // ;
+            this.f_view = ( this.f_view | 128 ) ^ 128;
+            break;
+        case DOA.Controls.zoomin:      // +
+            this.f_view = ( this.f_view | 256 ) ^ 256;
+            break;
+        case DOA.Controls.zoomout:     // -
+            this.f_view = ( this.f_view | 512 ) ^ 512;
             break;
         default:
             return code;
@@ -156,7 +159,7 @@ onMouseMove
 ================
 */
 DefaultPlayer.prototype.onMouseMove = function ( event ) {
-    if ( this.isActive ) { // get delta
+    if ( this.mouseLook ) { // get delta
         this.mouseX = event.movementX || event.mozMovementX || event.webkitMovementX || 0;
         this.mouseY = event.movementY || event.mozMovementY || event.webkitMovementY || 0;
 
@@ -164,6 +167,18 @@ DefaultPlayer.prototype.onMouseMove = function ( event ) {
     } else { // get coordinates
         this.mouseX = event.offsetX || event.layerX || 0;
         this.mouseY = event.offsetY || event.layerY || 0;
+
+        this.f_scroll = 0;
+        if ( this.mouseX === 0 ) {
+            this.f_scroll |= 4;
+        } else if ( this.mouseX > DOA.Settings.width - 2 ) {
+            this.f_scroll |= 8;
+        }
+        if ( this.mouseY === 0 ) {
+            this.f_scroll |= 1;
+        } else if ( this.mouseY > DOA.Settings.height - 2 ) {
+            this.f_scroll |= 2;
+        }
     }
 };
 
@@ -185,36 +200,5 @@ animate
 ================
 */
 DefaultPlayer.prototype.animate = function ( delta ) {
-    if ( this.moveTop ) {
-        this.target.moveTop();
-    }
-    if ( this.moveBottom ) {
-        this.target.moveBottom();
-    }
-    if ( this.moveLeft ) {
-        this.target.moveLeft();
-    }
-    if ( this.moveRight ) {
-        this.target.moveRight();
-    }
-    if ( this.zoomIn ) {
-        this.target.zoomIn();
-    }
-    if ( this.zoomOut ) {
-        this.target.zoomOut();
-    }
-    if ( this.rotateLeft ) {
-        this.target.rotateLeft();
-    }
-    if ( this.rotateRight ) {
-        this.target.rotateRight();
-    }
-    if ( this.tiltDown ) {
-        this.target.tiltDown();
-    }
-    if ( this.tiltUp ) {
-        this.target.tiltUp();
-    }
-
-    this.target.animate( delta );
+    this.target.animate( delta, this.f_view | this.f_scroll );
 };

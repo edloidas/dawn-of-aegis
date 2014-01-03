@@ -8,7 +8,8 @@
 function Player() {
     if ( !(this instanceof Player) ) return new Player();
 
-    this.isActive = false;
+    this.isActive  = false;
+    this.mouseLook = false;
 
     this.mouseX = 0;
     this.mouseY = 0;

@@ -155,22 +155,22 @@ document.onreadystatechange = function () {
                         DOA.Game.animate();
 
                         DOA.Game.isRunnig = true;
-                        DOA.Game.status = 0;
+                        DOA.Game.status = 1;
 
                         DOA.Game.canvas = DOA.Engine.renderer.domElement;
                         DOA.Game.canvas.requestPointerLock =
-                                            DOA.Game.canvas.requestPointerLock    ||
-                                            DOA.Game.canvas.mozRequestPointerLock ||
-                                            DOA.Game.canvas.webkitRequestPointerLock;
+                                          DOA.Game.canvas.requestPointerLock    ||
+                                          DOA.Game.canvas.mozRequestPointerLock ||
+                                          DOA.Game.canvas.webkitRequestPointerLock;
                         document.exitPointerLock =
-                                            document.exitPointerLock    ||
-                                            document.mozExitPointerLock ||
-                                            document.webkitExitPointerLock;
+                                          document.exitPointerLock    ||
+                                          document.mozExitPointerLock ||
+                                          document.webkitExitPointerLock;
                         DOA.Game.canvas.requestFullscreen =
-                                            DOA.Game.canvas.requestFullscreen    ||
-                                            DOA.Game.canvas.mozRequestFullscreen ||
-                                            DOA.Game.canvas.mozRequestFullScreen ||
-                                            DOA.Game.canvas.webkitRequestFullscreen;
+                                          DOA.Game.canvas.requestFullscreen    ||
+                                          DOA.Game.canvas.mozRequestFullscreen ||
+                                          DOA.Game.canvas.mozRequestFullScreen ||
+                                          DOA.Game.canvas.webkitRequestFullscreen;
                     }
                     document.onkeydown = hidePreload;
                     preload.onclick    = hidePreload;
