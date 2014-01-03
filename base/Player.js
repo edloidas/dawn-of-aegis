@@ -133,7 +133,7 @@ onKeyDown
 */
 DefaultPlayer.prototype.onKeyDown = function ( code ) {
     if ( !this.isActive ) return code;
-    console.log(code);
+
     switch ( code ) {
         case DOA.Controls.arrowup:     // ↑
             this.f_view |= 1;
