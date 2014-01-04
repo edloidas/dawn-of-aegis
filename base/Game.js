@@ -33,7 +33,6 @@ Game.prototype.init = function () {
     DOA.Settings.scaleWindow();
     DOA.Player.camera.aspect = DOA.Settings.aspect();
     DOA.Player.camera.updateProjectionMatrix();
-    DOA.Player.isActive = true;
 
     // @#
     geometry = new THREE.CubeGeometry( 200, 200, 200 );
@@ -279,9 +278,7 @@ function onMouseDown( event ) {
         case 0:
             break;
         case 1:
-            if ( DOA.Player.isActive ) {
-                DOA.Game.canvas.requestPointerLock();
-            }
+            DOA.Game.canvas.requestPointerLock();
             break;
         case 2:
             break;
@@ -302,9 +299,7 @@ function onMouseUp( event ) {
         case 0:
             break;
         case 1:
-            if ( DOA.Player.isActive ) {
-                document.exitPointerLock();
-            }
+            document.exitPointerLock();
             break;
         case 2:
             break;
@@ -390,7 +385,7 @@ function fullscreenChange() {
     if ( document.mozFullscreenElement === DOA.Game.canvas ||
          document.mozFullScreenElement === DOA.Game.canvas ||
          document.webkitFullscreenElement === DOA.Game.canvas ) {
-        DOA.Game.canvas.requestPointerLock();
+        // DOA.Game.canvas.requestPointerLock();
     }
 }
 
