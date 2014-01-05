@@ -33,6 +33,8 @@ Game.prototype.init = function () {
     DOA.Settings.scaleWindow();
     DOA.Player.camera.aspect = DOA.Settings.aspect();
     DOA.Player.camera.updateProjectionMatrix();
+    DOA.Player.isActive = true;
+    DOA.Player.init();
 
     // @#
     geometry = new THREE.CubeGeometry( 200, 200, 200 );

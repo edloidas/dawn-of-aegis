@@ -45,6 +45,11 @@ Objects.prototype.Actor = function ( x, y, z ) {
         return this.mesh;
     };
 
+    // Method to animate mesh in the Engine cycle.
+    this.animate = function ( args ) {
+
+    };
+
     this.setX = function ( x ) { this.x = x; this.mesh.position.x = x; };
     this.setY = function ( y ) { this.y = y; this.mesh.position.y = y; };
     this.setZ = function ( z ) { this.z = z; this.mesh.position.z = z; };
@@ -201,17 +206,19 @@ Objects.prototype.Target = function ( camera ) {
     this.camera = camera;
     this.camera.position.delta = { x: 0, y: 0, z: 0 };
 
+    this.isEnabled = true;
+
     this.delta = 1; // time delta
 
     this.x = camera.position.x;
     this.y = camera.position.y;
     this.z = camera.position.z;
 
+    this.geometry = new THREE.SphereGeometry( 50, 8, 6 );
     this.material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-    this.geometry = new THREE.CircleGeometry( 1 );
     this.mesh = new THREE.Mesh( this.geometry, this.material );
 };
-extend( Objects.prototype.Target, Objects.prototype.DevActor );
+extend( Objects.prototype.Target, Objects.prototype.Actor );
 
 /*
 =================
@@ -307,7 +314,7 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     this.zoomIn      = function () { flags |= 256; };
     this.zoomOut     = function () { flags |= 512; };
 
-    this.animate = function ( delta, direction ) {
+    this.update = function ( delta, direction ) {
         direction = direction || 0;
         flags |= direction;
 
@@ -394,6 +401,7 @@ Objects.prototype.PlaneTarget = function ( camera ) {
         this.x += camera.position.delta.x;
         this.z += camera.position.delta.z;
 
+        updateMesh();
         // reset after
         flags = 0;
     };
@@ -409,7 +417,7 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     }
 
     function updateMesh() {
-        if ( that.enabled ) {
+        if ( that.isEnabled ) {
             that.mesh.position.x = that.x;
             that.mesh.position.y = that.y;
             that.mesh.position.z = that.z;
@@ -429,6 +437,8 @@ Objects.prototype.VolumeTarget = function ( camera ) {
         return new Objects.prototype.VolumeTarget( camera );
     }
     Objects.prototype.VolumeTarget.super.constructor.call( this, camera );
+
+    this.enabled = false;
 
     this.omega = DOA.Settings.mouseSensitivity;  // radial speed
     this.velocity = 300; // movement speed
@@ -531,7 +541,7 @@ Objects.prototype.VolumeTarget = function ( camera ) {
         this.x += camera.position.delta.x;
         this.z += camera.position.delta.z;
 
-        if ( this.enabled ) {
+        if ( this.isEnabled ) {
             this.mesh.position.x = this.x;
             this.mesh.position.z = this.z;
         }

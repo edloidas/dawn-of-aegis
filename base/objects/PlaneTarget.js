@@ -92,7 +92,7 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     this.zoomIn      = function () { flags |= 256; };
     this.zoomOut     = function () { flags |= 512; };
 
-    this.animate = function ( delta, direction ) {
+    this.update = function ( delta, direction ) {
         direction = direction || 0;
         flags |= direction;
 
@@ -179,6 +179,7 @@ Objects.prototype.PlaneTarget = function ( camera ) {
         this.x += camera.position.delta.x;
         this.z += camera.position.delta.z;
 
+        updateMesh();
         // reset after
         flags = 0;
     };
@@ -194,7 +195,7 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     }
 
     function updateMesh() {
-        if ( that.enabled ) {
+        if ( that.isEnabled ) {
             that.mesh.position.x = that.x;
             that.mesh.position.y = that.y;
             that.mesh.position.z = that.z;

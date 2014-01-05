@@ -202,3 +202,7 @@ animate
 DefaultPlayer.prototype.animate = function ( delta ) {
     this.target.animate( delta, this.f_view | this.f_scroll );
 };
+
+DefaultPlayer.prototype.init = function () {
+    DOA.World.scene.add( this.target.create() );
+};

@@ -10,6 +10,8 @@ Objects.prototype.VolumeTarget = function ( camera ) {
     }
     Objects.prototype.VolumeTarget.super.constructor.call( this, camera );
 
+    this.isEnabled = false;
+
     this.omega = DOA.Settings.mouseSensitivity;  // radial speed
     this.velocity = 300; // movement speed
     this.radius = 200;
@@ -39,7 +41,7 @@ Objects.prototype.VolumeTarget = function ( camera ) {
 
         this.camera.lookAt( new THREE.Vector3( this.x, this.y, this.z ) );
 
-        if ( this.enabled ) {
+        if ( this.isEnabled ) {
             this.mesh.rotation.x = this.camera.rotation.x;
             this.mesh.rotation.y = this.camera.rotation.y;
             this.mesh.rotation.z = this.camera.rotation.z;
@@ -97,7 +99,7 @@ Objects.prototype.VolumeTarget = function ( camera ) {
     };
 
     this.updateMesh = function () {
-        if ( this.enabled ) {
+        if ( this.isEnabled ) {
             this.mesh.position.x = this.x;
             this.mesh.position.y = this.y;
             this.mesh.position.z = this.z;
@@ -111,7 +113,7 @@ Objects.prototype.VolumeTarget = function ( camera ) {
         this.x += camera.position.delta.x;
         this.z += camera.position.delta.z;
 
-        if ( this.enabled ) {
+        if ( this.isEnabled ) {
             this.mesh.position.x = this.x;
             this.mesh.position.z = this.z;
         }

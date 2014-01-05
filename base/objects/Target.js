@@ -13,14 +13,16 @@ Objects.prototype.Target = function ( camera ) {
     this.camera = camera;
     this.camera.position.delta = { x: 0, y: 0, z: 0 };
 
+    this.isEnabled = true;
+
     this.delta = 1; // time delta
 
     this.x = camera.position.x;
     this.y = camera.position.y;
     this.z = camera.position.z;
 
+    this.geometry = new THREE.SphereGeometry( 50, 8, 6 );
     this.material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-    this.geometry = new THREE.CircleGeometry( 1 );
     this.mesh = new THREE.Mesh( this.geometry, this.material );
 };
-extend( Objects.prototype.Target, Objects.prototype.DevActor );
+extend( Objects.prototype.Target, Objects.prototype.Actor );
