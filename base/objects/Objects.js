@@ -30,6 +30,7 @@ Objects.prototype.Actor = function ( x, y, z ) {
 
     // Can be overridden.
     // Should do all initial work, before adding to the scene.
+    // @deprecated
     this.create = function ( objects ) {
         this.objects = objects || DOA.Engine._objects;
         this.objects.push( this );
@@ -40,14 +41,22 @@ Objects.prototype.Actor = function ( x, y, z ) {
     };
     // Can be overridden.
     // Should do all initial work, before removing from scene.
+    // @deprecated
     this.clear = function () {
         this.objects.pop( this );
         return this.mesh;
     };
 
+    // Enables object for renderer. Marks active.
+    this.enable = function () {
+    };
+
+    // Disables object for the renderer. Marks as suspended.
+    this.disable = function () {
+    };
+
     // Method to animate mesh in the Engine cycle.
     this.animate = function ( args ) {
-
     };
 
     this.setX = function ( x ) { this.x = x; this.mesh.position.x = x; };
