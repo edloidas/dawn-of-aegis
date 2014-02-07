@@ -26,7 +26,7 @@ Objects.prototype.Actor = function ( x, y, z ) {
     this.geometry = null;
     this.mesh     = null;
 
-    this.objects = null;
+    this._key     = null;
 
     // Can be overridden.
     // Should do all initial work, before adding to the scene.
@@ -49,10 +49,19 @@ Objects.prototype.Actor = function ( x, y, z ) {
 
     // Enables object for renderer. Marks active.
     this.enable = function () {
+        this._key = this._key || ( JSON.stringify( this ).hashCode() + Date.now() );
+        // add to scene
+        // DOA.Engine._objects.add( this._key, this );
+        // DOA.Engine._objects.get( this._key )._group = 'enabled';
+        if ( this.mesh instanceof THREE.Mesh ) {
+            this.mesh.position.set( this.x, this.y, this.z );
+        }
+        return this.mesh;
     };
 
     // Disables object for the renderer. Marks as suspended.
     this.disable = function () {
+        DOA.Engine._objects.get( this._key )._group = 'disabled';
     };
 
     // Method to animate mesh in the Engine cycle.

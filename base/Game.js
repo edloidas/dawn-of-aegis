@@ -115,6 +115,7 @@ Game.prototype.animate = function () {
 
     if ( DOA.Game.status > 0 ) {
         DOA.Player.animate( DOA.Game.clock.getDelta() );
+        DOA.Engine.animate( DOA.Game.clock.getDelta() );
         // @#
         mesh.rotation.x += 0.01;
         mesh.rotation.y += 0.02;

@@ -1,8 +1,8 @@
-module.exports = function(grunt) {
+module.exports = function( grunt ) {
 
     // Project configuration.
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
+        pkg: grunt.file.readJSON( 'package.json' ),
         concat: {
             options: {
                 stripBanners: false, // no comments are stripped
@@ -40,14 +40,48 @@ module.exports = function(grunt) {
             options: {
                 laxbreak: true
             },
-            all: ['base/*.js', 'base/objects/*.js']
+            all: [ 'base/*.js', 'base/objects/*.js' ]
+        },
+        uglify: {
+            options: {
+                mangle: false
+            },
+            dist: {
+                files: {
+                    "dist/base/loader.js"   : [ "base/loader.js" ],
+                    "dist/base/Utils.js"    : [ "base/Utils.js" ],
+                    "dist/base/Settings.js" : [ "base/Settings.js" ],
+                    "dist/base/Objects.js"  : [ "base/Objects.js" ],
+                    "dist/base/Caches.js"   : [ "base/Caches.js" ],
+                    "dist/base/Player.js"   : [ "base/Player.js" ],
+                    "dist/base/UI.js"       : [ "base/UI.js" ],
+                    "dist/base/World.js"    : [ "base/World.js" ],
+                    "dist/base/Engine.js"   : [ "base/Engine.js" ],
+                    "dist/base/Game.js"     : [ "base/Game.js" ]
+                }
+            }
+        },
+        connect: {
+            server: {
+                options: {
+                    port: 8888,
+                    hostname: 'localhost',
+                    base: '.',
+                    keepalive: true
+                }
+            }
         }
     });
 
     // Load the plugin that provides the "uglify" task.
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks( 'grunt-contrib-concat' );
+    grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+    grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+    grunt.loadNpmTasks( 'grunt-contrib-connect' );
 
     // Default task(s).
-    grunt.registerTask('default', ['concat', 'jshint']);
+    grunt.registerTask( 'default', [ 'concat', 'connect' ] );
+    grunt.registerTask( 'dist',    [ 'concat', 'jshint', 'uglify' ] );
+    grunt.registerTask( 'build',   [ 'concat', 'jshint' ] );
+    grunt.registerTask( 'server',  [ 'connect' ] );
 };

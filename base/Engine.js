@@ -13,8 +13,7 @@ function Engine() {
     this.axis = new DOA.Objects.Axis();
     this.grid = new DOA.Objects.Grid();
 
-    this._objects = [];    // game objects
-    this._devobjects = []; // developer objects
+    this._objects = new Cache();
 }
 
 /*
@@ -48,6 +47,15 @@ Engine.prototype.toggleDevMode = function () {
     //     Player.target.enabled = true;
     //     DOA.World.scene.add( Player.target.create() );
     // }
+};
+
+/*
+================
+animate
+    Animates (model animation) all active game objects.
+================
+*/
+Engine.prototype.animate = function ( delta ) {
 };
 
 /*

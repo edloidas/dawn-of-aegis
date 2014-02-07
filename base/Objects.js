@@ -26,10 +26,11 @@ Objects.prototype.Actor = function ( x, y, z ) {
     this.geometry = null;
     this.mesh     = null;
 
-    this.objects = null;
+    this._key     = null;
 
     // Can be overridden.
     // Should do all initial work, before adding to the scene.
+    // @deprecated
     this.create = function ( objects ) {
         this.objects = objects || DOA.Engine._objects;
         this.objects.push( this );
@@ -40,14 +41,31 @@ Objects.prototype.Actor = function ( x, y, z ) {
     };
     // Can be overridden.
     // Should do all initial work, before removing from scene.
+    // @deprecated
     this.clear = function () {
         this.objects.pop( this );
         return this.mesh;
     };
 
+    // Enables object for renderer. Marks active.
+    this.enable = function () {
+        this._key = this._key || ( JSON.stringify( this ).hashCode() + Date.now() );
+        // add to scene
+        // DOA.Engine._objects.add( this._key, this );
+        // DOA.Engine._objects.get( this._key )._group = 'enabled';
+        if ( this.mesh instanceof THREE.Mesh ) {
+            this.mesh.position.set( this.x, this.y, this.z );
+        }
+        return this.mesh;
+    };
+
+    // Disables object for the renderer. Marks as suspended.
+    this.disable = function () {
+        DOA.Engine._objects.get( this._key )._group = 'disabled';
+    };
+
     // Method to animate mesh in the Engine cycle.
     this.animate = function ( args ) {
-
     };
 
     this.setX = function ( x ) { this.x = x; this.mesh.position.x = x; };
@@ -438,7 +456,7 @@ Objects.prototype.VolumeTarget = function ( camera ) {
     }
     Objects.prototype.VolumeTarget.super.constructor.call( this, camera );
 
-    this.enabled = false;
+    this.isEnabled = false;
 
     this.omega = DOA.Settings.mouseSensitivity;  // radial speed
     this.velocity = 300; // movement speed
@@ -469,7 +487,7 @@ Objects.prototype.VolumeTarget = function ( camera ) {
 
         this.camera.lookAt( new THREE.Vector3( this.x, this.y, this.z ) );
 
-        if ( this.enabled ) {
+        if ( this.isEnabled ) {
             this.mesh.rotation.x = this.camera.rotation.x;
             this.mesh.rotation.y = this.camera.rotation.y;
             this.mesh.rotation.z = this.camera.rotation.z;
@@ -527,7 +545,7 @@ Objects.prototype.VolumeTarget = function ( camera ) {
     };
 
     this.updateMesh = function () {
-        if ( this.enabled ) {
+        if ( this.isEnabled ) {
             this.mesh.position.x = this.x;
             this.mesh.position.y = this.y;
             this.mesh.position.z = this.z;

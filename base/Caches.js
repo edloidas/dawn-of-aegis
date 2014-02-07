@@ -74,7 +74,7 @@ Materials
 ---------------------------------------------------------------------------
 */
 DOA.Materials.add( 'crosshair',
-                   new THREE.SpriteMaterial({  map: DOA.Textures.get( 'hud_crossdot' ).load(),
+                   new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_crossdot' ).load(),
                                               useScreenCoordinates: true,
                                               opacity: DOA.Settings.hudOpacity,
                                               color: DOA.Settings.colors.blank,
