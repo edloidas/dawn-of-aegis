@@ -33,7 +33,7 @@ Objects.prototype.Actor = function ( x, y, z ) {
     // @deprecated
     this.create = function ( objects ) {
         this.objects = objects || DOA.Engine._objects;
-        this.objects.push( this );
+        //this.objects.push( this );
         if ( this.mesh instanceof THREE.Mesh ) {
             this.mesh.position.set( this.x, this.y, this.z );
         }
