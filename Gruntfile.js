@@ -1,4 +1,8 @@
 module.exports = function( grunt ) {
+    // See http://www.html5rocks.com/en/tutorials/tooling/supercharging-your-gruntfile/
+
+    // Replacement for the `grunt.loadNpmTasks()`
+    require('load-grunt-config')(grunt);
 
     // Project configuration.
     grunt.initConfig({
@@ -72,12 +76,6 @@ module.exports = function( grunt ) {
             }
         }
     });
-
-    // Load the plugin that provides the "uglify" task.
-    grunt.loadNpmTasks( 'grunt-contrib-concat' );
-    grunt.loadNpmTasks( 'grunt-contrib-jshint' );
-    grunt.loadNpmTasks( 'grunt-contrib-uglify' );
-    grunt.loadNpmTasks( 'grunt-contrib-connect' );
 
     // Default task(s).
     grunt.registerTask( 'default', [ 'concat', 'connect' ] );
