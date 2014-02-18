@@ -157,6 +157,7 @@ String.prototype.hashCode = function() {
     }
     return hash;
 };
+Object.defineProperty( String.prototype, 'hashCode', { writable: false } );
 
 /*
 -------------------------------------------------------------------------------
@@ -164,7 +165,10 @@ String.prototype.hashCode = function() {
 -------------------------------------------------------------------------------
 */
 Math.PI_2 = Math.PI / 2;
+Object.defineProperty( Math, 'PI_2', { writable: false } );
+
 Math.PI2  = Math.PI * 2;
+Object.defineProperty( Math, 'PI2', { writable: false } );
 
 /*
 =================
@@ -181,3 +185,4 @@ Math.logab = function ( a, b ) {
         return Math.log( b ) / Math.log( a );
     }
 };
+Object.defineProperty( Math, 'logab', { writable: false } );
