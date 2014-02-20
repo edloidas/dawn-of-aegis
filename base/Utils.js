@@ -44,6 +44,14 @@ function mixin( dst, src ) {
     CACHE
 -------------------------------------------------------------------------------
 */
+/*
+=================
+Cache
+    Defines named cache. All values could be accessed by the name.
+    Each value can be added to the certain group.
+    Group value is added to the cached object.
+=================
+*/
 function Cache() {
     if ( !(this instanceof Cache) ) return new Cache();
 
@@ -76,6 +84,7 @@ Cache.prototype.set = function ( key, value, group ) {
 =================
 add
     Adds only new element.
+    Properties would also be ignored.
 =================
 */
 Cache.prototype.add = function ( key, value, group ) {
@@ -95,8 +104,6 @@ remove
 Cache.prototype.remove = function ( key ) {
     delete this._values[ key ];
 };
-
-// For group adding use mixin() method
 
 /*
 =================
@@ -122,6 +129,22 @@ Cache.prototype.removeGroup = function ( group ) {
             delete this._values[ keys[ k ] ];
         }
     }
+};
+
+/*
+=================
+group
+    Returns all values with certain group.
+=================
+*/
+Cache.prototype.group = function ( group ) {
+    var values = [];
+    for ( var k in this._values) {
+        if ( this._values[ k ]._group === group ) {
+            values.push( this._values[ k ] );
+        }
+    }
+    return values;
 };
 
 /*
