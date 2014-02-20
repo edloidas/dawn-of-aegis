@@ -174,8 +174,8 @@ String.prototype.hashCode = function() {
 
     var hash = 0;
     for ( var i = 0; i < this.length; i++ ) {
-        var char = this.charCodeAt( i );
-        hash = ( ( hash << 5 ) - hash ) + char;
+        var ch = this.charCodeAt( i );
+        hash = ( ( hash << 5 ) - hash ) + ch;
         hash = hash & hash; // Convert to 32bit integer
     }
     return hash;
