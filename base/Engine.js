@@ -56,6 +56,9 @@ animate
 ================
 */
 Engine.prototype.animate = function ( delta ) {
+    for ( var k in this._objects ) {
+        this._objects[ k ].animate( delta );
+    }
 };
 
 /*

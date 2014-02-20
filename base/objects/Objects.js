@@ -65,7 +65,7 @@ Objects.prototype.Actor = function ( x, y, z ) {
     };
 
     // Method to animate mesh in the Engine cycle.
-    this.animate = function ( args ) {
+    this.animate = function ( delta ) {
     };
 
     this.setX = function ( x ) { this.x = x; this.mesh.position.x = x; };
