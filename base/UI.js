@@ -94,18 +94,21 @@ clearMenu
 */
 UI.prototype.clearMenu = function ( menu ) {
     menu = menu || this.menu;
-    for ( var i in menu.__controllers ) {
-        menu.remove( menu.__controllers[i] );
-        delete menu.__controllers[i];
-        delete menu.__listening[i];
+    var k;
+
+    for ( k in menu.__controllers ) {
+        menu.remove( menu.__controllers[ k ] );
+        delete menu.__controllers[ k ];
+        delete menu.__listening[ k ];
     }
+
     menu.__controllers = [];
     menu.__listening = [];
 
-    for ( var k in menu.__folders ) {
-        UI.prototype.clearMenu( menu.__folders[k] );
-        menu.__folders[k].domElement.parentNode.remove();
-        delete menu.__folders[k];
+    for ( k in menu.__folders ) {
+        UI.prototype.clearMenu( menu.__folders[ k ] );
+        menu.__folders[ k ].domElement.parentNode.remove();
+        delete menu.__folders[ k ];
     }
 };
 
