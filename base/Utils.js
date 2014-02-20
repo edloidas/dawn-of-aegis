@@ -32,9 +32,9 @@ mixin
 function mixin( dst, src ) {
     // filters `Object` variables and methods
     var filter = {};
-    for ( var x in src ){
-        if ( (typeof filter[x] === "undefined") || (filter[x] !== src[x]) ) {
-            dst[x] = src[x];
+    for ( var k in src ){
+        if ( ( typeof filter[ k ] === "undefined" ) || ( filter[ k ] !== src[ k ] ) ) {
+            dst[ k ] = src[ k ];
         }
     }
 }
@@ -105,8 +105,8 @@ removeKeys
 =================
 */
 Cache.prototype.removeKeys = function ( keys ) {
-    for ( var i in keys ) {
-        delete this._values[ keys[ i ] ];
+    for ( var k in keys ) {
+        delete this._values[ keys[ k ] ];
     }
 };
 
@@ -119,7 +119,7 @@ removeGroup
 Cache.prototype.removeGroup = function ( group ) {
     for ( var k in this._values ) {
         if ( this._values[ k ]._group === group ) {
-            delete this._values[ keys[ i ] ];
+            delete this._values[ keys[ k ] ];
         }
     }
 };
@@ -150,7 +150,7 @@ String.prototype.hashCode = function() {
     if ( this.length === 0 ) return hash;
 
     var hash = 0;
-    for ( i = 0; i < this.length; i++ ) {
+    for ( var i = 0; i < this.length; i++ ) {
         var char = this.charCodeAt( i );
         hash = ( ( hash << 5 ) - hash ) + char;
         hash = hash & hash; // Convert to 32bit integer
