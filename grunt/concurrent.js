@@ -1,3 +1,3 @@
 module.exports = {
-    concat: ['newer:concat:objects', 'newer:concat:player']
+    concat: ['concat:objects', 'concat:player']
 };

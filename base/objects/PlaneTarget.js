@@ -15,7 +15,7 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     }
     Objects.prototype.PlaneTarget.super.constructor.call( this, camera );
 
-    var that = this; // variable for 'private' methods
+    var self = this; // variable for 'private' methods
 
     this.omega = DOA.Settings.mouseSensitivity;  // radial speed
     this.velocity = 700; // movement speed
@@ -185,20 +185,20 @@ Objects.prototype.PlaneTarget = function ( camera ) {
     };
 
     function incrementHorizontal( deg ) {
-        that.camera.position.delta.x += dv * Math.cos( deg );
-        that.camera.position.delta.z += dv * Math.sin( deg );
+        self.camera.position.delta.x += dv * Math.cos( deg );
+        self.camera.position.delta.z += dv * Math.sin( deg );
     }
 
     function decrementHorizontal( deg ) {
-        that.camera.position.delta.x -= dv * Math.cos( deg );
-        that.camera.position.delta.z -= dv * Math.sin( deg );
+        self.camera.position.delta.x -= dv * Math.cos( deg );
+        self.camera.position.delta.z -= dv * Math.sin( deg );
     }
 
     function updateMesh() {
-        if ( that.isEnabled ) {
-            that.mesh.position.x = that.x;
-            that.mesh.position.y = that.y;
-            that.mesh.position.z = that.z;
+        if ( self.isEnabled ) {
+            self.mesh.position.x = self.x;
+            self.mesh.position.y = self.y;
+            self.mesh.position.z = self.z;
         }
     }
 };
