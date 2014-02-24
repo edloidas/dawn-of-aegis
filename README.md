@@ -4,7 +4,7 @@ JavaScript 3D game.
 
 ## HOWTO: Build ##
 
-Repository already contains build files for the quick start. You can also run all project tasks by yourself. This project uses Grunt, and to do this, you must first install the Grunt CLI. Read the [article](http://gruntjs.com/getting-started), how to do this.
+Repository already contains build files for the quick start. You can also run all project tasks by yourself. This project uses Grunt, and to do this, you must first install the Grunt CLI on top of the Node.js. Read the [article](http://gruntjs.com/getting-started), how to do this.
 Then install all dependencies, listed in the package file `npm install`. Running `grunt` command under the project root folder will  perform the default tasks. To find more detailed information, see [Grunt file](Gruntfile.js) and [package file](package.js).
 
 ## HOWTO: Run ##
