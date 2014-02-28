@@ -77,24 +77,20 @@ DOA.Materials.add( 'crosshair',
                    new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_crossdot' ).load(),
                                               useScreenCoordinates: true,
                                               opacity: DOA.Settings.hudOpacity,
-                                              color: DOA.Settings.colors.blank,
-                                              alignment: THREE.SpriteAlignment.center }), 'hud' );
+                                              color: DOA.Settings.colors.blank }), 'hud' );
 DOA.Materials.add( 'hud_health',
                    new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_health' ).load(),
                                               useScreenCoordinates: true,
                                               opacity: DOA.Settings.hudOpacity,
-                                              color: DOA.Settings.colors.blank,
-                                              alignment: THREE.SpriteAlignment.center }), 'hud' );
+                                              color: DOA.Settings.colors.blank }), 'hud' );
 DOA.Materials.add( 'hud_armor',
                    new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_armor' ).load(),
                                               useScreenCoordinates: true,
                                               opacity: DOA.Settings.hudOpacity,
-                                              color: DOA.Settings.colors.blank,
-                                              alignment: THREE.SpriteAlignment.center }), 'hud' );
+                                              color: DOA.Settings.colors.blank }), 'hud' );
 
 DOA.Materials.add( 'hud_armor_text',
                    new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_armor_text' ),
                                               useScreenCoordinates: true,
                                               opacity: DOA.Settings.hudOpacity,
-                                              color: DOA.Settings.colors.blank,
-                                              alignment: THREE.SpriteAlignment.bottomCenter }), 'hud' );
+                                              color: DOA.Settings.colors.blank }), 'hud' );

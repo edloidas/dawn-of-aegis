@@ -39,14 +39,14 @@ UI.prototype.init = function () {
     // Add crosshair size and hud size to settings. normal - 32, medium - 48, big - 64
     this.crosshair = new DOA.Objects.Sprite( DOA.Materials.get( 'crosshair' ), 32 );
     this.crosshair.setZ( 1.0 );
-    this.scene.add( this.crosshair.create() );
+    // this.scene.add( this.crosshair.create() );
 
     var material  = DOA.Materials.get( 'hud_armor_text' );
     this.armorText = new DOA.Objects.Sprite( material, material.map.getWidth(), material.map.getHeight() );
     this.armorText.setPosition( 250, 250, 1.0 );
     //DOA.UI.healt_text.material.map.updateText('34')
     //DOA.UI.healt_text.material.map.canvas.width
-    this.scene.add( this.armorText.create() );
+    // this.scene.add( this.armorText.create() );
 
     // Menu
     this.menu = new dat.GUI();

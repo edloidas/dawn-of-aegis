@@ -15,7 +15,7 @@ Objects.prototype.Sprite = function ( material, width, height, depth ) {
     height = height || width;
     depth = depth || 1.0;
 
-    material = material || ( THREE.SpriteMaterial({ color: DOA.Settings.colors.blank }) );
+    material = material || ( new THREE.SpriteMaterial({ color: DOA.Settings.colors.blank }) );
 
     this.material = material;
     this.mesh = new THREE.Sprite( this.material );

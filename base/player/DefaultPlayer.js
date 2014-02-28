@@ -204,5 +204,5 @@ DefaultPlayer.prototype.animate = function ( delta ) {
 };
 
 DefaultPlayer.prototype.init = function () {
-    DOA.World.scene.add( this.target.create() );
+    this.target.enable();
 };

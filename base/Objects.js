@@ -28,31 +28,32 @@ Objects.prototype.Actor = function ( x, y, z ) {
 
     this._key     = null;
 
-    // Can be overridden.
-    // Should do all initial work, before adding to the scene.
-    // @deprecated
-    this.create = function ( objects ) {
-        this.objects = objects || DOA.Engine._objects;
-        //this.objects.push( this );
-        if ( this.mesh instanceof THREE.Mesh ) {
-            this.mesh.position.set( this.x, this.y, this.z );
-        }
-        return this.mesh;
+    /*
+     * Adds object to the scene.
+     * Should be overridden, in case to another scene usage,
+     * instead of overriding enable().
+     */
+    this._add = function () {
+        DOA.World.scene.add( this.mesh );
     };
-    // Can be overridden.
-    // Should do all initial work, before removing from scene.
-    // @deprecated
-    this.clear = function () {
-        this.objects.pop( this );
-        return this.mesh;
+
+    /*
+     * Removes object from the scene.
+     * Should be overridden, in case to another scene usage,
+     * instead of overriding enable().
+     */
+    this._remove = function () {
+        DOA.World.scene.remove( this.mesh );
     };
 
     // Enables object for renderer. Marks active.
     this.enable = function () {
-        this._key = this._key || ( JSON.stringify( this ).hashCode() + Date.now() );
         // add to scene
-        // DOA.Engine._objects.add( this._key, this );
-        // DOA.Engine._objects.get( this._key )._group = 'enabled';
+        this._add();
+        // add to engine's object cache
+        this._key = this._key || randomHash();
+        DOA.Engine._objects.add( this._key, this );
+        DOA.Engine._objects.get( this._key )._group = 'scene';
         if ( this.mesh instanceof THREE.Mesh ) {
             this.mesh.position.set( this.x, this.y, this.z );
         }
@@ -61,7 +62,12 @@ Objects.prototype.Actor = function ( x, y, z ) {
 
     // Disables object for the renderer. Marks as suspended.
     this.disable = function () {
-        DOA.Engine._objects.get( this._key )._group = 'disabled';
+        // remove from scene
+        this._remove();
+        // remove from engine's object cache
+        DOA.Engine._objects.get( this._key )._group = undefined;
+
+        return this.mesh;
     };
 
     // Method to animate mesh in the Engine cycle.
@@ -106,7 +112,7 @@ Objects.prototype.Sprite = function ( material, width, height, depth ) {
     height = height || width;
     depth = depth || 1.0;
 
-    material = material || ( THREE.SpriteMaterial({ color: DOA.Settings.colors.blank }) );
+    material = material || ( new THREE.SpriteMaterial({ color: DOA.Settings.colors.blank }) );
 
     this.material = material;
     this.mesh = new THREE.Sprite( this.material );
