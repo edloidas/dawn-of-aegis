@@ -28,7 +28,7 @@
         "url": "https://github.com/edloidas/dawn-of-aegis.git"
     },
     "keywords": [
-        "doa"
+        "doa", "Three.js", "game"
     ],
     "author": "edloidas",
     "license": "MIT",
