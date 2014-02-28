@@ -188,10 +188,7 @@ Object.defineProperty( String.prototype, 'hashCode', { writable: false } );
 -------------------------------------------------------------------------------
 */
 Math.PI_2 = Math.PI / 2;
-Object.defineProperty( Math, 'PI_2', { writable: false } );
-
 Math.PI2  = Math.PI * 2;
-Object.defineProperty( Math, 'PI2', { writable: false } );
 
 /*
 =================
