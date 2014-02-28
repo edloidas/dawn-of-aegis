@@ -40,6 +40,16 @@ function mixin( dst, src ) {
 }
 
 /*
+================
+randomHash
+    Generates random hash string of 15 characters.
+================
+*/
+function randomHash() {
+    return Math.random().toString(36).substr(2);
+}
+
+/*
 -------------------------------------------------------------------------------
     CACHE
 -------------------------------------------------------------------------------
