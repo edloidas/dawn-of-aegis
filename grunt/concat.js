@@ -18,7 +18,7 @@ module.exports = {
             "base/objects/TextTexture.js",
             "base/objects/_init.js"
         ],
-        dest: "base/Objects.js",
+        dest: "base/Objects.js"
     },
     player: {
         // Assemble different game objects
@@ -28,6 +28,6 @@ module.exports = {
             "base/player/AltPlayer.js",
             "base/player/_init.js"
         ],
-        dest: "base/Player.js",
+        dest: "base/Player.js"
     }
 };
