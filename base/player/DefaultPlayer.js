@@ -50,7 +50,6 @@ onKeyDown
 */
 DefaultPlayer.prototype.onKeyDown = function ( code ) {
     if ( !this.isActive ) return code;
-
     switch ( code ) {
         case DOA.Controls.arrowup:     // ↑
             this.f_view |= 1;
@@ -200,7 +199,7 @@ animate
 ================
 */
 DefaultPlayer.prototype.animate = function ( delta ) {
-    this.target.animate( delta, this.f_view | this.f_scroll );
+    this.target.update( delta, this.f_view | this.f_scroll );
 };
 
 DefaultPlayer.prototype.init = function () {

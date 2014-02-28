@@ -26,14 +26,6 @@ toogleDevMode
 Engine.prototype.toggleDevMode = function () {
     this.axis.toggle();
     this.grid.toggle();
-
-    // if ( Player.target.enabled ) {
-    //     Player.target.enabled = false;
-    //     DOA.World.scene.remove( Player.target.clear() );
-    // } else {
-    //     Player.target.enabled = true;
-    //     DOA.World.scene.add( Player.target.create() );
-    // }
 };
 
 /*
