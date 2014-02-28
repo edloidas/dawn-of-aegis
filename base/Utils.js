@@ -180,7 +180,6 @@ String.prototype.hashCode = function() {
     }
     return hash;
 };
-Object.defineProperty( String.prototype, 'hashCode', { writable: false } );
 
 /*
 -------------------------------------------------------------------------------
@@ -205,4 +204,3 @@ Math.logab = function ( a, b ) {
         return Math.log( b ) / Math.log( a );
     }
 };
-Object.defineProperty( Math, 'logab', { writable: false } );
