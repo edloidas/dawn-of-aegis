@@ -27,6 +27,7 @@ Objects.prototype.Actor = function ( x, y, z ) {
     this.mesh     = null;
 
     this._key     = null;
+    this._group   = 'scene';
 
     /*
      * Adds object to the scene.
@@ -53,7 +54,7 @@ Objects.prototype.Actor = function ( x, y, z ) {
         // add to engine's object cache
         this._key = this._key || randomHash();
         DOA.Engine._objects.add( this._key, this );
-        DOA.Engine._objects.get( this._key )._group = 'scene';
+        DOA.Engine._objects.get( this._key ).group = this._group;
         if ( this.mesh instanceof THREE.Mesh ) {
             this.mesh.position.set( this.x, this.y, this.z );
         }
@@ -65,9 +66,17 @@ Objects.prototype.Actor = function ( x, y, z ) {
         // remove from scene
         this._remove();
         // remove from engine's object cache
-        DOA.Engine._objects.get( this._key )._group = undefined;
+        DOA.Engine._objects.get( this._key ).group = undefined;
 
         return this.mesh;
+    };
+    this.toggle = function () {
+        var obj = DOA.Engine._objects.get( this._key );
+        if ( obj === undefined || obj.group === undefined ) {
+            this.enable();
+        } else {
+            this.disable();
+        }
     };
 
     // Method to animate mesh in the Engine cycle.
@@ -165,19 +174,7 @@ Objects.prototype.DevActor = function () {
     }
     Objects.prototype.DevActor.super.constructor.call( this );
 
-    this.enabled = false;
-
-    this.create = function () {
-        DOA.Engine._devobjects.push( this );
-        if ( this.mesh instanceof THREE.Mesh ) {
-            this.mesh.position.set( this.x, this.y, this.z );
-        }
-        return this.mesh;
-    };
-    this.clear = function () {
-        DOA.Engine._devobjects.pop( this );
-        return this.mesh;
-    };
+    this._group = 'dev';
 };
 extend( Objects.prototype.DevActor, Objects.prototype.Actor );
 

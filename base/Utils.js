@@ -86,7 +86,7 @@ set
 */
 Cache.prototype.set = function ( key, value, group ) {
     this._values[ key ] = value;
-    this._values[ key ]._group = group;
+    this._values[ key ].group = group;
     return this._values[ key ];
 };
 
@@ -100,7 +100,7 @@ add
 Cache.prototype.add = function ( key, value, group ) {
     if ( this._values[ key ] === undefined ) {
         this._values[ key ] = value;
-        this._values[ key ]._group = group;
+        this._values[ key ].group = group;
     }
     return this._values[ key ];
 };
@@ -135,7 +135,7 @@ removeGroup
 */
 Cache.prototype.removeGroup = function ( group ) {
     for ( var k in this._values ) {
-        if ( this._values[ k ]._group === group ) {
+        if ( this._values[ k ].group === group ) {
             delete this._values[ keys[ k ] ];
         }
     }
@@ -150,7 +150,7 @@ group
 Cache.prototype.group = function ( group ) {
     var values = [];
     for ( var k in this._values) {
-        if ( this._values[ k ]._group === group ) {
+        if ( this._values[ k ].group === group ) {
             values.push( this._values[ k ] );
         }
     }

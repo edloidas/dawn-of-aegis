@@ -24,21 +24,8 @@ toogleDevMode
 ================
 */
 Engine.prototype.toggleDevMode = function () {
-    if ( this.axis.enabled ) {
-        this.axis.enabled = false;
-        DOA.World.scene.remove( this.axis.clear() );
-    } else {
-        this.axis.enabled = true;
-        DOA.World.scene.add( this.axis.create() );
-    }
-
-    if ( this.grid.enabled ) {
-        this.grid.enabled = false;
-        DOA.World.scene.remove( this.grid.clear() );
-    } else {
-        this.grid.enabled = true;
-        DOA.World.scene.add( this.grid.create() );
-    }
+    this.axis.toggle();
+    this.grid.toggle();
 
     // if ( Player.target.enabled ) {
     //     Player.target.enabled = false;
