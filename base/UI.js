@@ -22,9 +22,6 @@ function UI() {
     this.scene = new THREE.Scene();
 
     this.menu = null;
-
-    this.crosshair = null;
-    this.armorText = null;
 }
 
 /*
@@ -35,18 +32,6 @@ init
 */
 UI.prototype.init = function () {
     // Interface
-    //
-    // Add crosshair size and hud size to settings. normal - 32, medium - 48, big - 64
-    this.crosshair = new DOA.Objects.Sprite( DOA.Materials.get( 'crosshair' ), 32 );
-    this.crosshair.setZ( 1.0 );
-    // this.scene.add( this.crosshair.create() );
-
-    var material  = DOA.Materials.get( 'hud_armor_text' );
-    this.armorText = new DOA.Objects.Sprite( material, material.map.getWidth(), material.map.getHeight() );
-    this.armorText.setPosition( 250, 250, 1.0 );
-    //DOA.UI.healt_text.material.map.updateText('34')
-    //DOA.UI.healt_text.material.map.canvas.width
-    // this.scene.add( this.armorText.create() );
 
     // Menu
     this.menu = new dat.GUI();
@@ -66,9 +51,6 @@ UI.prototype.updateSize = function () {
     this.camera.top    = DOA.Settings.height /   2;
     this.camera.bottom = DOA.Settings.height / - 2;
     this.camera.updateProjectionMatrix();
-
-    // Updating HUD
-    this.crosshair.setPosition( this.camera.right, this.camera.top );
 };
 
 /*
@@ -78,12 +60,6 @@ updateHudSize
 ================
 */
 UI.prototype.updateHud = function () {
-    // scale
-    this.crosshair.mesh.scale.x = DOA.Settings.hudSize;
-    this.crosshair.mesh.scale.y = DOA.Settings.hudSize;
-
-    // opacity
-    DOA.UI.crosshair.material.opacity = DOA.Settings.hudOpacity;
 };
 
 /*
