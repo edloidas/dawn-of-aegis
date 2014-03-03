@@ -11,20 +11,6 @@ function DefaultPlayer() {
     }
     DefaultPlayer.super.constructor.call( this );
 
-    // move on the x-z plane
-    this.moveTop     = false;
-    this.moveBottom  = false;
-    this.moveLeft    = false;
-    this.moveRight   = false;
-
-    // view
-    this.zoomIn      = false;
-    this.zoomOut     = false;
-    this.rotateLeft  = false;
-    this.rotateRight = false;
-    this.tiltDown    = false;
-    this.tiltUp      = false;
-
     this.f_view   = 0; // as a flags variable in the PlaneTarget
     this.f_scroll = 0; // first four bits of the flags
 
