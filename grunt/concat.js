@@ -6,16 +6,21 @@ module.exports = {
     objects: {
         // Assemble different game objects
         src: [
+            // main
             "base/objects/Objects.js",
-            "base/objects/Sprite.js",
-            "base/objects/TexturedPlane.js",
             "base/objects/DevActor.js",
-            "base/objects/Axis.js",
-            "base/objects/Grid.js",
-            "base/objects/Target.js",
-            "base/objects/PlaneTarget.js",
-            "base/objects/VolumeTarget.js",
-            "base/objects/TextTexture.js",
+            // common
+            "base/objects/common/Sprite.js",
+            "base/objects/common/TexturedPlane.js",
+            "base/objects/common/TextTexture.js",
+            // dev
+            "base/objects/dev/Axis.js",
+            "base/objects/dev/Grid.js",
+            // target
+            "base/objects/target/Target.js",
+            "base/objects/target/PlaneTarget.js",
+            "base/objects/target/VolumeTarget.js",
+            // initialization
             "base/objects/_init.js"
         ],
         dest: "base/Objects.js"
