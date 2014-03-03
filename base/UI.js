@@ -46,10 +46,10 @@ updateSize
 ================
 */
 UI.prototype.updateSize = function () {
-    this.camera.left   = DOA.Settings.width  / - 2;
-    this.camera.right  = DOA.Settings.width  /   2;
-    this.camera.top    = DOA.Settings.height /   2;
-    this.camera.bottom = DOA.Settings.height / - 2;
+    this.camera.left   = DOA.Settings.width  / -2;
+    this.camera.right  = DOA.Settings.width  /  2;
+    this.camera.top    = DOA.Settings.height /  2;
+    this.camera.bottom = DOA.Settings.height / -2;
     this.camera.updateProjectionMatrix();
 };
 
