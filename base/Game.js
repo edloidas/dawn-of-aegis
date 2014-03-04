@@ -8,13 +8,15 @@
 function Game() {
     if ( !(this instanceof Game) ) return new Game();
 
-    this.stats  = null; // stats DOM element
-    this.canvas = null; // element, that locks pointer
+    this.stats      = null; // stats DOM element
+    this.canvas     = null; // element, that locks pointer
 
-    this.status = 0;    // active game element index
-                        // 0 - menu
-                        // 1 - game
-                        // 2 - settings
+    this.fullscreen = null; // fullscreen element
+
+    this.status = 0; // active game element index
+                     // 0 - menu
+                     // 1 - game
+                     // 2 - settings
 
     this.clock = new THREE.Clock(); // timer to sync coordinates changes
 
@@ -185,9 +187,9 @@ toggleFullscreen
 ================
 */
 Game.prototype.toggleFullscreen = function () {
-    if ( document.mozFullscreenElement === this.canvas ||
-         document.mozFullScreenElement === this.canvas ||
-         document.webkitFullscreenElement === this.canvas ) {
+    if ( document.mozFullscreenElement === this.fullscreen ||
+         document.mozFullScreenElement === this.fullscreen ||
+         document.webkitFullscreenElement === this.fullscreen ) {
 
         if ( document.cancelFullScreen ) {
             document.cancelFullScreen();
@@ -197,7 +199,7 @@ Game.prototype.toggleFullscreen = function () {
             document.webkitCancelFullScreen();
         }
     } else {
-        this.canvas.requestFullscreen();
+        this.fullscreen.requestFullscreen();
     }
 };
 
@@ -385,9 +387,9 @@ fullscreenChange
 */
 function fullscreenChange() {
     // lock pointer only for manual fullscreen via 'x'
-    if ( document.mozFullscreenElement === DOA.Game.canvas ||
-         document.mozFullScreenElement === DOA.Game.canvas ||
-         document.webkitFullscreenElement === DOA.Game.canvas ) {
+    if ( document.mozFullscreenElement === DOA.Game.fullscreen ||
+         document.mozFullScreenElement === DOA.Game.fullscreen ||
+         document.webkitFullscreenElement === DOA.Game.fullscreen ) {
         // DOA.Game.canvas.requestPointerLock();
     }
 }

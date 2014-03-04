@@ -166,7 +166,8 @@ document.onreadystatechange = function () {
                                           document.exitPointerLock    ||
                                           document.mozExitPointerLock ||
                                           document.webkitExitPointerLock;
-                        DOA.Game.canvas.requestFullscreen =
+                        DOA.Game.fullscreen = document.body;
+                        DOA.Game.fullscreen.requestFullscreen =
                                           DOA.Game.canvas.requestFullscreen    ||
                                           DOA.Game.canvas.mozRequestFullscreen ||
                                           DOA.Game.canvas.mozRequestFullScreen ||
