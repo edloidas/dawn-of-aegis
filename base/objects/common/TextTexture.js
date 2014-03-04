@@ -99,6 +99,13 @@ Objects.prototype.TextTexture = function ( text, param ) {
     // canvas contents will be used for a texture
     this.image = this.canvas;
 
+    /**
+     * Updates canvas content.
+     * @param  {String}  text     canvas text.
+     * @param  {Object}  param    configuration parameters.
+     * @param  {Boolean} isForced flag, that indicates forced update usage.
+     *                            Forced update will update canvas size.
+     */
     this.update = function ( text, param, isForced ) {
         isForced = isForced || false;
 
