@@ -111,7 +111,7 @@ buildSettingsMenu
 UI.prototype.buildSettingsMenu = function () {
     this.clearMenu();
     var folder = this.menu.addFolder( 'Common' );
-    folder.add( DOA.Settings, 'fps', [ 30, 60 ] ).name( 'fps counter' ).listen();
+    folder.add( DOA.Settings, 'fps', [ 30, 60, 90, 120, 200 ] ).name( 'fps counter' ).listen();
     folder.addColor( DOA.Settings.colors, 'mesh' ).name( 'blank color' ).listen();
     folder.open();
 
