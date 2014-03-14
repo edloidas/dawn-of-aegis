@@ -36,6 +36,7 @@ See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-t
 * `Settings.js` - changeable game settings: window size, fov, mouse sensitivity.
 * `Caches.js` - cached (regular and preloaded) objects.
 * `Objects.js` - simple world objects.
+* `Quest.js` - quest parser and objects.
 * `Player.js` - camera and user controls.
 * `UI.js` - user interface.
 * `World.js` - scene and complex game objects.
