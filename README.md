@@ -21,9 +21,11 @@ Textures is a binary data, so they are not included into the repository and you 
 As been said, you must run game on the server (best practice), or make changes to the browser security settings.
 
 ##### Step 3 A: Node.js server #####
-1. Install [Node.js](http://nodejs.org)
-2. Install [Connect](http://senchalabs.github.com/connect): `npm install connect` (if you skipped build phase)
-3. Run `node server.js` under the repository root
+1. Install [Node.js](http://nodejs.org);
+2. Run `npm install` (if you skipped build phase);
+3. Run `node server.js` under the repository root.
+
+Note that the project is using Express of version 4 for setup the server.
 
 ##### Step 3 B: Other solutions #####
 See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally).
