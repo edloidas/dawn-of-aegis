@@ -7,23 +7,19 @@ JavaScript 3D game.
 Repository does not include game textures and libraries. Before running this project, you should build it first. Follow these steps:
 
 1. Install [Node.js](http://nodejs.org)
-
   * Make sure you installed the Node Package Manager ([npm](https://www.npmjs.org/));
 
 2. Run `npm install`
-
-  * This command will download required dependencies, including [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [LESS](http://lesscss.org/);
+  * This task will download required dependencies, including [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [LESS](http://lesscss.org/);
   * Also, as post install task, `bower install` will be executed to download project libraries;
   * You will have `node_modules/` and `bower_components/` directories after this step;
   * See [package file](package.json) and  [bower file](bower.json) for the additional information;
 
 3. Run `grunt build`
-
-  * This command will create/update the game libraries under the `lib/` folder, build the game files and compile the styles.
-  * See [Grunt file](Gruntfile.js) and [default.js](grunt/default.js) for the additional information about the commands.
+  * This task will create/update the game libraries under the `lib/` folder, build the game files and compile the styles.
+  * See [Grunt file](Gruntfile.js) and [default.js](grunt/default.js) for the additional information about the tasks.
 
 4. Download and unpack textures.
-
   * Textures is a binary data, so they are not included into the repository and you must download them manually. Get this [base archive](https://dl.dropboxusercontent.com/u/40688668/base.zip) with data, unpack and place it under your game root folder.
   * Note, that this step will be incorporated into the previous actions in future.
 
