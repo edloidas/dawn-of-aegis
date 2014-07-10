@@ -1,7 +1,9 @@
 # Directories #
+bower_components/
 node_modules/
 base/data/
 dist/
+lib/
 
 # Files #
 *.sh
