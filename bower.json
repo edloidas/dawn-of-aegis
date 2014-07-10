@@ -1,0 +1,12 @@
+{
+  "name": "doa",
+  "version": "0.0.1",
+  "dependencies": {
+    "yepnope": "v1.5.4",
+    "requirejs-plugins": "*",
+    "threejs":   "r67",
+    "stats.js":  "r11",
+    "dat.gui":   "*"
+  },
+  "private": true
+}

@@ -34,5 +34,25 @@ module.exports = {
             "base/player/_init.js"
         ],
         dest: "base/Player.js"
+    },
+    yepnope: {
+        src:  [ "bower_components/yepnope/yepnope.js" ],
+        dest: "lib/yepnope.js"
+    },
+    modernizr: {
+        src:  [ "bower_components/modernizr/modernizr.js" ],
+        dest: "lib/modernizr.js"
+    },
+    threejs: {
+        src:  [ "bower_components/threejs/build/three.js" ],
+        dest: "lib/three.js"
+    },
+    statsjs: {
+        src:  [ "bower_components/stats.js/build/stats.min.js" ],
+        dest: "lib/stats.js"
+    },
+    datgui: {
+        src:  [ "bower_components/dat.gui/dat.gui.js" ],
+        dest: "lib/dat.gui.js"
     }
 };

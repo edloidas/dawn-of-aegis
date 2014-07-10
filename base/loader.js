@@ -128,7 +128,7 @@ document.onreadystatechange = function () {
 
         console.groupCollapsed( 'Preload' );
 
-        Modernizr.load([
+        yepnope([
             {
                 load : DOA.files,
                 callback : function ( file ) {

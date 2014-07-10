@@ -1,7 +1,10 @@
 module.exports = {
+  dev: {
     options: {
-        sourceMap: true
+        cleancss: true
     },
-    src:  "css/style.less",
-    dest: "css/style.css"
+    files: {
+      "css/style.css": "css/style.less"
+    }
+  }
 };
