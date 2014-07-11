@@ -1,6 +1,9 @@
 Dawn of Aegis
 =============
-JavaScript 3D game.
+
+[![Dependency Status](https://david-dm.org/edloidas/dawn-of-aegis.svg)](https://david-dm.org/edloidas/dawn-of-aegis) [![devDependency Status](https://david-dm.org/edloidas/dawn-of-aegis/dev-status.svg)](https://david-dm.org/edloidas/dawn-of-aegis#info=devDependencies)
+
+> JavaScript 3D game.
 
 ## HOWTO: Build ##
 
