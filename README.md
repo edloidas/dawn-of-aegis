@@ -1,6 +1,7 @@
 Dawn of Aegis
 =============
 
+[![Build Status](https://travis-ci.org/edloidas/dawn-of-aegis.svg?branch=master)](https://travis-ci.org/edloidas/dawn-of-aegis)
 [![Dependency Status](https://david-dm.org/edloidas/dawn-of-aegis.svg)](https://david-dm.org/edloidas/dawn-of-aegis)
 [![devDependency Status](https://david-dm.org/edloidas/dawn-of-aegis/dev-status.svg)](https://david-dm.org/edloidas/dawn-of-aegis#info=devDependencies)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
