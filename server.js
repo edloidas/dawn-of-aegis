@@ -26,5 +26,6 @@ app.use( morgan( 'dev' ) );
 var compression = require( 'compression' );
 app.use( compression( { threshold: 4096 } ) );
 
+module.exports = app;
 
 app.listen(8888);
