@@ -3,7 +3,6 @@ Dawn of Aegis
 
 [![Dependency Status](https://david-dm.org/edloidas/dawn-of-aegis.svg)](https://david-dm.org/edloidas/dawn-of-aegis)
 [![devDependency Status](https://david-dm.org/edloidas/dawn-of-aegis/dev-status.svg)](https://david-dm.org/edloidas/dawn-of-aegis#info=devDependencies)
-
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 > JavaScript 3D game.
