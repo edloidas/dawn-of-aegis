@@ -111,7 +111,7 @@ buildSettingsMenu
 UI.prototype.buildSettingsMenu = function () {
     this.clearMenu();
     var folder = this.menu.addFolder( 'Common' );
-    folder.add( DOA.Settings, 'fps', [ 30, 60, 90, 120, 200 ] ).name( 'fps counter' ).listen();
+    folder.add( DOA.Settings, 'fps', [ 30, 60, 90, 120, 200 ] ).name( 'fps counter' );
     folder.addColor( DOA.Settings.colors, 'mesh' ).name( 'blank color' ).listen();
     folder.open();
 
@@ -124,7 +124,7 @@ UI.prototype.buildSettingsMenu = function () {
 
     folder = this.menu.addFolder( 'Player' );
     folder.add( DOA.Settings, 'mouseSensitivity', 0.05, 0.5 ).step( 0.05 ).name( 'mouse speed' ).listen();
-    folder.add( DOA.Settings, 'hudSize', { normal : 32, big : 64, large : 128 } ).name( 'HUD size' ).listen();
+    folder.add( DOA.Settings, 'hudSize', { normal : 32, big : 64, large : 128 } ).name( 'HUD size' );
     folder.add( DOA.Settings, 'hudOpacity', 0.0, 1.0 ).step( 0.01 ).name( 'HUD opacity' ).listen();
     folder.open();
 

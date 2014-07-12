@@ -417,7 +417,7 @@ Objects.prototype.PlaneTarget = function ( camera ) {
         degt = 0,
         degp = 0;
 
-    var flags = 0; // binary data 1111 11 11
+    var flags = 0; // binary data 1111 11 11 11
                    // 1 - top, 2 - bottom, 4 - left, 8 - right
                    // 16 - rotate left, 32 - rotate right
                    // 64 - tilt up, 128 - tilt down
@@ -549,7 +549,7 @@ Objects.prototype.PlaneTarget = function ( camera ) {
         }
 
         // update position
-        if ( flags &  1008 ) { // any flag, except moves
+        if ( flags & 1008 ) { // any flag, except moves
             this.camera.position.x = this.x + this.radius * Math.cos( degt )
                                                           * Math.sin( degp );
             this.camera.position.y = this.y + this.radius * Math.cos( degp );

@@ -233,8 +233,9 @@ DefaultPlayer.prototype.onMouseMove = function ( event ) {
 
         this.target.look( this.mouseX, this.mouseY );
     } else { // get coordinates
-        this.mouseX = event.offsetX || event.layerX || 0;
-        this.mouseY = event.offsetY || event.layerY || 0;
+        // !@ Uses browser's visible viewport. Only for fullscreen app.
+        this.mouseX = event.clientX || 0;
+        this.mouseY = event.clientY || 0;
 
         this.f_scroll = 0;
         if ( this.mouseX === 0 ) {

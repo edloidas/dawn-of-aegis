@@ -154,7 +154,7 @@ Game.prototype.toggleStats = function () {
             st.begin();
             // do eval
             st.end();
-        }, 1000 / DOA.Settings.fps ); // 1000 == 1s
+        }, 1000 / 200 ); // 1000 == 1s
     } else if ( document.getElementById( 'stats' ) === null ) {
         document.body.appendChild( this.stats.domElement );
     } else {
