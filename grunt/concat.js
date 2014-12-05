@@ -44,7 +44,7 @@ module.exports = {
         dest: "lib/three.js"
     },
     statsjs: {
-        src:  [ "bower_components/stats.js/src/Stats.js" ],
+        src:  [ "bower_components/stats.js/build/stats.min.js" ],
         dest: "lib/stats.js"
     },
     datgui: {
