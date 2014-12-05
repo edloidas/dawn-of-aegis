@@ -35,13 +35,9 @@ module.exports = {
         ],
         dest: "base/Player.js"
     },
-    yepnope: {
-        src:  [ "bower_components/yepnope/yepnope.js" ],
-        dest: "lib/yepnope.js"
-    },
-    modernizr: {
-        src:  [ "bower_components/modernizr/modernizr.js" ],
-        dest: "lib/modernizr.js"
+    requirejs: {
+        src:  [ "bower_components/requirejs/require.js" ],
+        dest: "lib/require.js"
     },
     threejs: {
         src:  [ "bower_components/threejs/build/three.js" ],

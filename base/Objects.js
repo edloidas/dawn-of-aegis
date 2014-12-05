@@ -130,7 +130,7 @@ Sprite
 */
 Objects.prototype.Sprite = function ( material, width, height, depth ) {
     if ( !(this instanceof Objects.prototype.Sprite) ) {
-        return new Objects.prototype.Sprite( size, material, opacity );
+        return new Objects.prototype.Sprite( size, material, height, depth );
     }
     Objects.prototype.Sprite.super.constructor.call( this );
 

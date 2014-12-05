@@ -7,4 +7,4 @@ module.exports = function( grunt ) {
 
     grunt.registerTask( 'build',   [ 'css', 'update', 'concurrent:concat', 'newer:jshint' ] );
     grunt.registerTask( 'dist',    [ 'build', 'newer:uglify' ] );
-}
+};

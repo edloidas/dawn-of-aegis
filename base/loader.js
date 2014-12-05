@@ -17,17 +17,24 @@
 function Doa() {
     if ( !(this instanceof Doa) ) return new Doa();
 
+    // Libraries
+    this.lib = [
+        "lib/three",
+        "lib/stats",
+        "lib/dat.gui"
+    ];
+
     // Essential game files
     this.files = [
-        "base/Utils.js",
-        "base/Settings.js",
-        "base/Objects.js",
-        "base/Caches.js",
-        "base/Player.js",
-        "base/UI.js",
-        "base/World.js",
-        "base/Engine.js",
-        "base/Game.js"];
+        "base/Utils",
+        "base/Settings",
+        "base/Objects",
+        "base/Caches",
+        "base/Player",
+        "base/UI",
+        "base/World",
+        "base/Engine",
+        "base/Game"];
 
     // Non-essential game files.
     // #@ use preload "preload!base/data/textures/img.gif" @#
@@ -45,38 +52,25 @@ Doa.prototype.verify = function () {
 
     console.groupCollapsed( "Verification" );
 
-    if ( Modernizr.localstorage && Modernizr.sessionstorage ) {
+    if ( typeof Storage !== "undefined" ) {
         console.info( "Storage support     : YES" );
     } else {
         console.info( "Storage support     : NO" );
         isSupported = false;
     }
 
-    if ( Modernizr.webgl ) {
-        console.info( "WebGL support       : YES" );
-    } else {
-        console.info( "WebGL support       : NO" );
-        isSupported = false;
-    }
-
-    if ( Modernizr.audio.wav === "probably" ) {
+    var audio = document.createElement('audio');
+    if ( !!audio.canPlayType ) {
         console.info( "Audio support       : YES" );
     } else {
         console.info( "Audio support       : NO" );
         isSupported = false;
     }
 
-    if ( Modernizr.webworkers ) {
+    if ( typeof Worker !== "undefined" ) {
         console.info( "Webworkers support  : YES" );
     } else {
         console.info( "Webworkers support  : NO" );
-        isSupported = false;
-    }
-
-    if ( Modernizr.websockets ) {
-        console.info( "Websockets support  : YES" );
-    } else {
-        console.info( "Websockets support  : NO" );
         isSupported = false;
     }
 
@@ -112,9 +106,65 @@ var DOA = new Doa();
 
 /*
 ---------------------------------------------------------------------------
+RequireJS
+---------------------------------------------------------------------------
+*/
+require.config({
+    baseUrl: ""
+});
+
+function chainRequire( files, index ) {
+    files = files || [];
+    index = index || 0;
+
+    document.dispatchEvent( new CustomEvent( 'required', {
+        'detail': {
+            'name' : files[index],
+            'count': index + 1,
+            'total': files.length
+            }
+        }));
+
+    if ( index <= files.length - 1 ) {
+        require([files[index]], function () {
+            index++;
+            chainRequire(files, index);
+        });
+    }
+}
+
+
+/*
+---------------------------------------------------------------------------
 Loader
 ---------------------------------------------------------------------------
 */
+var reqiuredListener =
+document.addEventListener( 'required', function ( e ) {
+
+    if (e.detail.count > e.detail.total) {
+        console.groupEnd();
+        this.removeEventListener( 'required', reqiuredListener );
+
+        var progress = document.getElementById( 'loading-tip' ),
+            preload  = document.getElementById( 'preload' );
+
+            document.onkeydown = hidePreload;
+            preload.onclick    = hidePreload;
+
+            progress.textContent = "Press any key to continue";
+
+            DOA.Game.init();
+            //@#
+            hidePreload();
+            //#@
+    } else {
+        console.info("[" + e.detail.count + "/" + e.detail.total + "]'" + e.detail.name + "' loading.");
+    }
+
+}, false );
+
+
 document.onreadystatechange = function () {
     if ( document.readyState === 'complete' ) {
         DOA.verify();
@@ -123,70 +173,39 @@ document.onreadystatechange = function () {
         // regex converts full path to file name.
         var filePath = /.*\//gi;
 
-        var progress = document.getElementById( 'loading-tip' ),
-            preload  = document.getElementById( 'preload' );
-
         console.groupCollapsed( 'Preload' );
 
-        yepnope([
-            {
-                load : DOA.files,
-                callback : function ( file ) {
-                    progress.textContent = "Loading... " +
-                                           "[" + (++i) + "/" + DOA.files.length + "] " +
-                                           file.replace(filePath, '');
-                },
-                complete : function () {
-                    console.groupEnd(); // Preload
-
-                    /*
-                    ================
-                    hidePreload
-                        Hides loading screen and starts game animation.
-                    ================
-                    */
-                    function hidePreload() {
-                        document.onkeydown = null;
-                        preload.onclick = null;
-                        preload.remove();
-                        DOA.Engine.renderer.domElement.style.display = 'block';
-
-                        DOA.Game.bind();
-                        DOA.Game.animate();
-
-                        DOA.Game.isRunnig = true;
-                        DOA.Game.status = 1;
-
-                        DOA.Game.canvas = DOA.Engine.renderer.domElement;
-                        DOA.Game.canvas.requestPointerLock =
-                                          DOA.Game.canvas.requestPointerLock    ||
-                                          DOA.Game.canvas.mozRequestPointerLock ||
-                                          DOA.Game.canvas.webkitRequestPointerLock;
-                        document.exitPointerLock =
-                                          document.exitPointerLock    ||
-                                          document.mozExitPointerLock ||
-                                          document.webkitExitPointerLock;
-                        DOA.Game.fullscreen = document.body;
-                        DOA.Game.fullscreen.requestFullscreen =
-                                          DOA.Game.canvas.requestFullscreen    ||
-                                          DOA.Game.canvas.mozRequestFullscreen ||
-                                          DOA.Game.canvas.mozRequestFullScreen ||
-                                          DOA.Game.canvas.webkitRequestFullscreen;
-                    }
-                    document.onkeydown = hidePreload;
-                    preload.onclick    = hidePreload;
-
-                    progress.textContent = "Press any key to continue";
-
-                    DOA.Game.init();
-                    //@#
-                    hidePreload();
-                    //#@
-
-                    // preload non-essential data
-                    // Modernizr.load( DOA.data );
-                }
-            }
-        ]);
+        require(DOA.lib, function () {
+            chainRequire(DOA.files);
+        });
     }
 };
+
+function hidePreload() {
+    document.onkeydown = null;
+    preload.onclick = null;
+    preload.remove();
+    DOA.Engine.renderer.domElement.style.display = 'block';
+
+    DOA.Game.bind();
+    DOA.Game.animate();
+
+    DOA.Game.isRunnig = true;
+    DOA.Game.status = 1;
+
+    DOA.Game.canvas = DOA.Engine.renderer.domElement;
+    DOA.Game.canvas.requestPointerLock =
+                      DOA.Game.canvas.requestPointerLock    ||
+                      DOA.Game.canvas.mozRequestPointerLock ||
+                      DOA.Game.canvas.webkitRequestPointerLock;
+    document.exitPointerLock =
+                      document.exitPointerLock    ||
+                      document.mozExitPointerLock ||
+                      document.webkitExitPointerLock;
+    DOA.Game.fullscreen = document.body;
+    DOA.Game.fullscreen.requestFullscreen =
+                      DOA.Game.canvas.requestFullscreen    ||
+                      DOA.Game.canvas.mozRequestFullscreen ||
+                      DOA.Game.canvas.mozRequestFullScreen ||
+                      DOA.Game.canvas.webkitRequestFullscreen;
+}
