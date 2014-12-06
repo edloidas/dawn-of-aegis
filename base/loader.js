@@ -47,50 +47,51 @@ Verification
     Checks compatibility and prevent further execution.
 ================
 */
+Doa.prototype.logVerify = function ( isVerified, message ) {
+    // Fill msg with the whitespace to length of 20
+    message = message +
+              ( new Array( 20 - message.length ).join( " " )) +
+              ( isVerified ? " : YES" : " : NO" );
+
+    console.info( message );
+
+    return isVerified;
+};
+
 Doa.prototype.verify = function () {
     var isSupported = true;
 
     console.groupCollapsed( "Verification" );
 
-    if ( typeof Storage !== "undefined" ) {
-        console.info( "Storage support     : YES" );
-    } else {
-        console.info( "Storage support     : NO" );
-        isSupported = false;
-    }
+    isSupported &= this.logVerify(
+        typeof Storage !== "undefined",
+        "Storage support"
+    );
 
     var audio = document.createElement('audio');
-    if ( !!audio.canPlayType ) {
-        console.info( "Audio support       : YES" );
-    } else {
-        console.info( "Audio support       : NO" );
-        isSupported = false;
-    }
+    isSupported &= this.logVerify(
+        !!audio.canPlayType,
+        "Audio support"
+    );
 
-    if ( typeof Worker !== "undefined" ) {
-        console.info( "Webworkers support  : YES" );
-    } else {
-        console.info( "Webworkers support  : NO" );
-        isSupported = false;
-    }
+    isSupported &= this.logVerify(
+        typeof Worker !== "undefined",
+        "Webworkers support"
+    );
 
-    if ( 'pointerLockElement' in document ||
-         'mozPointerLockElement' in document ||
-         'webkitPointerLockElement' in document ) {
-        console.info( "PointerLock support : YES" );
-    } else {
-        console.info( "PointerLock support : NO" );
-        isSupported = false;
-    }
+    isSupported &= this.logVerify(
+        'pointerLockElement' in document ||
+        'mozPointerLockElement' in document ||
+        'webkitPointerLockElement' in document,
+        "PointerLock support"
+    );
 
-    if ( 'mozFullScreenElement' in document ||
-         'mozFullscreenElement' in document ||
-         'webkitFullscreenElement' in document ) {
-        console.info( "Fullscreen support  : YES" );
-    } else {
-        console.info( "Fullscreen support  : NO" );
-        isSupported = false;
-    }
+    isSupported &= this.logVerify(
+        'mozFullScreenElement' in document ||
+        'mozFullscreenElement' in document ||
+        'webkitFullscreenElement' in document,
+        "Fullscreen support"
+    );
 
     console.groupEnd(); // close Browser
 
@@ -215,5 +216,5 @@ function start() {
 document.onreadystatechange = function () {
     start();
 };
-// ...or start at instant, if paged is cached
+// ...or start right away, if the page is cached
 start();
