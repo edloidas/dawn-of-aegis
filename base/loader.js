@@ -164,23 +164,6 @@ document.addEventListener( 'required', function ( e ) {
 
 }, false );
 
-
-document.onreadystatechange = function () {
-    if ( document.readyState === 'complete' ) {
-        DOA.verify();
-
-        var i = 0;
-        // regex converts full path to file name.
-        var filePath = /.*\//gi;
-
-        console.groupCollapsed( 'Preload' );
-
-        require(DOA.lib, function () {
-            chainRequire(DOA.files);
-        });
-    }
-};
-
 function hidePreload() {
     document.onkeydown = null;
     preload.onclick = null;
@@ -209,3 +192,28 @@ function hidePreload() {
                       DOA.Game.canvas.mozRequestFullScreen ||
                       DOA.Game.canvas.webkitRequestFullscreen;
 }
+
+
+/*
+---------------------------------------------------------------------------
+Start application
+---------------------------------------------------------------------------
+*/
+function start() {
+    if ( document.readyState === 'complete' ) {
+        DOA.verify();
+
+        console.groupCollapsed( 'Preload' );
+
+        require(DOA.lib, function () {
+            chainRequire(DOA.files);
+        });
+    }
+}
+
+// Start, when the document is loaded
+document.onreadystatechange = function () {
+    start();
+};
+// ...or start at instant, if paged is cached
+start();
