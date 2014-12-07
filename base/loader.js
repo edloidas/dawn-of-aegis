@@ -43,8 +43,8 @@ function Doa() {
 
 /*
 ================
-Verification
-    Checks compatibility and prevent further execution.
+logVerify
+Log the pretty info messages to console. Unsed in `Doa.verify()`.
 ================
 */
 Doa.prototype.logVerify = function ( isVerified, message ) {
@@ -58,6 +58,12 @@ Doa.prototype.logVerify = function ( isVerified, message ) {
     return isVerified;
 };
 
+/*
+================
+verify
+Checks compatibility and prevent further execution.
+================
+*/
 Doa.prototype.verify = function () {
     var isSupported = true;
 
@@ -160,7 +166,10 @@ document.addEventListener( 'required', function ( e ) {
             hidePreload();
             //#@
     } else {
-        console.info("[" + e.detail.count + "/" + e.detail.total + "]'" + e.detail.name + "' loading.");
+        console.info(
+            "[" + e.detail.count + "/" + e.detail.total + "]'" +
+            e.detail.name + "' loading."
+        );
     }
 
 }, false );
