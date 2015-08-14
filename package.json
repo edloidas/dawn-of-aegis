@@ -2,8 +2,32 @@
   "name": "doa",
   "version": "0.0.1",
   "description": "Dawn of Aegis. JavaScript 3D game.",
-  "author": "edloidas",
+  "keywords": [
+    "doa",
+    "Three.js",
+    "game"
+  ],
+  "homepage": "https://github.com/edloidas/dawn-of-aegis",
+  "bugs": {
+    "url": "https://github.com/edloidas/dawn-of-aegis/issues",
+    "email": "edloidas@gmail.com"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Mikita Taukachou",
+    "email": "edloidas@gmail.com",
+    "url": "https://edloidas.github.io/"
+  },
   "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edloidas/dawn-of-aegis.git"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha",
+    "postinstall": "node_modules/.bin/bower install",
+    "start": "iojs server.js"
+  },
   "dependencies": {
     "express": "*",
     "serve-static": "*",
@@ -31,26 +55,7 @@
     "time-grunt": "*",
     "less": "*"
   },
-  "scripts": {
-    "test": "node_modules/.bin/mocha",
-    "postinstall": "node_modules/.bin/bower install",
-    "start": "node server.js"
-  },
   "engines": {
-    "node": ">= 0.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/edloidas/dawn-of-aegis.git"
-  },
-  "keywords": [
-    "doa",
-    "Three.js",
-    "game"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/edloidas/dawn-of-aegis/issues"
-  },
-  "homepage": "https://github.com/edloidas/dawn-of-aegis"
+    "iojs": ">= 3.0.0"
+  }
 }
