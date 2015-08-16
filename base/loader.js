@@ -126,16 +126,16 @@ function chainRequire( files, index ) {
 
     document.dispatchEvent( new CustomEvent( 'required', {
         'detail': {
-            'name' : files[index],
+            'name' : files[ index ],
             'count': index + 1,
             'total': files.length
             }
         }));
 
     if ( index <= files.length - 1 ) {
-        require([files[index]], function () {
+        require( [ files[ index ] ], function () {
             index++;
-            chainRequire(files, index);
+            chainRequire( files, index );
         });
     }
 }
@@ -149,7 +149,7 @@ Loader
 var reqiuredListener =
 document.addEventListener( 'required', function ( e ) {
 
-    if (e.detail.count > e.detail.total) {
+    if ( e.detail.count > e.detail.total ) {
         console.groupEnd();
         this.removeEventListener( 'required', reqiuredListener );
 
@@ -215,8 +215,8 @@ function start() {
 
         console.groupCollapsed( 'Preload' );
 
-        require(DOA.lib, function () {
-            chainRequire(DOA.files);
+        require (DOA.lib, function () {
+            chainRequire( DOA.files );
         });
     }
 }
