@@ -6,6 +6,7 @@ dist/
 lib/
 
 # Files #
+css/style.css
 *.sh
 *.bat
 *.cmd
