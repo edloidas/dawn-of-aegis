@@ -1,10 +1,10 @@
 {
-  "name": "doa",
-  "version": "0.0.1",
-  "dependencies": {
-    "requirejs": "*",
-    "threejs":   "*",
-    "stats.js":  "*",
-    "dat.gui":   "*"
-  }
+	"name": "doa",
+	"version": "0.0.1",
+	"dependencies": {
+		"requirejs": "*",
+		"three.js":  "*",
+		"stats.js":  "*",
+		"dat.gui":   "*"
+	}
 }
