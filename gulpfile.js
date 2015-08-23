@@ -26,39 +26,28 @@ gulp.task( 'less', function () {
 
 gulp.task( 'bower', function() {
 	return bower( { cmd: 'install' } )
-		.pipe( gulp.dest( 'lib/' ) );
+		.pipe( gulp.dest( 'lib/bower/' ) );
 });
 
 gulp.task( 'update', function() {
 	return bower( { cmd: 'update' } );
 });
 
-gulp.task( 'fix-path', [ 'bower' ], function() {
+gulp.task( 'lib', [ 'bower' ], function() {
 	return gulp.src( [
-			'lib/stats.js/build/stats.min.js',
-			'lib/three.js'
+			'lib/bower/dat.gui/dat.gui.js',
+			'lib/bower/dat.gui/dat.color.js',
+			'lib/bower/requirejs/require.js',
+			'lib/bower/stats.js/build/stats.min.js',
+			'lib/bower/three.js/three.js'
 		] )
-		.pipe( gulpif( 'lib/stats.js/build/stats.min.js', rename( 'stats.js/build/stats.js' ) ) )
-		.pipe( gulp.dest( 'lib/' ) );
-});
-
-gulp.task( 'lib', [ 'fix-path' ], function() {
-	return gulp.src( [
-			'lib/dat.gui/dat.gui.js',
-			'lib/dat.gui/dat.color.js',
-			'lib/requirejs/require.js',
-			'lib/stats.js/build/stats.js',
-			'lib/three/three.js'
-		] )
+		.pipe( gulpif( 'lib/bower/stats.js/build/stats.min.js', rename( 'stats.js' ) ) )
+		.pipe( gulpif( 'bower/stats.js/build/stats.min.js', rename( 'stats.js' ) ) )
+		.pipe( gulpif( 'stats.min.js', rename( 'stats.js' ) ) )
 		.pipe( gulp.dest( 'lib/' ) );
 });
 
 
 gulp.task( 'clean', function() {
-	return del( [
-		'lib/dat.gui',
-		'lib/requirejs',
-		'lib/stats.js',
-		'lib/three.js'
-	] );
+	return del( 'lib/bower' );
 });
