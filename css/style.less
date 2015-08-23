@@ -27,108 +27,108 @@
 
 // --------- CLASSES ------------
 .noselect( @select: none ) {
-    -webkit-user-select:   @select;
-    -moz-user-select:      @select;
-    -ms-user-select:       @select;
-    user-select:           @select;
+	-webkit-user-select:   @select;
+	-moz-user-select:      @select;
+	-ms-user-select:       @select;
+	user-select:           @select;
 
-    -webkit-touch-callout: @select;
-    -khtml-user-select:    @select;
+	-webkit-touch-callout: @select;
+	-khtml-user-select:    @select;
 }
 
 .eff-glow-shadow() {
-    text-shadow: 0 0 1px @font-color-shadow,
-                 0 0 10px @font-color-outline,
-                 0 0 20px @font-color-outline;
+	text-shadow: 0 0 1px @font-color-shadow,
+				 0 0 10px @font-color-outline,
+				 0 0 20px @font-color-outline;
 }
 
 
 // --------- FONTS --------------
 .font() {
-    font-family: "Source Sans Pro", Consolas, Lucida Console, monospace;
+	font-family: "Source Sans Pro", Consolas, Lucida Console, monospace;
 }
 
 
 // --------- EFFECTS ------------
 .eff-blink-src() {
-    0% { color: @font-color-na; }
-    100% { color: @font-color; }
+	0% { color: @font-color-na; }
+	100% { color: @font-color; }
 }
 @keyframes         blink { .eff-blink-src; }
 @-webkit-keyframes blink { .eff-blink-src; }
 .eff-blink( @anim: blink 1.5s linear infinite alternate ) {
-    -webkit-animation: @anim;    animation:         @anim;
+	-webkit-animation: @anim;	animation:         @anim;
 }
 
 
 // --------- GLOBALS ------------
 html, body, #preload, #scene {
-    overflow: hidden;
+	overflow: hidden;
 }
 
 html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+	height: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-    margin: 0;
+	margin: 0;
 
-    cursor: default;
+	cursor: default;
 
-    color: @font-color;
-    background: @color-bg-body;
+	color: @font-color;
+	background: @color-bg-body;
 
-    font-size: @font-size;
+	font-size: @font-size;
 
-    .font();
-    .noselect();
+	.font();
+	.noselect();
 }
 
 #preload {
-    position: absolute;
-    top: 0;
-    left: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
 
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 
-    background: @color-bg-radial1 radial-gradient( @color-bg-radial1, @color-bg-radial2 );
+	background: @color-bg-radial1 radial-gradient( @color-bg-radial1, @color-bg-radial2 );
 }
 
 // --------- START PAGE ---------
 .start {
-    position: absolute;
-    z-index: 99;
-    top: 50%;
-    left: 50%;
+	position: absolute;
+	z-index: 99;
+	top: 50%;
+	left: 50%;
 
-    width: @size-start-x;
-    height: @size-start-y;
-    margin: -( @size-start-y / 2 ) 0 0 -( @size-start-x / 2 );
+	width: @size-start-x;
+	height: @size-start-y;
+	margin: -( @size-start-y / 2 ) 0 0 -( @size-start-x / 2 );
 
-    text-align: center;
+	text-align: center;
 
-    .noselect;
-    .logo {
-        margin-bottom: 30px;
+	.noselect;
+	.logo {
+		margin-bottom: 30px;
 
-        font-size: 4em;
-        font-weight: lighter;
+		font-size: 4em;
+		font-weight: lighter;
 
-        .eff-glow-shadow();
-    }
-    .meta {
-        color: @font-color-na;
+		.eff-glow-shadow();
+	}
+	.meta {
+		color: @font-color-na;
 
-        .eff-blink();
-    }
+		.eff-blink();
+	}
 }
 
 // --------- CANVAS -------------
 #scene {
-    position: absolute;
-    top: 0;
-    left: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
 }

@@ -3,59 +3,67 @@
   "version": "0.0.1",
   "description": "Dawn of Aegis. JavaScript 3D game.",
   "keywords": [
-    "doa",
-    "Three.js",
-    "game"
+	"doa",
+	"Three.js",
+	"game"
   ],
   "homepage": "https://github.com/edloidas/dawn-of-aegis",
   "bugs": {
-    "url": "https://github.com/edloidas/dawn-of-aegis/issues",
-    "email": "edloidas@gmail.com"
+	"url": "https://github.com/edloidas/dawn-of-aegis/issues",
+	"email": "edloidas@gmail.com"
   },
   "license": "MIT",
   "author": {
-    "name": "Mikita Taukachou",
-    "email": "edloidas@gmail.com",
-    "url": "https://edloidas.github.io/"
+	"name": "Mikita Taukachou",
+	"email": "edloidas@gmail.com",
+	"url": "https://edloidas.github.io/"
   },
   "main": "server.js",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/edloidas/dawn-of-aegis.git"
+	"type": "git",
+	"url": "https://github.com/edloidas/dawn-of-aegis.git"
   },
   "scripts": {
-    "test": "node_modules/.bin/mocha",
-    "postinstall": "node_modules/.bin/bower install",
-    "start": "iojs server.js"
+	"test": "node_modules/.bin/mocha",
+	"postinstall": "node_modules/.bin/bower install",
+	"start": "iojs server.js"
   },
   "dependencies": {
-    "express": "*",
-    "serve-static": "*",
-    "serve-favicon": "*",
-    "compression": "*",
-    "morgan": "*",
-    "bower": "*"
+	"express": "*",
+	"serve-static": "*",
+	"serve-favicon": "*",
+	"compression": "*",
+	"morgan": "*",
+	"bower": "*"
   },
   "devDependencies": {
-    "gulp": "*",
-    "grunt": "*",
-    "grunt-cli": "*",
-    "grunt-concurrent": "*",
-    "grunt-contrib-concat": "*",
-    "grunt-contrib-connect": "*",
-    "grunt-contrib-jshint": "*",
-    "grunt-contrib-less": "*",
-    "grunt-contrib-nodeunit": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-newer": "*",
-    "load-grunt-config": "*",
-    "mocha": "*",
-    "should": "*",
-    "time-grunt": "*",
-    "less": "*"
+	"gulp": "*",
+	"gulp-bower": "*",
+	"gulp-less": "*",
+	"gulp-minify-css": "*",
+	"del": "*",
+	"gulp-rename": "*",
+	"gulp-if": "*",
+	"run-sequence": "*",
+
+	"grunt": "*",
+	"grunt-cli": "*",
+	"grunt-concurrent": "*",
+	"grunt-contrib-concat": "*",
+	"grunt-contrib-connect": "*",
+	"grunt-contrib-jshint": "*",
+	"grunt-contrib-less": "*",
+	"grunt-contrib-nodeunit": "*",
+	"grunt-contrib-uglify": "*",
+	"grunt-contrib-watch": "*",
+	"grunt-newer": "*",
+	"load-grunt-config": "*",
+	"mocha": "*",
+	"should": "*",
+	"time-grunt": "*",
+	"less": "*"
   },
   "engines": {
-    "iojs": ">= 3.0.0"
+	"iojs": ">= 3.0.0"
   }
 }
