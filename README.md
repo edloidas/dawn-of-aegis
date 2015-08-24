@@ -4,7 +4,6 @@ Dawn of Aegis
 [![Build Status](https://travis-ci.org/edloidas/dawn-of-aegis.svg?branch=master)](https://travis-ci.org/edloidas/dawn-of-aegis)
 [![Dependency Status](https://david-dm.org/edloidas/dawn-of-aegis.svg)](https://david-dm.org/edloidas/dawn-of-aegis)
 [![devDependency Status](https://david-dm.org/edloidas/dawn-of-aegis/dev-status.svg)](https://david-dm.org/edloidas/dawn-of-aegis#info=devDependencies)
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 > JavaScript 3D game.
 
@@ -16,14 +15,14 @@ Repository does not include game textures and libraries. Before running this pro
   * Make sure you installed the Node Package Manager ([npm](https://www.npmjs.org/));
 
 2. Run `npm install`
-  * This task will download required dependencies, including [Grunt](http://gruntjs.com/), [Bower](http://bower.io/) and [LESS](http://lesscss.org/);
+  * This task will download required dependencies, including [Gulp](http://gulpjs.com/), [Bower](http://bower.io/) and [LESS](http://lesscss.org/);
   * Also, as post install task, `bower install` will be executed to download project libraries;
   * You will have `node_modules/` and `bower_components/` directories after this step;
   * See [package file](package.json) and  [bower file](bower.json) for the additional information;
 
-3. Run `grunt build`
+3. Run `gulp build`
   * This task will create/update the game libraries under the `lib/` folder, build the game files and compile the styles.
-  * See [Grunt file](Gruntfile.js) and [default.js](grunt/default.js) for the additional information about the tasks.
+  * See [Gulp file](gulpfile.js) for the additional information about the tasks.
 
 4. Download and unpack textures.
   * Textures is a binary data, so they are not included into the repository and you must download them manually. Get this [base archive](https://dl.dropboxusercontent.com/u/40688668/base.zip) with data, unpack and place it under your game root folder.
