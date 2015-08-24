@@ -37,31 +37,18 @@
 	"bower": "*"
   },
   "devDependencies": {
+	"less": "*",
 	"gulp": "*",
-	"gulp-bower": "*",
+	"run-sequence": "*",
 	"gulp-less": "*",
 	"gulp-minify-css": "*",
-	"del": "*",
+	"gulp-bower": "*",
 	"gulp-rename": "*",
 	"gulp-if": "*",
-	"run-sequence": "*",
-
-	"grunt": "*",
-	"grunt-cli": "*",
-	"grunt-concurrent": "*",
-	"grunt-contrib-concat": "*",
-	"grunt-contrib-connect": "*",
-	"grunt-contrib-jshint": "*",
-	"grunt-contrib-less": "*",
-	"grunt-contrib-nodeunit": "*",
-	"grunt-contrib-uglify": "*",
-	"grunt-contrib-watch": "*",
-	"grunt-newer": "*",
-	"load-grunt-config": "*",
+	"path": "*",
+	"del": "*",
 	"mocha": "*",
-	"should": "*",
-	"time-grunt": "*",
-	"less": "*"
+	"should": "*"
   },
   "engines": {
 	"iojs": ">= 3.0.0"
