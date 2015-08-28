@@ -16,7 +16,7 @@ The [issue tracker](https://github.com/edloidas/dawn-of-aegis/issues) is the pre
 * Please **do not** open issues or pull requests regarding the code in
   [`Three.js`](https://github.com/mrdoob/three.js),
   [`stats.js`](https://github.com/mrdoob/stats.js),
-  [`Modernizr`](https://github.com/Modernizr/Modernizr) or
+  [`RequireJS`](https://github.com/jrburke/requirejs) or
   [`dat.gui.js`](https://code.google.com/p/dat-gui/) (open them in their respective repositories).
 
 ## Bug reports ##
