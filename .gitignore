@@ -7,6 +7,9 @@ lib/
 
 # Files #
 css/style.css
+base/Objects.js
+base/Player.js
+base/*.zip
 *.sh
 *.bat
 *.cmd
