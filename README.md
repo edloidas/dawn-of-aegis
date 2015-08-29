@@ -7,7 +7,7 @@ Dawn of Aegis
 
 > JavaScript 3D game.
 
-## HOWTO: Build ##
+## Build ##
 
 Repository does not include game textures, libraries and assembled sources. Before running this project, you should build it first. Follow these steps:
 
@@ -29,7 +29,7 @@ Repository does not include game textures, libraries and assembled sources. Befo
 	* Alternatively, you can do it yourself: download the [base archive](https://dl.dropboxusercontent.com/u/40688668/base.zip) with data, unpack and place it under your game root folder.
 
 
-## HOWTO: Run ##
+## Run ##
 
 Basically, this web application should run on a server. Game won't work properly due to cross-origin requests restrictions in browser's security policy. You must run game on the server (best practice), or make changes to the browser security settings. You can either follow step A or step B.
 
@@ -39,7 +39,7 @@ Run `iojs server.js` (or `node server.js`) under the repository root.
 ##### Option B: Other solutions #####
 See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally).
 
-## Dev information ##
+## Dev Info ##
 
 #### Base content ####
 * `loader.js` - resource load and game initialization.
