@@ -1,56 +1,61 @@
 {
-  "name": "doa",
-  "version": "0.0.1",
-  "description": "Dawn of Aegis. JavaScript 3D game.",
-  "keywords": [
-	"doa",
-	"three.js",
-	"game"
-  ],
-  "homepage": "https://github.com/edloidas/dawn-of-aegis",
-  "bugs": {
-	"url": "https://github.com/edloidas/dawn-of-aegis/issues",
-	"email": "edloidas@gmail.com"
-  },
-  "license": "MIT",
-  "author": {
-	"name": "Mikita Taukachou",
-	"email": "edloidas@gmail.com",
-	"url": "https://edloidas.github.io/"
-  },
-  "main": "server.js",
-  "repository": {
-	"type": "git",
-	"url": "https://github.com/edloidas/dawn-of-aegis.git"
-  },
-  "scripts": {
-	"test": "node_modules/.bin/mocha",
-	"postinstall": "node_modules/.bin/bower install",
-	"start": "iojs server.js"
-  },
-  "dependencies": {
-	"express": "*",
-	"serve-static": "*",
-	"serve-favicon": "*",
-	"compression": "*",
-	"morgan": "*",
-	"bower": "*"
-  },
-  "devDependencies": {
-	"less": "*",
-	"gulp": "*",
-	"run-sequence": "*",
-	"gulp-less": "*",
-	"gulp-minify-css": "*",
-	"gulp-bower": "*",
-	"gulp-rename": "*",
-	"gulp-if": "*",
-	"path": "*",
-	"del": "*",
-	"mocha": "*",
-	"should": "*"
-  },
-  "engines": {
-	"iojs": ">= 3.0.0"
-  }
+	"name": "doa",
+	"version": "0.0.1",
+	"description": "Dawn of Aegis. JavaScript 3D game.",
+	"keywords": [
+		"doa",
+		"three.js",
+		"game"
+	],
+	"homepage": "https://github.com/edloidas/dawn-of-aegis",
+	"bugs": {
+		"url": "https://github.com/edloidas/dawn-of-aegis/issues",
+		"email": "edloidas@gmail.com"
+	},
+	"license": "MIT",
+	"author": {
+		"name": "Mikita Taukachou",
+		"email": "edloidas@gmail.com",
+		"url": "https://edloidas.github.io/"
+	},
+	"main": "server.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/edloidas/dawn-of-aegis.git"
+	},
+	"scripts": {
+		"test": "node_modules/.bin/mocha",
+		"postinstall": "node_modules/.bin/bower install",
+		"start": "iojs server.js"
+	},
+	"dependencies": {
+		"express": "*",
+		"serve-static": "*",
+		"serve-favicon": "*",
+		"compression": "*",
+		"morgan": "*",
+		"bower": "*"
+	},
+	"devDependencies": {
+		"less": "*",
+		"gulp": "*",
+		"run-sequence": "*",
+		"gulp-less": "*",
+		"gulp-minify-css": "*",
+		"gulp-bower": "*",
+		"gulp-rename": "*",
+		"gulp-concat": "*",
+		"gulp-if": "*",
+		"decompress-unzip": "*",
+		"vinyl-assign": "*",
+		"fs": "*",
+		"request": "*",
+		"path": "*",
+		"del": "*",
+		"mocha": "*",
+		"should": "*"
+	},
+	"engines": {
+		"iojs": ">= 3.0.0"
+	}
 }

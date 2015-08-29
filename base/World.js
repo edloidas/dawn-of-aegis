@@ -1,14 +1,14 @@
 /*
 ===============================================================================
 
-    Class defines world scene.
+	Class defines world scene.
 
 ===============================================================================
 */
 function World() {
-    if ( !(this instanceof World) ) return new World();
+	if ( !(this instanceof World) ) return new World();
 
-    this.scene = new THREE.Scene();
+	this.scene = new THREE.Scene();
 }
 
 /*

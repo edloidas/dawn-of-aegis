@@ -1,30 +1,30 @@
 /*
 ===============================================================================
 
-    Multiple caches, based on Cache.
+	Multiple caches, based on Cache.
 
 ===============================================================================
 */
 
 function Texture( url ) {
-    if ( !(this instanceof Texture) ) return new Texture();
+	if ( !(this instanceof Texture) ) return new Texture();
 
-    this.url = url;
-    this._texture = null;
+	this.url = url;
+	this._texture = null;
 }
 
 Texture.prototype.load = function () {
-    if ( this._texture === null ) {
-        this._texture = THREE.ImageUtils.loadTexture( this.url );
-    }
-    return this._texture ;
+	if ( this._texture === null ) {
+		this._texture = THREE.ImageUtils.loadTexture( this.url );
+	}
+	return this._texture ;
 };
 
 Texture.prototype.unload = function () {
-    if ( this._texture !== null ) {
-        delete this._texture;
-    }
-    this._texture = null;
+	if ( this._texture !== null ) {
+		delete this._texture;
+	}
+	this._texture = null;
 };
 
 /*
@@ -40,14 +40,14 @@ DOA.Sounds    = new Cache(); // Game sounds
 /*
 ---------------------------------------------------------------------------
 Textures
-    There are 3 different kinds of texture:
-    1. GLobal textures, that is used constantly, like users HUD.
-    2. Level textures, that will be used on the game level.
-    3. Other textures, that may be loaded in the future.
-    And 2 types of material:
-    1. Already loaded into GPU memory and used ( based on 1 and 2 textures );
-    2. Other materials, that may be loaded in the future.
-    Textures are loaded into RAM, Materials are loaded into GPU memory.
+	There are 3 different kinds of texture:
+	1. GLobal textures, that is used constantly, like users HUD.
+	2. Level textures, that will be used on the game level.
+	3. Other textures, that may be loaded in the future.
+	And 2 types of material:
+	1. Already loaded into GPU memory and used ( based on 1 and 2 textures );
+	2. Other materials, that may be loaded in the future.
+	Textures are loaded into RAM, Materials are loaded into GPU memory.
 ---------------------------------------------------------------------------
 */
 
@@ -65,8 +65,8 @@ DOA.Textures.add( 'hud_health',   new Texture( 'base/data/textures/interface/hea
 DOA.Textures.add( 'hud_armor',    new Texture( 'base/data/textures/interface/armor.png' ),     'hud' ).load();
 
 DOA.Textures.add( 'hud_armor_text',
-                  new DOA.Objects.TextTexture( '100', { fontface: 'Arial', fontweight: 'bold',
-                                                        fontsize: 30, bgOpacity: 0.3 } ), 'hud' );
+				  new DOA.Objects.TextTexture( '100', { fontface: 'Arial', fontweight: 'bold',
+														fontsize: 30, bgOpacity: 0.3 } ), 'hud' );
 
 /*
 ---------------------------------------------------------------------------
@@ -74,23 +74,23 @@ Materials
 ---------------------------------------------------------------------------
 */
 DOA.Materials.add( 'crosshair',
-                   new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_crossdot' ).load(),
-                                              useScreenCoordinates: true,
-                                              opacity: DOA.Settings.hudOpacity,
-                                              color: DOA.Settings.colors.blank }), 'hud' );
+				   new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_crossdot' ).load(),
+											  useScreenCoordinates: true,
+											  opacity: DOA.Settings.hudOpacity,
+											  color: DOA.Settings.colors.blank }), 'hud' );
 DOA.Materials.add( 'hud_health',
-                   new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_health' ).load(),
-                                              useScreenCoordinates: true,
-                                              opacity: DOA.Settings.hudOpacity,
-                                              color: DOA.Settings.colors.blank }), 'hud' );
+				   new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_health' ).load(),
+											  useScreenCoordinates: true,
+											  opacity: DOA.Settings.hudOpacity,
+											  color: DOA.Settings.colors.blank }), 'hud' );
 DOA.Materials.add( 'hud_armor',
-                   new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_armor' ).load(),
-                                              useScreenCoordinates: true,
-                                              opacity: DOA.Settings.hudOpacity,
-                                              color: DOA.Settings.colors.blank }), 'hud' );
+				   new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_armor' ).load(),
+											  useScreenCoordinates: true,
+											  opacity: DOA.Settings.hudOpacity,
+											  color: DOA.Settings.colors.blank }), 'hud' );
 
 DOA.Materials.add( 'hud_armor_text',
-                   new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_armor_text' ),
-                                              useScreenCoordinates: true,
-                                              opacity: DOA.Settings.hudOpacity,
-                                              color: DOA.Settings.colors.blank }), 'hud' );
+				   new THREE.SpriteMaterial({ map: DOA.Textures.get( 'hud_armor_text' ),
+											  useScreenCoordinates: true,
+											  opacity: DOA.Settings.hudOpacity,
+											  color: DOA.Settings.colors.blank }), 'hud' );
