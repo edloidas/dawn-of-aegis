@@ -28,4 +28,4 @@ app.use( compression( { threshold: 4096 } ) );
 
 module.exports = app;
 
-app.listen(8888);
+app.listen( 8888 );

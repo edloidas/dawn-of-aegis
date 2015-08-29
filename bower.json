@@ -3,8 +3,8 @@
 	"version": "0.0.1",
 	"dependencies": {
 		"requirejs": "*",
-		"three.js":  "*",
-		"stats.js":  "*",
-		"dat.gui":   "*"
+		"three.js": "*",
+		"stats.js": "*",
+		"dat.gui": "*"
 	}
 }
