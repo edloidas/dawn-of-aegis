@@ -33,10 +33,10 @@ Objects.prototype.PlaneTarget = function ( camera ) {
 		degp = 0;
 
 	var flags = 0; // binary data 1111 11 11 11
-				   // 1 - top, 2 - bottom, 4 - left, 8 - right
-				   // 16 - rotate left, 32 - rotate right
-				   // 64 - tilt up, 128 - tilt down
-				   // 256 - zoom in, 512 - zoom out
+					 // 1 - top, 2 - bottom, 4 - left, 8 - right
+					 // 16 - rotate left, 32 - rotate right
+					 // 64 - tilt up, 128 - tilt down
+					 // 256 - zoom in, 512 - zoom out
 
 	this.look = function ( wx, wy ) {
 		wx = wx || 0;
@@ -58,11 +58,13 @@ Objects.prototype.PlaneTarget = function ( camera ) {
 		degt = THREE.Math.degToRad( this.theta );
 		degp = THREE.Math.degToRad( this.phi );
 
-		this.camera.position.x = this.x + this.radius * Math.cos( degt )
-													  * Math.sin( degp );
-		this.camera.position.y = this.y + this.radius * Math.cos( degp );
-		this.camera.position.z = this.z + this.radius * Math.sin( degt )
-													  * Math.sin( degp );
+		this.camera.position.x = this.x + this.radius *
+			Math.cos( degt ) * Math.sin( degp );
+		this.camera.position.y = this.y + this.radius *
+			Math.cos( degp );
+		this.camera.position.z = this.z + this.radius *
+			Math.sin( degt ) * Math.sin( degp );
+
 		updateMesh();
 
 		this.camera.lookAt( new THREE.Vector3( this.x, this.y, this.z ) );
@@ -165,11 +167,11 @@ Objects.prototype.PlaneTarget = function ( camera ) {
 
 		// update position
 		if ( flags & 1008 ) { // any flag, except moves
-			this.camera.position.x = this.x + this.radius * Math.cos( degt )
-														  * Math.sin( degp );
+			this.camera.position.x = this.x + this.radius *
+				Math.cos( degt ) * Math.sin( degp );
 			this.camera.position.y = this.y + this.radius * Math.cos( degp );
-			this.camera.position.z = this.z + this.radius * Math.sin( degt )
-														  * Math.sin( degp );
+			this.camera.position.z = this.z + this.radius *
+				Math.sin( degt ) * Math.sin( degp );
 		}
 		this.camera.lookAt( new THREE.Vector3( this.x, this.y, this.z ) );
 		updateMesh();

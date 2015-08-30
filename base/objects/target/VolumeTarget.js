@@ -32,11 +32,12 @@ Objects.prototype.VolumeTarget = function ( camera ) {
 		this.phi += wy * this.omega;
 		this.phi = Math.max( DOA.Settings.minLook, Math.min( DOA.Settings.maxLook, this.phi ) );
 
-		this.x = camera.position.x + this.radius * Math.cos( THREE.Math.degToRad( this.theta ) )
-												 * Math.sin( THREE.Math.degToRad( this.phi ) );
+		this.x = camera.position.x + this.radius *
+			Math.cos( THREE.Math.degToRad( this.theta ) ) * Math.sin( THREE.Math.degToRad( this.phi ) );
 		this.y = camera.position.y + this.radius * Math.cos( THREE.Math.degToRad( this.phi ) );
-		this.z = camera.position.z + this.radius * Math.sin( THREE.Math.degToRad( this.theta ) )
-												 * Math.sin( THREE.Math.degToRad( this.phi ) );
+		this.z = camera.position.z + this.radius *
+			Math.sin( THREE.Math.degToRad( this.theta ) ) * Math.sin( THREE.Math.degToRad( this.phi ) );
+
 		this.updateMesh();
 
 		this.camera.lookAt( new THREE.Vector3( this.x, this.y, this.z ) );
@@ -91,11 +92,12 @@ Objects.prototype.VolumeTarget = function ( camera ) {
 	};
 
 	this.calcDelta = function () {
-		camera.position.delta.x = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.theta ) )
-															 * Math.sin( THREE.Math.degToRad( this.phi ) );
-		camera.position.delta.y = this.delta * this.velocity * Math.cos( THREE.Math.degToRad( this.phi ) );
-		camera.position.delta.z = this.delta * this.velocity * Math.sin( THREE.Math.degToRad( this.theta ) )
-															 * Math.sin( THREE.Math.degToRad( this.phi ) );
+		camera.position.delta.x = this.delta * this.velocity *
+			Math.cos( THREE.Math.degToRad( this.theta ) ) * Math.sin( THREE.Math.degToRad( this.phi ) );
+		camera.position.delta.y = this.delta * this.velocity *
+			Math.cos( THREE.Math.degToRad( this.phi ) );
+		camera.position.delta.z = this.delta * this.velocity *
+			Math.sin( THREE.Math.degToRad( this.theta ) ) * Math.sin( THREE.Math.degToRad( this.phi ) );
 	};
 
 	this.updateMesh = function () {

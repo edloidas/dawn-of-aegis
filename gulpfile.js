@@ -60,13 +60,13 @@ gulp.task( 'lib', [ 'bower' ], function () {
 		 return path.basename( file.path ) === name;
 	}
 
-	return gulp.src( [
+	return gulp.src([
 			dir.libBower + 'dat.gui/dat.gui.js',
 			dir.libBower + 'dat.gui/dat.color.js',
 			dir.libBower + 'requirejs/require.js',
 			dir.libBower + 'stats.js/build/stats.min.js',
 			dir.libBower + 'three.js/three.js'
-		] )
+		])
 		.pipe( gulpif( isFileByName.bind( null, 'stats.min.js' ), rename( 'stats.js' ) ) )
 		.pipe( gulp.dest( dir.lib ) );
 });
