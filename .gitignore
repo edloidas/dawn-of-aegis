@@ -1,6 +1,7 @@
 # Directories #
 bower_components/
 node_modules/
+coverage/
 base/data/
 dist/
 lib/

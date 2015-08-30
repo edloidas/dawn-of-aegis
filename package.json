@@ -53,7 +53,10 @@
 		"path": "*",
 		"del": "*",
 		"mocha": "*",
-		"should": "*"
+		"should": "*",
+		"coveralls": "*",
+		"mocha-lcov-reporter": "*",
+		"istanbul": "*"
 	},
 	"engines": {
 		"iojs": ">= 3.0.0"
