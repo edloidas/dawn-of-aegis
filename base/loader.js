@@ -34,7 +34,8 @@ function Doa() {
 		"base/UI",
 		"base/World",
 		"base/Engine",
-		"base/Game"];
+		"base/Game"
+	];
 
 	// Non-essential game files.
 	// #@ use preload "preload!base/data/textures/img.gif" @#
@@ -50,8 +51,8 @@ Log the pretty info messages to console. Unsed in `Doa.verify()`.
 Doa.prototype.logVerify = function ( isVerified, message ) {
 	// Fill msg with the whitespace to length of 20
 	message = message +
-			  ( new Array( 20 - message.length ).join( " " )) +
-			  ( isVerified ? " : YES" : " : NO" );
+		( new Array( 20 - message.length ).join( " " ) ) +
+		( isVerified ? " : YES" : " : NO" );
 
 	console.info( message );
 
@@ -188,19 +189,19 @@ function hidePreload() {
 
 	DOA.Game.canvas = DOA.Engine.renderer.domElement;
 	DOA.Game.canvas.requestPointerLock =
-					  DOA.Game.canvas.requestPointerLock    ||
-					  DOA.Game.canvas.mozRequestPointerLock ||
-					  DOA.Game.canvas.webkitRequestPointerLock;
+		DOA.Game.canvas.requestPointerLock    ||
+		DOA.Game.canvas.mozRequestPointerLock ||
+		DOA.Game.canvas.webkitRequestPointerLock;
 	document.exitPointerLock =
-					  document.exitPointerLock    ||
-					  document.mozExitPointerLock ||
-					  document.webkitExitPointerLock;
+		document.exitPointerLock    ||
+		document.mozExitPointerLock ||
+		document.webkitExitPointerLock;
 	DOA.Game.fullscreen = document.body;
 	DOA.Game.fullscreen.requestFullscreen =
-					  DOA.Game.canvas.requestFullscreen    ||
-					  DOA.Game.canvas.mozRequestFullscreen ||
-					  DOA.Game.canvas.mozRequestFullScreen ||
-					  DOA.Game.canvas.webkitRequestFullscreen;
+		DOA.Game.canvas.requestFullscreen    ||
+		DOA.Game.canvas.mozRequestFullscreen ||
+		DOA.Game.canvas.mozRequestFullScreen ||
+		DOA.Game.canvas.webkitRequestFullscreen;
 }
 
 
