@@ -1,5 +1,10 @@
 language: node_js
 env: TRAVIS_CI=true
+# whitelist
+branches:
+  only:
+    - master
+    - dev
 node_js:
   - "4"
   - "iojs"
