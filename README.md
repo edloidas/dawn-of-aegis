@@ -1,7 +1,8 @@
 Dawn of Aegis
 =============
 
-[![Build Status](https://travis-ci.org/edloidas/dawn-of-aegis.svg?branch=master)](https://travis-ci.org/edloidas/dawn-of-aegis)
+[![Travis Build Status](https://img.shields.io/travis/edloidas/dawn-of-aegis.svg?label=linux%20build)](https://travis-ci.org/edloidas/dawn-of-aegis)
+[![AppVeyor Build Status](https://img.shields.io/appveyor/ci/edloidas/dawn-of-aegis.svg?label=windows%20build)](https://ci.appveyor.com/project/edloidas/dawn-of-aegis)
 [![Coverage Status](https://coveralls.io/repos/edloidas/dawn-of-aegis/badge.svg?branch=master&service=github)](https://coveralls.io/github/edloidas/dawn-of-aegis?branch=master)
 [![Dependency Status](https://david-dm.org/edloidas/dawn-of-aegis.svg)](https://david-dm.org/edloidas/dawn-of-aegis)
 [![devDependency Status](https://david-dm.org/edloidas/dawn-of-aegis/dev-status.svg)](https://david-dm.org/edloidas/dawn-of-aegis#info=devDependencies)
