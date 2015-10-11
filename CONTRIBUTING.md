@@ -130,3 +130,4 @@ Adhering to the following this process is the best way to get your work included
 	- :arrow_up: `:arrow_up:` when upgrading dependencies.
 	- :arrow_down: `:arrow_down:` when downgrading dependencies.
 	- :shirt: `:shirt:` when removing linter warnings.
+	- :package: `:package:` release or major (SemVer) update.
