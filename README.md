@@ -15,8 +15,7 @@ Repository does not include game textures, libraries and assembled sources. Befo
 
 1. Install [Node.js](https://nodejs.org/)
 	* It's always better to choose the latest stable version available: we are trying to keep everything up to date;
-	* Make sure you installed the Node Package Manager ([npm](https://www.npmjs.org/));
-	* You can use [io.js](https://iojs.org/) instead of Node.js.
+	* Make sure you installed the Node Package Manager ([npm](https://www.npmjs.org/)).
 
 2. Run `npm install`
 	* This task will download required dependencies, including [Gulp](http://gulpjs.com/), [Bower](http://bower.io/) and [LESS](http://lesscss.org/);
@@ -36,8 +35,8 @@ Repository does not include game textures, libraries and assembled sources. Befo
 
 Basically, this web application should run on a server. Game won't work properly due to cross-origin requests restrictions in browser's security policy. You must run game on the server (best practice), or make changes to the browser security settings. You can either follow step A or step B.
 
-##### Option A: Node.js/io.js server #####
-Run `node server.js` (or `iojs server.js`) under the repository root.
+##### Option A: Node.js server #####
+Run `node server.js` under the repository root.
 
 ##### Option B: Other solutions #####
 See the following [article](https://github.com/mrdoob/three.js/wiki/How-to-run-things-locally).
