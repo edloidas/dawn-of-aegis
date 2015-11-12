@@ -1,16 +1,29 @@
 # Directories #
+
 bower_components/
 node_modules/
 coverage/
+public/
+
+
+# Files #
+
+.publish
+npm-debug.log
+.DS_Store
+Desktop.ini
+
+*.sh
+*.bat
+*.cmd
+
+
+# Deprecated #
+
 base/data/
 dist/
 lib/
-
-# Files #
 css/style.css
 base/Objects.js
 base/Player.js
 base/*.zip
-*.sh
-*.bat
-*.cmd
